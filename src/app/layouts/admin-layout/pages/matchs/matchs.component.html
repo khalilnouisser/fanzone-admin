@@ -1,0 +1,67 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row">
+            <div class="col-6">
+              <h3 class="mb-0">Liste des matchs</h3>
+            </div>
+            <div class="ml-auto nav-item">
+              <form class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" [placement]="'bottom'" (change)="getData()" (dateSelect)="getData()">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary calendar" style="padding: 0 17px;" (click)="d.toggle()" type="button">
+                        <i class="fa fa-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Home</th>
+              <th scope="col">Score</th>
+              <th scope="col">Away</th>
+              <th scope="col">Compétition</th>
+              <th scope="col">Round</th>
+              <th scope="col">Live ratings</th>
+              <th scope="col">Before ratings</th>
+              <th scope="col">Date de creation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of list">
+              <td>{{item.homeName}}</td>
+              <td>{{item.homeScore}}-{{item.awayScore}}</td>
+              <td>{{item.awayName}}</td>
+              <td>{{item.round}}</td>
+              <td>{{item.liveRatings.length}}</td>
+              <td>{{item.beforeMatchPlayes.length}}</td>
+              <td>
+                {{item.formated_date}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

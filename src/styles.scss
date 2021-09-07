@@ -1,0 +1,42 @@
+@import '~ngx-toastr/toastr';
+
+.ngx-editor .ngx-wrapper .ngx-editor-textarea {
+  min-height: 220px !important;
+}
+
+.yellow-color {
+  color: orange;
+}
+
+.red-color {
+  color: red;
+}
+
+.green-color {
+  color: forestgreen;
+}
+
+.blue-color {
+  color: dodgerblue;
+}
+
+.modal-body {
+  padding: 0 !important;
+  min-height: 75vh;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 420px!important;
+  }
+}
+
+.badge-warning {
+  color: #e25509;
+  background-color: rgba(226, 85, 9, 0.19);
+}
+
+.dropdown-menu {
+  top: 56px!important;
+  left: -95px!important;
+}

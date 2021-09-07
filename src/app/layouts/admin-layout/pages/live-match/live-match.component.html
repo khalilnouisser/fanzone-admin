@@ -1,0 +1,48 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row">
+            <div class="col-6">
+              <h3 class="mb-0">Liste des live matchs</h3>
+            </div>
+            <!--<div class="ml-auto nav-item">
+              <button type="button" routerLink="add" class="btn btn-primary m-0">Add</button>
+            </div>-->
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Utilisateur</th>
+              <th scope="col">Match</th>
+              <th scope="col">Score totale</th>
+              <th scope="col">Date de creation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of list">
+              <td>{{item.userId}}</td>
+              <td>{{item.matchId}}</td>
+              <td>{{item.totalScore || 0}}</td>
+              <td>
+                {{item.formated_date}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
