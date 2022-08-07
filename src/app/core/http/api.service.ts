@@ -64,6 +64,18 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  rss(): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/rss')
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  deleteRss(id: string): Promise<any> {
+    return this.http.delete(environment.serverUrl + '/api/rss/' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   beforeMatchs(): Promise<any> {
     return this.http.get(environment.serverUrl + '/api/matchs/before')
       .toPromise()

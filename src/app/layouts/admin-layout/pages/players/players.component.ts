@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Team} from "@app/models/team";
-import {ApiService} from "@app/core/http/api.service";
-import {ToastrService} from "ngx-toastr";
-import * as moment from "moment";
-import {Player} from "@app/models/player";
+import {Team} from '@app/models/team';
+import {ApiService} from '@app/core/http/api.service';
+import {ToastrService} from 'ngx-toastr';
+import * as moment from 'moment';
+import {Player} from '@app/models/player';
 
 @Component({
   selector: 'app-players',
@@ -20,7 +20,7 @@ export class PlayersComponent implements OnInit {
   ngOnInit() {
     this.apiService.players().then(value => {
       this.list = value.data.map(v => {
-        v.formated_date = moment(v.createdAt).format("D MMMM YYYY");
+        v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
         return v;
       });
     });

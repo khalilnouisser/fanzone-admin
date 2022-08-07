@@ -22,6 +22,9 @@ import {WallComponent} from './pages/wall/wall.component';
 import { QuizRequestsComponent } from './pages/quiz-requests/quiz-requests.component';
 import { MatchDetailsComponent } from './pages/match-details/match-details.component';
 import { PodiumComponent } from './pages/podium/podium.component';
+import { ListRssComponent } from './pages/list-rss/list-rss.component';
+import { AddEditRssComponent } from './pages/add-edit-rss/add-edit-rss.component';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 // import { ToastrModule } from 'ngx-toastr';
 
@@ -36,7 +39,8 @@ import { PodiumComponent } from './pages/podium/podium.component';
     ReactiveFormsModule,
     NgbModalModule,
     NgbPaginationModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    SweetAlert2Module
   ],
   declarations: [
     UsersComponent,
@@ -52,7 +56,9 @@ import { PodiumComponent } from './pages/podium/podium.component';
     WallComponent,
     QuizRequestsComponent,
     MatchDetailsComponent,
-    PodiumComponent]
+    PodiumComponent,
+    ListRssComponent,
+    AddEditRssComponent]
 })
 
 export class AdminLayoutModule {

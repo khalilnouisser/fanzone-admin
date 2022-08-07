@@ -40,3 +40,13 @@
   top: 56px!important;
   left: -95px!important;
 }
+
+.actions {
+  display: table-cell;
+  svg {
+    width: 15px;
+    height: 15px;
+    margin-right: 14px;
+    margin-left: 3px;
+  }
+}
