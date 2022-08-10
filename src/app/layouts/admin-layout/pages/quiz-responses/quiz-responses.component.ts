@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Quiz} from "@app/models/quiz";
 import {ApiService} from "@app/core/http/api.service";
-import {ToastrService} from "ngx-toastr";
+
 import * as moment from "moment";
 import {QuizResponse} from "@app/models/quizResponse";
 
@@ -14,7 +14,7 @@ export class QuizResponsesComponent implements OnInit {
 
   list: QuizResponse[] = [];
 
-  constructor(private apiService: ApiService, private toastr: ToastrService) {
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit() {

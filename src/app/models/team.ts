@@ -3,6 +3,7 @@ export interface Team {
   teamId: string;
   leagueId: string;
   name: string;
+  displayName: string;
   logo: string;
   foundingDate: string;
   address: string;

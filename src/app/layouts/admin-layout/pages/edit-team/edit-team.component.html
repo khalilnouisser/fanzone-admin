@@ -13,7 +13,7 @@
         <div class="card-header border-0">
           <div class="row">
             <div class="col-6">
-              <h3 class="mb-0">{{id ? 'Modifier' : 'Ajouter'}} RSS</h3>
+              <h3 class="mb-0">Modifier équipe</h3>
             </div>
             <div class="ml-auto nav-item">
               <button type="button" routerLink="add" [disabled]="form.invalid" (click)="submit()" class="btn btn-primary m-0">Valider</button>
@@ -24,26 +24,21 @@
           <form [formGroup]="form" class="row m-0">
             <div class="col-12">
               <div class="form-group">
-                <label for="url">Lien</label>
-                <input type="text" class="form-control" id="url" aria-describedby="url" formControlName="url">
+                <label for="name">Nom</label>
+                <input type="text" class="form-control" id="name" aria-describedby="name" formControlName="name">
               </div>
             </div>
             <div class="col-12">
               <div class="form-group">
-                <label for="league">Compétition</label>
-                <select class="form-control" id="league" aria-describedby="league" formControlName="league">
-                  <option value="">-</option>
-                  <option *ngFor="let league of leagues" [value]="league.leagueId">{{league.name}}</option>
-                </select>
+                <label for="displayName">Nom d'affichage</label>
+                <input type="text" class="form-control" id="displayName" aria-describedby="displayName" formControlName="displayName">
               </div>
             </div>
             <div class="col-12">
               <div class="form-group">
-                <label for="language">Language</label>
-                <select class="form-control" id="language" aria-describedby="language" formControlName="language">
-                  <option value="">-</option>
-                  <option *ngFor="let language of languages" [value]="language.id">{{language.value}}</option>
-                </select>
+                <label for="logo">Logo</label>
+                <img style="width: 80px;height: 80px;object-fit: contain; display: block" class="mb-2" src="{{form.value.logo}}"/>
+                <input type="text" class="form-control" id="logo" aria-describedby="logo" formControlName="logo">
               </div>
             </div>
           </form>

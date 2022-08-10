@@ -13,9 +13,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AppRoutingModule} from './app.routing';
 import {ComponentsModule} from './components/components.module';
 import {CoreModule} from '@app/core';
-import {ToastrModule} from 'ngx-toastr';
-import {PdfViewerModule} from 'ng2-pdf-viewer';
-import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   imports: [
@@ -27,9 +24,6 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    ToastrModule.forRoot(),
-    SweetAlert2Module.forRoot(),
-    PdfViewerModule
   ],
   declarations: [
     AppComponent,

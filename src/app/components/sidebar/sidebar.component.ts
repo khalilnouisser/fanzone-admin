@@ -15,6 +15,7 @@ export const ROUTES: RouteInfo[] = [
   {path: '/teams', title: 'Equipes', icon: 'ni-building text-primary', class: ''},
   {path: '/players', title: 'Joueurs', icon: 'ni-building text-primary', class: ''},
   {path: '/rss', title: 'RSS', icon: 'ni-building text-primary', class: ''},
+  {path: '/wall/urls', title: 'Wall urls', icon: 'ni-building text-primary', class: ''},
   // {path: '/before/match', title: 'Avant matchs', icon: 'ni-building text-primary', class: ''},
   // {path: '/live/match', title: 'Live matchs', icon: 'ni-building text-primary', class: ''},
   {path: '/matchs', title: 'Matchs', icon: 'ni-building text-primary', class: ''},

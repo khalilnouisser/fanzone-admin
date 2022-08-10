@@ -15,6 +15,9 @@ import {WallComponent} from '@app/layouts/admin-layout/pages/wall/wall.component
 import {PodiumComponent} from '@app/layouts/admin-layout/pages/podium/podium.component';
 import {ListRssComponent} from '@app/layouts/admin-layout/pages/list-rss/list-rss.component';
 import {AddEditRssComponent} from '@app/layouts/admin-layout/pages/add-edit-rss/add-edit-rss.component';
+import {WallUrlsComponent} from '@app/layouts/admin-layout/pages/wall-urls/wall-urls.component';
+import {EditPlayerComponent} from '@app/layouts/admin-layout/pages/edit-player/edit-player.component';
+import {EditTeamComponent} from '@app/layouts/admin-layout/pages/edit-team/edit-team.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -26,13 +29,15 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'groups', component: GroupsComponent},
   {path: 'leagues', component: LeaguesComponent},
   {path: 'teams', component: TeamsComponent},
+  {path: 'teams/:id', component: EditTeamComponent},
   {path: 'players', component: PlayersComponent},
+  {path: 'players/:id', component: EditPlayerComponent},
   {path: 'matchs', component: MatchsComponent},
   {path: 'matchs/:id', component: MatchDetailsComponent},
   {path: 'quizs', component: QuizsComponent},
   {path: 'quiz/requests', component: QuizRequestsComponent},
   {path: 'quiz/responses', component: QuizResponsesComponent},
-  {path: 'wall', component: WallComponent},
+  {path: 'wall/urls', component: WallUrlsComponent},
   {path: 'podium', component: PodiumComponent},
 
 ];

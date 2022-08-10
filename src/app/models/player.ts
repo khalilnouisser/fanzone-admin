@@ -9,6 +9,8 @@ export interface Player {
   teamId: string;
   team: Team;
   name: string;
+  displayName: string;
+  photo: string;
   position: number;
   positionAbr: string;
   positionDescription: string;

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Player} from '@app/models/player';
 import {ApiService} from '@app/core/http/api.service';
-import {ToastrService} from 'ngx-toastr';
+
 import * as moment from 'moment';
 import {Rss} from '@app/models/rss';
 import Swal from 'sweetalert2';
+import {League} from '@app/models/league';
 
 @Component({
   selector: 'app-list-rss',
@@ -14,8 +15,9 @@ import Swal from 'sweetalert2';
 export class ListRssComponent implements OnInit {
 
   list: Rss[] = [];
+  leagues: League[] = [];
 
-  constructor(private apiService: ApiService, private toastr: ToastrService) {
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit() {
@@ -23,12 +25,22 @@ export class ListRssComponent implements OnInit {
   }
 
   loadItems() {
+    this.apiService.leagues().then(d => {
+      this.leagues = d.data;
+    });
     this.apiService.rss().then(value => {
       this.list = value.data.map(v => {
         v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
         return v;
       });
     });
+  }
+
+  getLeagueImage(item: Rss) {
+    if (this.leagues && item.league) {
+      return this.leagues.find(l => l.leagueId === item.league)?.logo ?? null;
+    }
+    return null;
   }
 
   delete(item: any) {

@@ -3,9 +3,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-import {ClipboardModule} from 'ngx-clipboard';
-
 import {AdminLayoutRoutes} from './admin-layout.routing';
 import {NgbDatepickerModule, NgbModalModule, NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {UsersComponent} from './pages/users/users.component';
@@ -24,9 +21,9 @@ import { MatchDetailsComponent } from './pages/match-details/match-details.compo
 import { PodiumComponent } from './pages/podium/podium.component';
 import { ListRssComponent } from './pages/list-rss/list-rss.component';
 import { AddEditRssComponent } from './pages/add-edit-rss/add-edit-rss.component';
-import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
-
-// import { ToastrModule } from 'ngx-toastr';
+import { WallUrlsComponent } from './pages/wall-urls/wall-urls.component';
+import { EditPlayerComponent } from './pages/edit-player/edit-player.component';
+import { EditTeamComponent } from './pages/edit-team/edit-team.component';
 
 @NgModule({
   imports: [
@@ -35,13 +32,11 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule,
     ReactiveFormsModule,
     NgbModalModule,
     NgbPaginationModule,
     NgbDatepickerModule,
-    SweetAlert2Module
-  ],
+   ],
   declarations: [
     UsersComponent,
     GroupsComponent,
@@ -58,7 +53,10 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
     MatchDetailsComponent,
     PodiumComponent,
     ListRssComponent,
-    AddEditRssComponent]
+    AddEditRssComponent,
+    WallUrlsComponent,
+    EditPlayerComponent,
+    EditTeamComponent]
 })
 
 export class AdminLayoutModule {

@@ -58,8 +58,32 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  teamById(id: string): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/teams?_id=' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  editTeam(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/teams/' + id, body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   players(): Promise<any> {
     return this.http.get(environment.serverUrl + '/api/players')
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  playerById(id: string): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/players?_id=' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  editPlayer(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/players/' + id, body)
       .toPromise()
       .catch(this.handleError);
   }
@@ -74,6 +98,54 @@ export class ApiService {
     return this.http.delete(environment.serverUrl + '/api/rss/' + id)
       .toPromise()
       .catch(this.handleError);
+  }
+
+  rssById(id: string): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/rss?_id=' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  editRss(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/rss/' + id, body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  addRss(body: any): Promise<any> {
+    return this.http.post(environment.serverUrl + '/api/rss/', body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  editConfig(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/config/' + id, body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  getConfig(): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/config')
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  languages(): any {
+    return [
+      {'id': 'fr', 'value': 'Français'},
+      {'id': 'en', 'value': 'Anglais'},
+      {'id': 'es', 'value': 'Espagnol'},
+      {'id': 'zh', 'value': 'Chinois'},
+      {'id': 'ar', 'value': 'Arabe'},
+      {'id': 'pt', 'value': 'Portugais'},
+      {'id': 'it', 'value': 'Italien'},
+      {'id': 'tr', 'value': 'Turque'},
+      {'id': 'ja', 'value': 'Japonais'},
+      {'id': 'ru', 'value': 'Russe'},
+      {'id': 'ko', 'value': 'Coréen'},
+      {'id': 'de', 'value': 'Allemand'},
+      {'id': 'fa', 'value': 'Perse'}
+    ];
   }
 
   beforeMatchs(): Promise<any> {

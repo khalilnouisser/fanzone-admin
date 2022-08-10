@@ -43,7 +43,7 @@
                 -
               </td>
               <td *ngIf="item.league">
-                {{item.league}}
+                <img *ngIf="getLeagueImage(item)" style="width: 50px;height: 50px;object-fit: contain" src="{{getLeagueImage(item)}}"/>
               </td>
               <td *ngIf="!item.league" style="height: 83px">
                 -
@@ -52,8 +52,8 @@
                 {{item.formated_date}}
               </td>
               <td class="actions">
-                <a><i class="fa-solid fa-pen"></i></a>
-                <a><i class="fa-solid fa-trash"></i></a>
+                <a [routerLink]="item._id"><i class="fa-solid fa-pen"></i></a>
+                <a (click)="delete(item)"><i class="fa-solid fa-trash"></i></a>
               </td>
             </tr>
             </tbody>

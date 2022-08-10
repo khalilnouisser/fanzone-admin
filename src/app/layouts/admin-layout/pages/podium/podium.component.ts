@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "@app/models/user";
 import {ApiService} from "@app/core/http/api.service";
-import {ToastrService} from "ngx-toastr";
+
 import * as moment from "moment";
 
 @Component({
@@ -13,7 +13,7 @@ export class PodiumComponent implements OnInit {
 
   list: User[] = [];
 
-  constructor(private apiService: ApiService, private toastr: ToastrService) {
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit() {

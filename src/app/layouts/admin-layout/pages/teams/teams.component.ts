@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {League} from "@app/models/league";
 import {ApiService} from "@app/core/http/api.service";
-import {ToastrService} from "ngx-toastr";
+
 import * as moment from "moment";
 import {Team} from "@app/models/team";
 
@@ -14,7 +14,7 @@ export class TeamsComponent implements OnInit {
 
   list: Team[] = [];
 
-  constructor(private apiService: ApiService, private toastr: ToastrService) {
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit() {
