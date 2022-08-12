@@ -27,7 +27,6 @@ import { EditTeamComponent } from './pages/edit-team/edit-team.component';
 
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     HttpClientModule,

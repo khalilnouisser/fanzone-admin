@@ -7,7 +7,7 @@ import { RouteReusableStrategy } from './route-reusable-strategy';
 import { JwtInterceptor } from './http/jwt-interceptor';
 
 @NgModule({
-  imports: [CommonModule, HttpClientModule, RouterModule],
+  imports: [HttpClientModule, RouterModule],
   providers: [
     {
       provide: RouteReuseStrategy,
