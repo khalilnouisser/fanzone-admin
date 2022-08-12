@@ -40,7 +40,6 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,
     RouterModule.forRoot(routes, {
     useHash: true,
     relativeLinkResolution: 'legacy'
