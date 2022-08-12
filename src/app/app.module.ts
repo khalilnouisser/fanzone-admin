@@ -13,9 +13,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AppRoutingModule} from './app.routing';
 import {ComponentsModule} from './components/components.module';
 import {CoreModule} from '@app/core';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
     CoreModule,
     BrowserAnimationsModule,
     FormsModule,
