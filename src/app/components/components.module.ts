@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
+    CommonModule,
     RouterModule,
     NgbModule
   ],
