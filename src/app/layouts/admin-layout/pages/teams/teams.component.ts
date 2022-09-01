@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {League} from "@app/models/league";
-import {ApiService} from "@app/core/http/api.service";
+import {Component, OnInit} from '@angular/core';
+import {League} from '@app/models/league';
+import {ApiService} from '@app/core/http/api.service';
 
-import * as moment from "moment";
-import {Team} from "@app/models/team";
+import * as moment from 'moment';
+import {Team} from '@app/models/team';
 
 @Component({
   selector: 'app-teams',
@@ -13,14 +13,23 @@ import {Team} from "@app/models/team";
 export class TeamsComponent implements OnInit {
 
   list: Team[] = [];
+  page = 1;
+  pageSize = 20;
+  totalLength = 100;
 
   constructor(private apiService: ApiService) {
   }
 
   ngOnInit() {
-    this.apiService.teams().then(value => {
+    this.loadData();
+  }
+
+  loadData() {
+    this.list = [];
+    this.apiService.teams(this.page, this.pageSize).then(value => {
+      this.totalLength = value.total;
       this.list = value.data.map(v => {
-        v.formated_date = moment(v.createdAt).format("D MMMM YYYY");
+        v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
         return v;
       });
     });

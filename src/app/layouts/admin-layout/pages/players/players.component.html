@@ -60,6 +60,12 @@
             </tr>
             </tbody>
           </table>
+          <ngb-pagination
+            (pageChange)="loadData()"
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [maxSize]="10"
+            [collectionSize]="totalLength"></ngb-pagination>
         </div>
       </div>
     </div>

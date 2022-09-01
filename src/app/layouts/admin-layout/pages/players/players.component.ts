@@ -17,8 +17,18 @@ export class PlayersComponent implements OnInit {
   constructor(private apiService: ApiService) {
   }
 
+  page = 1;
+  pageSize = 20;
+  totalLength = 100;
+
   ngOnInit() {
-    this.apiService.players().then(value => {
+    this.loadData();
+  }
+
+  loadData(){
+    this.list = [];
+    this.apiService.players(this.page, this.pageSize).then(value => {
+      this.totalLength = value.total;
       this.list = value.data.map(v => {
         v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
         return v;

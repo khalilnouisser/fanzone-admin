@@ -52,8 +52,8 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  teams(): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/teams')
+  teams(page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/teams?skip=${(page - 1) * limit}&limit=${limit}`)
       .toPromise()
       .catch(this.handleError);
   }
@@ -70,8 +70,8 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  players(): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/players')
+  players(page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/players?skip=${(page - 1) * limit}&limit=${limit}`)
       .toPromise()
       .catch(this.handleError);
   }
