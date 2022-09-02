@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  serverUrl: 'https://fan-zone.herokuapp.com',
-  uploadImageServer: 'http://livy-backend.herokuapp.com',
+  serverUrl: 'http://http://35.241.174.61:3000',
+  uploadImageServer: 'http://http://35.241.174.61:3000',
 };
