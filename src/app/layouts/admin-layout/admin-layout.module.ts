@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AdminLayoutRoutes} from './admin-layout.routing';
-import {NgbDatepickerModule, NgbModalModule, NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule, NgbDropdownModule, NgbModalModule, NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {UsersComponent} from './pages/users/users.component';
 import {GroupsComponent} from './pages/groups/groups.component';
 import {MatchsComponent} from './pages/matchs/matchs.component';

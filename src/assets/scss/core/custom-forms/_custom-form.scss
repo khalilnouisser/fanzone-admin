@@ -1,7 +1,19 @@
 //
 // Custom checkbox
 //
+.form-filters {
+  .form-group {
+    margin-bottom: 0;
+    margin-right: 1rem;
+    .form-control {
+      height: 41px;
+    }
+  }
 
+  button {
+    margin-right: 1rem!important;
+  }
+}
 .custom-checkbox {
     .custom-control-input ~ .custom-control-label {
         cursor: pointer;

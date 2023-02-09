@@ -1,3 +1,4 @@
+
 import {Component, OnInit} from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import {AuthenticationService, CredentialsService} from '@app/core';
@@ -20,7 +21,7 @@ export const ROUTES: RouteInfo[] = [
   // {path: '/live/match', title: 'Live matchs', icon: 'ni-building text-primary', class: ''},
   {path: '/matchs', title: 'Matchs', icon: 'ni-building text-primary', class: ''},
   {path: '/quizs', title: 'Quizs', icon: 'ni-building text-primary', class: ''},
-  {path: '/quiz/requests', title: 'Requêtes des quiz', icon: 'ni-building text-primary', class: ''},
+  // {path: '/quiz/requests', title: 'Requêtes des quiz', icon: 'ni-building text-primary', class: ''},
   {path: '/quiz/responses', title: 'Réponses des quiz', icon: 'ni-building text-primary', class: ''},
   {path: '/podium', title: 'Podium', icon: 'ni-building text-primary', class: ''},
   // {path: '/wall', title: 'FanZone', icon: 'ni-building text-primary', class: ''},

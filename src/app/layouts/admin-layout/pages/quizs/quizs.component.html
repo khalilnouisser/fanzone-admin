@@ -11,9 +11,73 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
-          <div class="row">
-            <div class="col-6">
-              <h3 class="mb-0">Liste des groupes</h3>
+          <div class="d-flex align-items-center">
+            <div class="">
+              <h3 class="mb-0">Liste des quizs</h3>
+            </div>
+            <div class="col p-0">
+              <form class="form-filters">
+                <div class="row align-items-center justify-content-end" *ngIf="this.filter">
+                  <div class="col-auto">
+                    <span>Filters</span> <i class="mdi mdi-filter-variant ml-2"></i>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Rechercher ..."
+                           [(ngModel)]="this.filter.keyword" (keyup)="loadData()">
+                  </div>
+
+                  <div class="">
+                    <div class="dropdown dropdown-filter">
+                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                        <span>Compétition</span>: <span class="dropdown-choice">
+                          <span [innerHTML]="getFilterLabels(this.leaguesListName, 'leagueId')"></span>
+                        </span>
+                        <span class="mdi mdi-chevron-down ml-2"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <li class="dropdown-item" *ngFor="let item of leagues;let i=index"
+                            [class.active]="isFilterSelected('leagueId', item.leagueId)">
+                          <label class="custom-checkbox">
+                            <input name="filter1" type="checkbox" [checked]="isFilterSelected('leagueId', item.leagueId)"
+                                   (click)="selectFilter('leagueId', item.leagueId); loadData()">
+                            {{item.name}}
+                            <span></span>
+                          </label>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="">
+                    <div class="dropdown dropdown-filter">
+                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                        <span>Type</span>: <span class="dropdown-choice">
+          <span [innerHTML]="getFilterLabels(this.listTypes, 'title')"></span>
+          </span>
+                        <span class="mdi mdi-chevron-down ml-2"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <li class="dropdown-item" *ngFor="let item of listTypes;let i=index"
+                            [class.active]="isFilterSelected('title', item)">
+                          <label class="custom-checkbox">
+                            <input name="filter2" type="checkbox" [checked]="isFilterSelected('title', item)"
+                                   (click)="selectFilter('title', item); loadData()">
+                            {{item}}
+                            <span></span>
+                          </label>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="">
+                    <button type="button" (click)="generateQuiz()" class="btn btn-primary m-0">Ajouter</button>
+                  </div>
+                </div>
+              </form>
             </div>
             <!--<div class="ml-auto nav-item">
               <button type="button" routerLink="add" class="btn btn-primary m-0">Add</button>
@@ -26,6 +90,7 @@
             <tr>
               <th scope="col">Id</th>
               <th scope="col">Title</th>
+              <th scope="col">Compétition</th>
               <th scope="col">Type</th>
               <th scope="col">Réponses</th>
               <th scope="col">Réponses utilisateurs</th>
@@ -39,6 +104,12 @@
               <td>
                 {{item.title}}
               </td>
+              <td *ngIf="item.leagueId">
+                <img *ngIf="getLeagueImage(item)" style="width: 30px;height: 30px;object-fit: contain" src="{{getLeagueImage(item)}}"/>
+              </td>
+              <td *ngIf="!item.leagueId" style="height: 83px">
+                -
+              </td>
               <td>{{item.type == 1 ? 'XI' : (item.type == 0 ? 'Joueur' : '10 joueurs')}}</td>
               <td>{{item.user_responses.length}}</td>
               <td>{{item.answers.length}}</td>
@@ -48,6 +119,12 @@
             </tr>
             </tbody>
           </table>
+          <ngb-pagination
+            (pageChange)="pageChange($event)"
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [maxSize]="10"
+            [collectionSize]="totalLength"></ngb-pagination>
         </div>
       </div>
     </div>

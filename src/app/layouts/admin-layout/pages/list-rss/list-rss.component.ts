@@ -6,29 +6,70 @@ import * as moment from 'moment';
 import {Rss} from '@app/models/rss';
 import Swal from 'sweetalert2';
 import {League} from '@app/models/league';
+import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 
 @Component({
   selector: 'app-list-rss',
   templateUrl: './list-rss.component.html',
   styleUrls: ['./list-rss.component.scss']
 })
-export class ListRssComponent implements OnInit {
+export class ListRssComponent extends GenericFilteringComponent implements OnInit {
 
   list: Rss[] = [];
   leagues: League[] = [];
+  listLanguages: String[] = [
+    'fr',
+    'en',
+    'es',
+    'zh',
+    'ar',
+    'pt',
+    'it',
+    'tr',
+    'ja',
+    'ru',
+    'ko',
+    'de',
+    'fa',
+  ];
+  page = 1;
+  pageSize = 10;
+  totalLength = 100;
 
   constructor(private apiService: ApiService) {
+    super();
+    this.filter = {
+      attributes: 'name,url,language',
+      keyword: '',
+      league: '',
+      language: ''
+    };
   }
 
   ngOnInit() {
     this.loadItems();
   }
 
+  get leaguesListName() {
+    return this.leagues.map((v) => v.name);
+  }
+
   loadItems() {
-    this.apiService.leagues().then(d => {
+    this.apiService.leagues(null, 1, 100).then(d => {
       this.leagues = d.data;
     });
-    this.apiService.rss().then(value => {
+    this.loadData();
+  }
+
+  pageChange(ev) {
+    this.page = ev;
+    this.loadData();
+  }
+
+  loadData() {
+    this.list = [];
+    this.apiService.rss(this.filter, this.page, this.pageSize).then(value => {
+      this.totalLength = value.total;
       this.list = value.data.map(v => {
         v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
         return v;

@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {Quiz} from "@app/models/quiz";
-import {ApiService} from "@app/core/http/api.service";
 
-import * as moment from "moment";
-import {QuizResponse} from "@app/models/quizResponse";
+import { Component, OnInit } from '@angular/core';
+import {Quiz} from '@app/models/quiz';
+import {ApiService} from '@app/core/http/api.service';
+
+import * as moment from 'moment';
+import {QuizResponse} from '@app/models/quizResponse';
+import {League} from '@app/models/league';
+import { User } from '@app/models/user';
 
 @Component({
   selector: 'app-quiz-responses',
@@ -13,14 +16,56 @@ import {QuizResponse} from "@app/models/quizResponse";
 export class QuizResponsesComponent implements OnInit {
 
   list: QuizResponse[] = [];
+  quizzes: Quiz[] = [];
+  users: User[] = [];
+  leagues: League[] = [];
 
   constructor(private apiService: ApiService) {
   }
 
+  page = 1;
+  pageSize = 10;
+  totalLength = 100;
+
   ngOnInit() {
-    this.apiService.quizResponses().then(value => {
+    this.loadData();
+    this.apiService.leagues(null, 1, 100).then(d => {
+      this.leagues = d.data;
+    });
+    this.apiService.quizs(null, 1, 100).then(value => {
+      this.quizzes = value.data;
+    });
+    this.apiService.users(null, 1, 500).then(value => {
+      this.users = value.data;
+    });
+  }
+
+  pageChange(ev) {
+    this.page = ev;
+    this.loadData();
+  }
+
+  getQuiz(id: string) {
+    return this.quizzes.find(l => l._id === id) ?? null;
+  }
+
+  getUser(id: string) {
+    return this.users.find(l => l._id === id) ?? null;
+  }
+
+  getLeagueImage(item: Quiz) {
+    if (this.leagues && item.leagueId) {
+      return this.leagues.find(l => l.leagueId === item.leagueId)?.logo ?? null;
+    }
+    return null;
+  }
+
+  loadData() {
+    this.list = [];
+    this.apiService.quizResponses(this.page, this.pageSize).then(value => {
+      this.totalLength = value.total;
       this.list = value.data.map(v => {
-        v.formated_date = moment(v.createdAt).format("D MMMM YYYY");
+        v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
         return v;
       });
     });

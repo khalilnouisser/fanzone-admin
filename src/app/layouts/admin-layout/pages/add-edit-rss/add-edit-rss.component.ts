@@ -26,7 +26,7 @@ export class AddEditRssComponent implements OnInit {
   }
 
   getData() {
-    this.apiService.leagues().then(d => {
+    this.apiService.leagues(null, 1, 100).then(d => {
       this.leagues = d.data;
       console.log(this.leagues);
     });

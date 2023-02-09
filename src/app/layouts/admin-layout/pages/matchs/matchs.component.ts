@@ -6,18 +6,24 @@ import * as moment from 'moment';
 import {League} from '@app/models/league';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {Match} from '@app/models/match';
+import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 
 @Component({
   selector: 'app-matchs',
   templateUrl: './matchs.component.html',
   styleUrls: ['./matchs.component.scss']
 })
-export class MatchsComponent implements OnInit {
+export class MatchsComponent extends GenericFilteringComponent implements OnInit {
 
   list: Match[] = [];
   model: NgbDateStruct;
 
   constructor(private apiService: ApiService) {
+    super();
+    this.filter = {
+      attributes: 'homeName,awayName,round,leagueName,leagueShortName',
+      keyword: '',
+    };
   }
 
   ngOnInit() {
@@ -31,7 +37,7 @@ export class MatchsComponent implements OnInit {
   }
 
   getData() {
-    this.apiService.matchs(this.adaptNumber(this.model.month) + '/' +
+    this.apiService.matchs(this.filter, this.adaptNumber(this.model.month) + '/' +
       this.adaptNumber(this.model.day) + '/' +
       this.model.year).then(value => {
       this.list = value.data.map(v => {

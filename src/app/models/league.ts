@@ -1,4 +1,4 @@
-import {Team} from "@app/models/team";
+import {Team} from '@app/models/team';
 
 export interface League {
   teams: Team[];

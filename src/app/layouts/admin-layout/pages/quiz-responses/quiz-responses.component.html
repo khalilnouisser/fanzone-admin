@@ -25,15 +25,34 @@
             <thead class="thead-light">
             <tr>
               <th scope="col">Quiz</th>
+              <th scope="col">Compétition</th>
+              <th scope="col">Utilisateur</th>
               <th scope="col">Réponses</th>
-              <th scope="col">Score totale</th>
+              <th scope="col">Score</th>
               <th scope="col">Date de creation</th>
               <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let item of list">
-              <td>{{item.quiz}}</td>
+              <td *ngIf="item.quiz && getQuiz(item.quiz)">
+                {{getQuiz(item.quiz).title}}
+              </td>
+              <td *ngIf="!item.quiz || !getQuiz(item.quiz)" style="height: 83px">
+                -
+              </td>
+              <td *ngIf="item.quiz && getQuiz(item.quiz)">
+                <img *ngIf="getLeagueImage(getQuiz(item.quiz))" style="width: 30px;height: 30px;object-fit: contain" src="{{getLeagueImage(getQuiz(item.quiz))}}"/>
+              </td>
+              <td *ngIf="!item.quiz || !getQuiz(item.quiz)" style="height: 83px">
+                -
+              </td>
+              <td *ngIf="item.userId && getUser(item.userId)">
+                {{getUser(item.userId).full_name}}
+              </td>
+              <td *ngIf="!item.userId || !getUser(item.userId)" style="height: 83px">
+                -
+              </td>
               <td>
                 {{item.answers.length}}/{{item.numberMaxAnswers}}
               </td>
@@ -44,6 +63,12 @@
             </tr>
             </tbody>
           </table>
+          <ngb-pagination
+            (pageChange)="pageChange($event)"
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [maxSize]="10"
+            [collectionSize]="totalLength"></ngb-pagination>
         </div>
       </div>
     </div>

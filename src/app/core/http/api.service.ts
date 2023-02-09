@@ -10,8 +10,8 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  users(): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/users')
+  users(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/users?skip=${(page - 1) * limit}&limit=${limit}`  + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }
@@ -40,20 +40,20 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  groups(): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/users/group')
+  groups(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/users/group?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }
 
-  leagues(): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/leagues')
+  leagues(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/leagues?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }
 
-  teams(page: number, limit: number): Promise<any> {
-    return this.http.get(environment.serverUrl + `/api/teams?skip=${(page - 1) * limit}&limit=${limit}`)
+  teams(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/teams?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }
@@ -70,8 +70,8 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  players(page: number, limit: number): Promise<any> {
-    return this.http.get(environment.serverUrl + `/api/players?skip=${(page - 1) * limit}&limit=${limit}`)
+  players(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/players?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }
@@ -88,8 +88,8 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  rss(): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/rss')
+  rss(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/rss?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }
@@ -160,20 +160,26 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  matchs(date: String): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/matchs?date=' + date)
+  matchs(filterData: any = null, date: String): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/matchs?date=' + date  + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }
 
-  quizs(): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/quiz/admin')
+  quizs(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/quiz/admin?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }
 
-  quizResponses(): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/quiz/response')
+  addQuiz(body: any): Promise<any> {
+    return this.http.post(environment.serverUrl + '/api/quiz/generate', body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  quizResponses(page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/quiz/response?skip=${(page - 1) * limit}&limit=${limit}`)
       .toPromise()
       .catch(this.handleError);
   }
@@ -201,5 +207,12 @@ export class ApiService {
     }
     console.error(errMsg);
     return Promise.reject(errMsg);
+  }
+
+  getParams(filterData: any): string {
+    console.log(filterData);
+    return filterData ? ('&' + Object.keys(filterData).filter(k => filterData[k] !== '').map(k => {
+      return `${k}=${filterData[k]}`;
+    }).join('&')) : '';
   }
 }

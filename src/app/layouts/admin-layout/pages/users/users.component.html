@@ -11,9 +11,46 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
-          <div class="row">
-            <div class="col-6">
+          <div class="d-flex align-items-center">
+            <div class="">
               <h3 class="mb-0">Liste des utilisateurs</h3>
+            </div>
+            <div class="col p-0">
+              <form class="form-filters">
+                <div class="row align-items-center justify-content-end" *ngIf="this.filter">
+                  <div class="col-auto">
+                    <span>Filters</span> <i class="mdi mdi-filter-variant ml-2"></i>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Rechercher ..."
+                           [(ngModel)]="this.filter.keyword" (keyup)="loadData()">
+                  </div>
+
+                  <div class="">
+                    <div class="dropdown dropdown-filter">
+                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                        <span>Type</span>: <span class="dropdown-choice">
+          <span [innerHTML]="getFilterLabels(this.listRoles, 'type')"></span>
+          </span>
+                        <span class="mdi mdi-chevron-down ml-2"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <li class="dropdown-item" *ngFor="let item of listRoles;let i=index"
+                            [class.active]="isFilterSelected('type', item)">
+                          <label class="custom-checkbox">
+                            <input name="filter1" type="checkbox" [checked]="isFilterSelected('type', item)"
+                                   (click)="selectFilter('type', item); loadData()">
+                            {{item}}
+                            <span></span>
+                          </label>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
             <!--<div class="ml-auto nav-item">
               <button type="button" routerLink="add" class="btn btn-primary m-0">Add</button>
@@ -38,19 +75,25 @@
             <tr *ngFor="let item of list">
               <td>{{item._id}}</td>
               <td>
-                <img style="width: 50px;height: 50px;border-radius: 25px" class="mr-2" src="{{item.img_url || 'https://www.dgb.cm/wp-content/uploads/2019/10/default-user-profile-image.png'}}"/>
+                <img style="width: 30px;height: 30px;border-radius: 15px" class="mr-2" src="{{item.img_url || 'https://www.dgb.cm/wp-content/uploads/2019/10/default-user-profile-image.png'}}"/>
                 {{item.full_name}}
               </td>
               <td>{{item.pseudo}}</td>
               <td>{{item.email}}</td>
               <td>{{item.type}}</td>
-              <td>{{item.total_score}}</td>
+              <td>{{item.total_score.toFixed(1)}}</td>
               <td>
                 {{item.formated_date}}
               </td>
             </tr>
             </tbody>
           </table>
+          <ngb-pagination
+            (pageChange)="pageChange($event)"
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [maxSize]="10"
+            [collectionSize]="totalLength"></ngb-pagination>
         </div>
       </div>
     </div>

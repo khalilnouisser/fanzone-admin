@@ -11,9 +11,23 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
-          <div class="row">
-            <div class="col-6">
+          <div class="d-flex align-items-center">
+            <div class="">
               <h3 class="mb-0">Classement des utilisateurs</h3>
+            </div>
+            <div class="col p-0">
+              <form class="form-filters">
+                <div class="row align-items-center justify-content-end" *ngIf="this.filter">
+                  <div class="col-auto">
+                    <span>Filters</span> <i class="mdi mdi-filter-variant ml-2"></i>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Rechercher ..."
+                           [(ngModel)]="this.filter.keyword" (keyup)="loadData()">
+                  </div>
+                </div>
+              </form>
             </div>
             <!--<div class="ml-auto nav-item">
               <button type="button" routerLink="add" class="btn btn-primary m-0">Add</button>
@@ -40,14 +54,20 @@
                 <img style="width: 50px;height: 50px;border-radius: 25px" class="mr-2" src="{{item.img_url || 'https://www.dgb.cm/wp-content/uploads/2019/10/default-user-profile-image.png'}}"/>
                 {{item.full_name}}
               </td>
-              <td>{{item.beforeMatchsScore}}</td>
-              <td>{{item.liveRatingsScore}}</td>
-              <td>{{item.fantazyScore}}</td>
-              <td>{{item.quizScore}}</td>
-              <td><b>{{item.total_score}}</b></td>
+              <td>{{item.beforeMatchsScore.toFixed(1)}}</td>
+              <td>{{item.liveRatingsScore.toFixed(1)}}</td>
+              <td>{{item.fantazyScore.toFixed(1)}}</td>
+              <td>{{item.quizScore.toFixed(1)}}</td>
+              <td><b>{{item.total_score.toFixed(1)}}</b></td>
             </tr>
             </tbody>
           </table>
+          <ngb-pagination
+            (pageChange)="pageChange($event)"
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [maxSize]="10"
+            [collectionSize]="totalLength"></ngb-pagination>
         </div>
       </div>
     </div>

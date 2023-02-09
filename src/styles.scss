@@ -36,8 +36,8 @@
 }
 
 .dropdown-menu {
-  top: 56px!important;
-  left: -95px!important;
+  top: 5px!important;
+//  left: -95px!important;
 }
 
 .actions {
@@ -53,6 +53,7 @@
     }
   }
 }
+
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

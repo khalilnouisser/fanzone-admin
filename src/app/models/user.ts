@@ -16,6 +16,7 @@ export class User {
   liveRatingsScore: number;
   quizScore: number;
   _id: string;
+  avatar: string;
   full_name: string;
   pseudo: string;
   email: string;
