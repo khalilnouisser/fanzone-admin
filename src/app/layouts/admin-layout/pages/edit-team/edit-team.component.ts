@@ -27,6 +27,9 @@ export class EditTeamComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       displayName: new FormControl('', [Validators.required]),
       logo: new FormControl('', []),
+      color1: new FormControl('', []),
+      color2: new FormControl('', []),
+      color3: new FormControl('', []),
     });
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
@@ -41,6 +44,22 @@ export class EditTeamComponent implements OnInit {
         });
       }
     });
+  }
+
+  componentToHex(c) {
+    const hex = c.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+  }
+
+  colorToHex(color) {
+    if (!color) {
+      return 'gray';
+    }
+    const splited = color.split(',');
+    const r = splited.length > 0 ? +splited[0] : 0;
+    const g = splited.length > 1 ? +splited[1] : 0;
+    const b = splited.length > 2 ? +splited[2] : 0;
+    return '#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
   }
 
   submit() {

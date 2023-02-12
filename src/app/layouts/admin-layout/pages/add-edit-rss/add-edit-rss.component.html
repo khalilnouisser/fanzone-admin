@@ -24,6 +24,12 @@
           <form [formGroup]="form" class="row m-0">
             <div class="col-12">
               <div class="form-group">
+                <label for="name">Titre</label>
+                <input type="text" class="form-control" id="name" aria-describedby="name" formControlName="name">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
                 <label for="url">Lien</label>
                 <input type="text" class="form-control" id="url" aria-describedby="url" formControlName="url">
               </div>

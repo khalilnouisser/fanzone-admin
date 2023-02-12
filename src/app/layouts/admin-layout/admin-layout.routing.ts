@@ -18,6 +18,7 @@ import {AddEditRssComponent} from '@app/layouts/admin-layout/pages/add-edit-rss/
 import {WallUrlsComponent} from '@app/layouts/admin-layout/pages/wall-urls/wall-urls.component';
 import {EditPlayerComponent} from '@app/layouts/admin-layout/pages/edit-player/edit-player.component';
 import {EditTeamComponent} from '@app/layouts/admin-layout/pages/edit-team/edit-team.component';
+import {LinkRequestsComponent} from '@app/layouts/admin-layout/pages/link-requests/link-requests.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -38,6 +39,7 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'quiz/requests', component: QuizRequestsComponent},
   {path: 'quiz/responses', component: QuizResponsesComponent},
   {path: 'wall/urls', component: WallUrlsComponent},
+  {path: 'wall/approve', component: LinkRequestsComponent},
   {path: 'podium', component: PodiumComponent},
 
 ];

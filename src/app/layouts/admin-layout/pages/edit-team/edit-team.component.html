@@ -36,6 +36,26 @@
             </div>
             <div class="col-12">
               <div class="form-group">
+                <label for="displayName">Couleurs</label>
+                <div class="row">
+                  <div class="col d-flex">
+                    <input type="text" class="form-control" id="color1" aria-describedby="color1" formControlName="color1">
+                    <span class="big-team-color" [style.background]="colorToHex(form.value.color1)"></span>
+                  </div>
+                  <div class="col d-flex">
+                    <input type="text" class="form-control" id="color2" aria-describedby="color2" formControlName="color2">
+                    <span class="big-team-color" [style.background]="colorToHex(form.value.color2)"></span>
+                  </div>
+                  <div class="col d-flex">
+                    <input type="text" class="form-control" id="color3" aria-describedby="color3" formControlName="color3">
+                    <span class="big-team-color" [style.background]="colorToHex(form.value.color3)"></span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
                 <label for="logo">Logo</label>
                 <img style="width: 80px;height: 80px;object-fit: contain; display: block" class="mb-2" src="{{form.value.logo}}"/>
                 <input type="text" class="form-control" id="logo" aria-describedby="logo" formControlName="logo">

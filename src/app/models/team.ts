@@ -14,6 +14,9 @@ export interface Team {
   website: string;
   createdAt: string;
   updatedAt: string;
+  color1: string;
+  color2: string;
+  color3: string;
   __v: number;
   rank: number;
   formated_date: string;

@@ -10,13 +10,14 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  {path: '/users', title: 'Utilisateurs', icon: 'ni-building text-primary', class: ''},
-  {path: '/groups', title: 'Group des utilisateurs', icon: 'ni-building text-primary', class: ''},
+  {path: '/users', title: 'Utilisateurs', icon: 'ni-user-run text-primary', class: ''},
+  {path: '/groups', title: 'Groupe des utilisateurs', icon: 'ni-building text-primary', class: ''},
   {path: '/leagues', title: 'Compétitions', icon: 'ni-building text-primary', class: ''},
   {path: '/teams', title: 'Equipes', icon: 'ni-building text-primary', class: ''},
   {path: '/players', title: 'Joueurs', icon: 'ni-building text-primary', class: ''},
   {path: '/rss', title: 'RSS', icon: 'ni-building text-primary', class: ''},
-  {path: '/wall/urls', title: 'Wall urls', icon: 'ni-building text-primary', class: ''},
+  {path: '/wall/approve', title: 'Demande des liens', icon: 'ni-building text-primary', class: ''},
+  {path: '/wall/urls', title: 'Liens autorisés', icon: 'ni-building text-primary', class: ''},
   // {path: '/before/match', title: 'Avant matchs', icon: 'ni-building text-primary', class: ''},
   // {path: '/live/match', title: 'Live matchs', icon: 'ni-building text-primary', class: ''},
   {path: '/matchs', title: 'Matchs', icon: 'ni-building text-primary', class: ''},

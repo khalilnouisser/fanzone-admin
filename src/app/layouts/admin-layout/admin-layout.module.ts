@@ -24,6 +24,7 @@ import { AddEditRssComponent } from './pages/add-edit-rss/add-edit-rss.component
 import { WallUrlsComponent } from './pages/wall-urls/wall-urls.component';
 import { EditPlayerComponent } from './pages/edit-player/edit-player.component';
 import { EditTeamComponent } from './pages/edit-team/edit-team.component';
+import { LinkRequestsComponent } from './pages/link-requests/link-requests.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { EditTeamComponent } from './pages/edit-team/edit-team.component';
     AddEditRssComponent,
     WallUrlsComponent,
     EditPlayerComponent,
-    EditTeamComponent]
+    EditTeamComponent,
+    LinkRequestsComponent]
 })
 
 export class AdminLayoutModule {

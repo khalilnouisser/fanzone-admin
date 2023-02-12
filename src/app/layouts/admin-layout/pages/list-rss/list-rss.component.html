@@ -89,6 +89,7 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
             <tr>
+              <th scope="col">Titre</th>
               <th scope="col">Lien</th>
               <th scope="col">Language</th>
               <th scope="col">Compétition</th>
@@ -98,6 +99,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of list">
+              <td>
+                {{item.name ?? "-"}}
+              </td>
               <td>
                 {{item.url.substr(0, 50)}}
               </td>

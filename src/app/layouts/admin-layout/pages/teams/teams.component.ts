@@ -5,6 +5,7 @@ import {ApiService} from '@app/core/http/api.service';
 import * as moment from 'moment';
 import {Team} from '@app/models/team';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
+import {Quiz} from '@app/models/quiz';
 
 @Component({
   selector: 'app-teams',
@@ -30,8 +31,31 @@ export class TeamsComponent extends GenericFilteringComponent implements OnInit 
     };
   }
 
+  getLeagueImage(item: Team) {
+    if (item.leagueId) {
+      return this.listLeagues.find(l => l.leagueId === item.leagueId)?.logo ?? null;
+    }
+    return null;
+  }
+
   get leaguesListName() {
     return this.listLeagues.map((v) => v.name);
+  }
+
+  componentToHex(c) {
+    const hex = c.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+  }
+
+  colorToHex(color) {
+    if (!color) {
+      return 'gray';
+    }
+    const splited = color.split(',');
+    const r = splited.length > 0 ? +splited[0] : 0;
+    const g = splited.length > 1 ? +splited[1] : 0;
+    const b = splited.length > 2 ? +splited[2] : 0;
+    return '#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
   }
 
   ngOnInit() {

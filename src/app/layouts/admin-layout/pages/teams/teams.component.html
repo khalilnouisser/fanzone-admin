@@ -86,10 +86,11 @@
             <thead class="thead-light">
             <tr>
               <th scope="col">Équipe</th>
+              <th scope="col">Compétition</th>
               <th scope="col">Nom d'affichage</th>
+              <th scope="col">Couleurs</th>
               <th scope="col">Date de fondation</th>
               <th scope="col">Coach</th>
-              <th scope="col">Siteweb</th>
               <th scope="col">Date de creation</th>
               <th scope="col">Actions</th>
             </tr>
@@ -100,12 +101,26 @@
                 <img style="width: 50px;height: 50px;object-fit: contain" class="mr-2" src="{{item.logo}}"/>
                 {{item.name}}
               </td>
+              <td><img *ngIf="getLeagueImage(item)" style="width: 30px;height: 30px;object-fit: contain" src="{{getLeagueImage(item)}}"/></td>
               <td>
                 {{item.displayName ? item.displayName : '-'}}
               </td>
+              <td>
+                <span *ngIf="item.color1">
+                  <span class="team-color" [style.background]="colorToHex(item.color1)"></span>
+                </span>
+                <span *ngIf="!item.color1">-</span>
+                <span *ngIf="item.color2">
+                  <span class="team-color" [style.background]="colorToHex(item.color2)"></span>
+                </span>
+                <span *ngIf="!item.color2">-</span>
+                <span *ngIf="item.color3">
+                  <span class="team-color" [style.background]="colorToHex(item.color3)"></span>
+                </span>
+                <span *ngIf="!item.color3">-</span>
+              </td>
               <td>{{item.foundingDate}}</td>
               <td>{{item.coach}}</td>
-              <td>{{item.website}}</td>
               <td>
                 {{item.formated_date}}
               </td>

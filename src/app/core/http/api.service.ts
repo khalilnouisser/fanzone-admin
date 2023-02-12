@@ -70,6 +70,24 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  linkRequests(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/wall/demands?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  acceptWall(id: string): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/wall/' + id + '/accept', {})
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  refuseWall(id: string): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/wall/' + id + '/refuse', {})
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   players(filterData: any = null, page: number, limit: number): Promise<any> {
     return this.http.get(environment.serverUrl + `/api/players?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
       .toPromise()

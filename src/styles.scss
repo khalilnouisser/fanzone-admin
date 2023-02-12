@@ -54,6 +54,24 @@
   }
 }
 
+.team-color {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border-radius: 4px;
+  margin-right: 3px;
+  border: 1px solid black;
+}
+
+.big-team-color {
+  width: 56px;
+  height: 46px;
+  display: inline-block;
+  border-radius: 4px;
+  margin-right: 0px;
+  margin-left: 15px;
+  border: 1px solid #cad1d7;
+}
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
