@@ -49,6 +49,29 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="">
+                    <div class="dropdown dropdown-filter">
+                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                        <span>Etat</span>: <span class="dropdown-choice">
+          <span [innerHTML]="getFilterLabels(this.listStates, 'state')"></span>
+          </span>
+                        <span class="mdi mdi-chevron-down ml-2"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <li class="dropdown-item" *ngFor="let item of listStates;let i=index"
+                            [class.active]="isFilterSelected('state', item)">
+                          <label class="custom-checkbox">
+                            <input name="filter2" type="checkbox" [checked]="isFilterSelected('state', item)"
+                                   (click)="selectFilter('state', item); loadData()">
+                            {{item === "is_completed" ? "100% validé" : "Non validé"}}
+                            <span></span>
+                          </label>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </form>
             </div>
@@ -61,11 +84,14 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
             <tr>
-              <th scope="col">Id</th>
               <th scope="col">Utilisateur</th>
               <th scope="col">Pseudo</th>
-              <th scope="col">Email</th>
               <th scope="col">Type</th>
+              <th scope="col">visibilité</th>
+              <th scope="col">Amis</th>
+              <th scope="col">Followers</th>
+              <th scope="col">Equipe favoris</th>
+              <th scope="col">User favoris</th>
               <th scope="col">Points</th>
               <th scope="col">Date d'inscription</th>
               <th scope="col"></th>
@@ -73,14 +99,25 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of list">
-              <td>{{item._id}}</td>
               <td>
                 <img style="width: 30px;height: 30px;border-radius: 15px" class="mr-2" src="{{item.img_url || 'https://www.dgb.cm/wp-content/uploads/2019/10/default-user-profile-image.png'}}"/>
                 {{item.full_name}}
               </td>
               <td>{{item.pseudo}}</td>
-              <td>{{item.email}}</td>
               <td>{{item.type}}</td>
+              <td>
+                {{
+                [
+                  "Invisible",
+                  "Visible que pour les amis",
+                  "Visible pour tous"
+                ][item.community_visibility]
+                }}
+              </td>
+              <td>{{item.friends.length}}</td>
+              <td>{{item.stats.followers}}</td>
+              <td>{{item.followedTeams.length}}</td>
+              <td>{{item.followedUsers.length}}</td>
               <td>{{item.total_score.toFixed(1)}}</td>
               <td>
                 {{item.formated_date}}

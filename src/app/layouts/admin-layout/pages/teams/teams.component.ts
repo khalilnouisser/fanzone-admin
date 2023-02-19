@@ -19,7 +19,7 @@ export class TeamsComponent extends GenericFilteringComponent implements OnInit 
   listStates: String[] = ['is_completed', 'is_not_completed'];
   page = 1;
   pageSize = 10;
-  totalLength = 100;
+  totalLength = 0;
 
   constructor(private apiService: ApiService) {
     super();

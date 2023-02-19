@@ -15,7 +15,7 @@ export class GroupsComponent extends GenericFilteringComponent implements OnInit
   list: Group[] = [];
   page = 1;
   pageSize = 10;
-  totalLength = 100;
+  totalLength = 0;
   constructor(private apiService: ApiService) {
     super();
     this.filter = {

@@ -11,9 +11,42 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
-          <div class="row">
-            <div class="col-6">
+          <div class="d-flex align-items-center">
+            <div class="">
               <h3 class="mb-0">Liste des réponses des quizs</h3>
+            </div>
+            <div class="col p-0">
+              <form class="form-filters">
+                <div class="row align-items-center justify-content-end" *ngIf="this.filter">
+                  <div class="col-auto">
+                    <span>Filters</span> <i class="mdi mdi-filter-variant ml-2"></i>
+                  </div>
+
+                  <div class="">
+                    <div class="dropdown dropdown-filter">
+                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                        <span>Utilisateur</span>: <span class="dropdown-choice">
+                          <span [innerHTML]="getFilterLabels(this.getName(users), 'userId')"></span>
+                        </span>
+                        <span class="mdi mdi-chevron-down ml-2"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <li class="dropdown-item" *ngFor="let item of users;let i=index"
+                            [class.active]="isFilterSelected('userId', item._id)">
+                          <label class="custom-checkbox">
+                            <input name="filter1" type="checkbox" [checked]="isFilterSelected('userId', item._id)"
+                                   (click)="selectFilter('userId', item._id); loadData()">
+                            {{item.pseudo}}
+                            <span></span>
+                          </label>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
             </div>
             <!--<div class="ml-auto nav-item">
               <button type="button" routerLink="add" class="btn btn-primary m-0">Add</button>
@@ -28,7 +61,6 @@
               <th scope="col">Compétition</th>
               <th scope="col">Utilisateur</th>
               <th scope="col">Réponses</th>
-              <th scope="col">Score</th>
               <th scope="col">Date de creation</th>
               <th scope="col"></th>
             </tr>
@@ -48,7 +80,7 @@
                 -
               </td>
               <td *ngIf="item.userId && getUser(item.userId)">
-                {{getUser(item.userId).full_name}}
+                {{getUser(item.userId).pseudo}} ({{getUser(item.userId).full_name}})
               </td>
               <td *ngIf="!item.userId || !getUser(item.userId)" style="height: 83px">
                 -
@@ -56,7 +88,6 @@
               <td>
                 {{item.answers.length}}/{{item.numberMaxAnswers}}
               </td>
-              <td>{{item.totalScore}}</td>
               <td>
                 {{item.formated_date}}
               </td>

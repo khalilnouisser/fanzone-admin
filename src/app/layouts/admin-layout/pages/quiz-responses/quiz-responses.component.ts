@@ -7,13 +7,14 @@ import * as moment from 'moment';
 import {QuizResponse} from '@app/models/quizResponse';
 import {League} from '@app/models/league';
 import { User } from '@app/models/user';
+import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 
 @Component({
   selector: 'app-quiz-responses',
   templateUrl: './quiz-responses.component.html',
   styleUrls: ['./quiz-responses.component.scss']
 })
-export class QuizResponsesComponent implements OnInit {
+export class QuizResponsesComponent extends GenericFilteringComponent implements OnInit {
 
   list: QuizResponse[] = [];
   quizzes: Quiz[] = [];
@@ -21,11 +22,26 @@ export class QuizResponsesComponent implements OnInit {
   leagues: League[] = [];
 
   constructor(private apiService: ApiService) {
+    super();
+    this.filter = {
+      attributes: 'full_name,pseudo,email,type',
+      keyword: '',
+      userId: '',
+      quiz: '',
+    };
   }
 
   page = 1;
   pageSize = 10;
-  totalLength = 100;
+  totalLength = 0;
+
+  getName(list) {
+    return list.map((v) => v.name);
+  }
+
+  getTitle(list) {
+    return list.map((v) => v.title);
+  }
 
   ngOnInit() {
     this.loadData();
@@ -62,7 +78,7 @@ export class QuizResponsesComponent implements OnInit {
 
   loadData() {
     this.list = [];
-    this.apiService.quizResponses(this.page, this.pageSize).then(value => {
+    this.apiService.quizResponses(this.filter, this.page, this.pageSize).then(value => {
       this.totalLength = value.total;
       this.list = value.data.map(v => {
         v.formated_date = moment(v.createdAt).format('D MMMM YYYY');

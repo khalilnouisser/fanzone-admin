@@ -4,6 +4,9 @@ import {Group} from '@app/models/group';
 import {ApiService} from '@app/core/http/api.service';
 import * as moment from 'moment';
 import {WallPost} from '@app/models/wallpost';
+import Swal from 'sweetalert2';
+
+declare var $: any;
 
 @Component({
   selector: 'app-link-requests',
@@ -15,7 +18,7 @@ export class LinkRequestsComponent extends GenericFilteringComponent implements 
   list: WallPost[] = [];
   page = 1;
   pageSize = 10;
-  totalLength = 100;
+  totalLength = 0;
   constructor(private apiService: ApiService) {
     super();
     this.filter = {
@@ -45,8 +48,48 @@ export class LinkRequestsComponent extends GenericFilteringComponent implements 
   }
 
   accept(item: WallPost) {
-    this.apiService.acceptWall(item._id).then((d) => {
-      this.loadData();
+    let html = '<div class="input-group mb-3"><input id="swal-input1" placeholder="Titre" class="form-control"></div><div class="input-group"><select id="swal-input2" class="form-control">';
+    this.apiService.fullLanguages().forEach(language => {
+      html = html + `<option value="${language.id}">${language.name}</option>`;
+    });
+    const self = this;
+    Swal.fire({
+      title: 'Sélectionner le titre et la langue',
+      showCancelButton: true,
+      confirmButtonText: 'Valider',
+      showLoaderOnConfirm: true,
+      html:
+         html + '</select></div>',
+      preConfirm: function () {
+        return new Promise(function (resolve) {
+          resolve([
+            $('#swal-input1').val(),
+            $('#swal-input2').val()
+          ]);
+        });
+      },
+    }).then(function (result) {
+      self.apiService.acceptWall(item._id, {name: result.value[0], language: result.value[1]}).then((d) => {
+        self.loadData();
+      });
+    });
+
+    return;
+    Swal.fire({
+      title: 'Donner un titre pour ce lien',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Valider',
+      showLoaderOnConfirm: true,
+      preConfirm: (title) => {
+        this.apiService.acceptWall(item._id, title).then((d) => {
+          this.loadData();
+        });
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      console.log('test');
+      console.log(result);
     });
   }
 

@@ -15,7 +15,7 @@ export class LeaguesComponent extends GenericFilteringComponent implements OnIni
   list: League[] = [];
   page = 1;
   pageSize = 10;
-  totalLength = 100;
+  totalLength = 0;
 
   constructor(private apiService: ApiService) {
     super();

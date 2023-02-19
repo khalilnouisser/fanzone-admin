@@ -15,7 +15,7 @@ export class PodiumComponent extends GenericFilteringComponent implements OnInit
   list: User[] = [];
   page = 1;
   pageSize = 100;
-  totalLength = 100;
+  totalLength = 0;
 
   constructor(private apiService: ApiService) {
     super();

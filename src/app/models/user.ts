@@ -28,11 +28,21 @@ export class User {
   token: string;
   formated_date: string;
   code: string;
-  community_visibility: boolean;
+  community_visibility: number;
   governorate: Governorate;
   region: Region;
   filtredBeforeMatchsScore: number;
   filtredFantaziesScore: number;
   filtredLiveRatingsScore: number;
   filtredQuizsScore: number;
+  compoScore: number;
+  pronoScore: number;
+  battleScore: number;
+  compoFavoriteTeamScore: number;
+  pronoFavoriteTeamScore: number;
+  liveFavoriteTeamRatingsScore: number;
+  followedUsers: any[];
+  followers: number;
+  stats: any;
+  followedTeams: any[];
 }

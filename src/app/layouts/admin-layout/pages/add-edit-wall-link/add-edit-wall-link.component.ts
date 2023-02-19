@@ -1,49 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Rss} from '@app/models/rss';
-import {ActivatedRoute, Router} from '@angular/router';
 import {League} from '@app/models/league';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '@app/core/http/api.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-edit-rss',
-  templateUrl: './add-edit-rss.component.html',
-  styleUrls: ['./add-edit-rss.component.scss']
+  selector: 'app-add-edit-wall-link',
+  templateUrl: './add-edit-wall-link.component.html',
+  styleUrls: ['./add-edit-wall-link.component.scss']
 })
-export class AddEditRssComponent implements OnInit {
+export class AddEditWallLinkComponent implements OnInit {
 
   id: string;
   form: FormGroup;
   rss: Rss;
   loading = false;
-  leagues: League[] = [];
-  languages: any[] = [];
+  listLanguages: any[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService) {
-    this.getData();
-    this.languages = this.apiService.languages();
+    this.listLanguages = this.apiService.fullLanguages();
   }
 
-  getData() {
-    this.apiService.leagues(null, 1, 100).then(d => {
-      this.leagues = d.data;
-      console.log(this.leagues);
-    });
-  }
 
   ngOnInit(): void {
     this.form =  new FormGroup({
       name: new FormControl('', [Validators.required]),
       url: new FormControl('', [Validators.required]),
-      league: new FormControl('', []),
       language: new FormControl('', []),
     });
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
       if (this.id) {
         this.loading = true;
-        this.apiService.rssById(this.id).then(d => {
+        this.apiService.wallLinkById(this.id).then(d => {
           this.rss = d.data[0];
           this.form.patchValue(this.rss);
           this.loading = false;
@@ -57,18 +48,18 @@ export class AddEditRssComponent implements OnInit {
   submit() {
     let promise;
     if (this.id) {
-      promise = this.apiService.editRss(this.id, this.form.value);
+      promise = this.apiService.editWallLink(this.id, this.form.value);
     } else {
-      promise = this.apiService.addRss(this.form.value);
+      promise = this.apiService.addWallLink(this.form.value);
     }
     promise.then(() => {
       Swal.fire({
-        html: 'RSS ' + (this.id ? 'modifié' : 'créé') + ' avec succès',
+        html: 'Lien ' + (this.id ? 'modifié' : 'créé') + ' avec succès',
         icon: 'success',
         timer: 2000,
         confirmButtonText: 'Fermer',
       });
-      this.router.navigate(['/rss']);
+      this.router.navigate(['/wall/urls']);
     });
   }
 

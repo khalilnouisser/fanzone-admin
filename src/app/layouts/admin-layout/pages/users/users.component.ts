@@ -13,10 +13,11 @@ import {GenericFilteringComponent} from '@app/components/generic-filtering/gener
 export class UsersComponent extends GenericFilteringComponent implements OnInit {
 
   list: User[] = [];
+  listStates: String[] = ['is_completed', 'is_not_completed'];
   listRoles = ['ADMIN', 'USER'];
   page = 1;
   pageSize = 10;
-  totalLength = 100;
+  totalLength = 0;
 
   constructor(private apiService: ApiService) {
     super();
@@ -24,6 +25,7 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
       attributes: 'full_name,pseudo,email,type',
       keyword: '',
       type: '',
+      state: '',
     };
   }
 

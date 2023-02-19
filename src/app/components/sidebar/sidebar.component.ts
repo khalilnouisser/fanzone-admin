@@ -10,22 +10,19 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  {path: '/users', title: 'Utilisateurs', icon: 'ni-user-run text-primary', class: ''},
-  {path: '/groups', title: 'Groupe des utilisateurs', icon: 'ni-building text-primary', class: ''},
-  {path: '/leagues', title: 'Compétitions', icon: 'ni-building text-primary', class: ''},
-  {path: '/teams', title: 'Equipes', icon: 'ni-building text-primary', class: ''},
-  {path: '/players', title: 'Joueurs', icon: 'ni-building text-primary', class: ''},
-  {path: '/rss', title: 'RSS', icon: 'ni-building text-primary', class: ''},
-  {path: '/wall/approve', title: 'Demande des liens', icon: 'ni-building text-primary', class: ''},
-  {path: '/wall/urls', title: 'Liens autorisés', icon: 'ni-building text-primary', class: ''},
-  // {path: '/before/match', title: 'Avant matchs', icon: 'ni-building text-primary', class: ''},
-  // {path: '/live/match', title: 'Live matchs', icon: 'ni-building text-primary', class: ''},
-  {path: '/matchs', title: 'Matchs', icon: 'ni-building text-primary', class: ''},
-  {path: '/quizs', title: 'Quizs', icon: 'ni-building text-primary', class: ''},
-  // {path: '/quiz/requests', title: 'Requêtes des quiz', icon: 'ni-building text-primary', class: ''},
-  {path: '/quiz/responses', title: 'Réponses des quiz', icon: 'ni-building text-primary', class: ''},
-  {path: '/podium', title: 'Podium', icon: 'ni-building text-primary', class: ''},
-  // {path: '/wall', title: 'FanZone', icon: 'ni-building text-primary', class: ''},
+  {path: '/users', title: 'Utilisateurs', icon: 'fa-user', class: ''},
+  {path: '/groups', title: 'Groupe des utilisateurs', icon: 'fa-users', class: ''},
+  {path: '/leagues', title: 'Compétitions', icon: 'fa-medal', class: ''},
+  {path: '/teams', title: 'Equipes', icon: 'fa-synagogue', class: ''},
+  {path: '/players', title: 'Joueurs', icon: 'fa-people-group', class: ''},
+  {path: '/rss', title: 'RSS', icon: 'fa-rss', class: ''},
+  {path: '/wall/approve', title: 'Demande des liens', icon: 'fa-hand', class: ''},
+  {path: '/wall/urls', title: 'Liens autorisés', icon: 'fa-link', class: ''},
+  {path: '/matchs', title: 'Matchs', icon: 'fa-futbol', class: ''},
+  {path: '/quizs', title: 'Quizs', icon: 'fa-circle-question', class: ''},
+  {path: '/quiz/stats', title: 'Statistiques des Quizs', icon: 'fa-chart-pie', class: ''},
+  {path: '/quiz/responses', title: 'Réponses des quiz', icon: 'fa-reply', class: ''},
+  {path: '/podium', title: 'Podium', icon: 'fa-ranking-star', class: ''},
 ];
 
 @Component({

@@ -1,6 +1,7 @@
 import {Team} from "@app/models/team";
 
 export interface Player {
+  initialValue: number;
   birthDate: string;
   value: number;
   positions: number[];
@@ -9,10 +10,12 @@ export interface Player {
   teamId: string;
   team: Team;
   name: string;
+  birthday: string;
   displayName: string;
   photo: string;
   position: number;
   positionAbr: string;
+  country: string;
   positionDescription: string;
   __v: number;
   createdAt: string;

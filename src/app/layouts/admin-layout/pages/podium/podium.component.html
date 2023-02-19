@@ -40,10 +40,11 @@
             <tr>
               <th scope="col">Id</th>
               <th scope="col">Utilisateur</th>
-              <th scope="col">Before matchs score</th>
+              <th scope="col">Battle score</th>
+              <th scope="col">Prono score</th>
+              <th scope="col">Compo score</th>
               <th scope="col">Live matchs score</th>
               <th scope="col">Fantazy score</th>
-              <th scope="col">Quiz score</th>
               <th scope="col">Total score</th>
             </tr>
             </thead>
@@ -54,10 +55,11 @@
                 <img style="width: 50px;height: 50px;border-radius: 25px" class="mr-2" src="{{item.img_url || 'https://www.dgb.cm/wp-content/uploads/2019/10/default-user-profile-image.png'}}"/>
                 {{item.full_name}}
               </td>
-              <td>{{item.beforeMatchsScore.toFixed(1)}}</td>
-              <td>{{item.liveRatingsScore.toFixed(1)}}</td>
+              <td>{{item.battleScore.toFixed(1)}}</td>
+              <td>{{item.pronoScore.toFixed(1)}} (Fav : {{(item.pronoFavoriteTeamScore ?? 0).toFixed(1)}})</td>
+              <td>{{item.compoScore.toFixed(1)}} (Fav : {{(item.compoFavoriteTeamScore ?? 0).toFixed(1)}})</td>
+              <td>{{item.liveRatingsScore.toFixed(1)}} (Fav : {{(item.liveFavoriteTeamRatingsScore ?? 0).toFixed(1)}})</td>
               <td>{{item.fantazyScore.toFixed(1)}}</td>
-              <td>{{item.quizScore.toFixed(1)}}</td>
               <td><b>{{item.total_score.toFixed(1)}}</b></td>
             </tr>
             </tbody>

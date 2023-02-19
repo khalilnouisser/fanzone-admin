@@ -11,7 +11,7 @@ import {GenericFilteringComponent} from '@app/components/generic-filtering/gener
   imports: [
     CommonModule,
     RouterModule,
-    NgbModule
+    NgbModule,
   ],
   declarations: [
     GenericFilteringComponent,

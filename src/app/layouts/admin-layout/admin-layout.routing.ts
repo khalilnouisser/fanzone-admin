@@ -19,6 +19,8 @@ import {WallUrlsComponent} from '@app/layouts/admin-layout/pages/wall-urls/wall-
 import {EditPlayerComponent} from '@app/layouts/admin-layout/pages/edit-player/edit-player.component';
 import {EditTeamComponent} from '@app/layouts/admin-layout/pages/edit-team/edit-team.component';
 import {LinkRequestsComponent} from '@app/layouts/admin-layout/pages/link-requests/link-requests.component';
+import {AddEditWallLinkComponent} from '@app/layouts/admin-layout/pages/add-edit-wall-link/add-edit-wall-link.component';
+import { QuizStatsComponent } from './pages/quiz-stats/quiz-stats.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -36,9 +38,12 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'matchs', component: MatchsComponent},
   {path: 'matchs/:id', component: MatchDetailsComponent},
   {path: 'quizs', component: QuizsComponent},
+  {path: 'quiz/stats', component: QuizStatsComponent},
   {path: 'quiz/requests', component: QuizRequestsComponent},
   {path: 'quiz/responses', component: QuizResponsesComponent},
   {path: 'wall/urls', component: WallUrlsComponent},
+  {path: 'wall/urls/add', component: AddEditWallLinkComponent},
+  {path: 'wall/urls/:id', component: AddEditWallLinkComponent},
   {path: 'wall/approve', component: LinkRequestsComponent},
   {path: 'podium', component: PodiumComponent},
 

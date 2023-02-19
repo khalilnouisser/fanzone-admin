@@ -1,0 +1,126 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row mb-3">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="d-flex align-items-center">
+            <div class="">
+              <h3 class="mb-0">Statistique générale</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Utilisateur</th>
+              <th scope="col">Quizs joués</th>
+              <th scope="col">Taux de réussite</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of users">
+              <td>
+                {{item.pseudo}} <{{item.full_name}}>
+              </td>
+              <td>{{getUserPlayedQuizes(list, item).length}}</td>
+              <td>{{getUserAverage(list, item)}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="d-flex align-items-center">
+            <div class="">
+              <h3 class="mb-0">Statistique par type de quiz</h3>
+            </div>
+            <div class="col p-0">
+              <form class="form-filters">
+                <div class="row align-items-center justify-content-end" *ngIf="this.filter">
+                  <div class="col-auto">
+                    <span>Filters</span> <i class="mdi mdi-filter-variant ml-2"></i>
+                  </div>
+
+                  <div class="">
+                    <div class="dropdown dropdown-filter">
+                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                        <span>Utilisateur</span>: <span class="dropdown-choice">
+                          <span [innerHTML]="getFilterLabels(this.getName(users), 'userId')"></span>
+                        </span>
+                        <span class="mdi mdi-chevron-down ml-2"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <li class="dropdown-item" *ngFor="let item of users;let i=index"
+                            [class.active]="isFilterSelected('userId', item._id)">
+                          <label class="custom-checkbox">
+                            <input name="filter1" type="checkbox" [checked]="isFilterSelected('userId', item._id)"
+                                   (click)="selectFilter('userId', item._id);">
+                            {{item.pseudo}}
+                            <span></span>
+                          </label>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Type</th>
+              <th scope="col">Titre</th>
+              <th scope="col">Utilisateur</th>
+              <th scope="col">Quizs joués</th>
+              <th scope="col">Taux de réussite</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let type of getQuizzesTypes()">
+              <ng-container *ngFor="let title of getQuizzesTitle(getListByType(type)); let i=index">
+                <ng-container *ngFor="let item of filteredUsers; let j=index">
+                  <tr>
+                    <td [rowSpan]="getQuizzesTitle(getListByType(type)).length*filteredUsers.length" *ngIf="i == 0 && j == 0">
+                      <span *ngIf="type==0">Who am i</span>
+                      <span *ngIf="type==1">XI</span>
+                      <span *ngIf="type==2">Liste</span>
+                    </td>
+                    <td [rowSpan]="filteredUsers.length" *ngIf="j == 0">
+                      {{title}}
+                    </td>
+                    <td>
+                      {{item.pseudo}} <{{item.full_name}}>
+                    </td>
+                    <td>{{getUserPlayedQuizes(getResponsesByTitleAndType(title, type), item).length}}</td>
+                    <td>{{getUserAverage(getResponsesByTitleAndType(title, type), item)}}</td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

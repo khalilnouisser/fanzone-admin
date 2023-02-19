@@ -25,6 +25,8 @@ import { WallUrlsComponent } from './pages/wall-urls/wall-urls.component';
 import { EditPlayerComponent } from './pages/edit-player/edit-player.component';
 import { EditTeamComponent } from './pages/edit-team/edit-team.component';
 import { LinkRequestsComponent } from './pages/link-requests/link-requests.component';
+import { AddEditWallLinkComponent } from './pages/add-edit-wall-link/add-edit-wall-link.component';
+import { QuizStatsComponent } from './pages/quiz-stats/quiz-stats.component';
 
 @NgModule({
   imports: [
@@ -58,7 +60,9 @@ import { LinkRequestsComponent } from './pages/link-requests/link-requests.compo
     WallUrlsComponent,
     EditPlayerComponent,
     EditTeamComponent,
-    LinkRequestsComponent]
+    LinkRequestsComponent,
+    AddEditWallLinkComponent,
+    QuizStatsComponent]
 })
 
 export class AdminLayoutModule {

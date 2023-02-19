@@ -34,7 +34,7 @@ export class ListRssComponent extends GenericFilteringComponent implements OnIni
   ];
   page = 1;
   pageSize = 10;
-  totalLength = 100;
+  totalLength = 0;
 
   constructor(private apiService: ApiService) {
     super();

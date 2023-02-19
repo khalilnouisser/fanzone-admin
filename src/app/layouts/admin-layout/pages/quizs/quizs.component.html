@@ -92,8 +92,8 @@
               <th scope="col">Title</th>
               <th scope="col">Compétition</th>
               <th scope="col">Type</th>
-              <th scope="col">Réponses</th>
               <th scope="col">Réponses utilisateurs</th>
+              <th scope="col">Taux de réussite</th>
               <th scope="col">Date de creation</th>
               <th scope="col"></th>
             </tr>
@@ -112,7 +112,7 @@
               </td>
               <td>{{item.type == 1 ? 'XI' : (item.type == 0 ? 'Joueur' : '10 joueurs')}}</td>
               <td>{{item.user_responses.length}}</td>
-              <td>{{item.answers.length}}</td>
+              <td>{{getAverage(item)}}</td>
               <td>
                 {{item.formated_date}}
               </td>

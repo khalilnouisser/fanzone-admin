@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import {Player} from '@app/models/player';
 import {League} from '@app/models/league';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
+import {Fantazy} from '@app/models/fantazy';
 
 @Component({
   selector: 'app-players',
@@ -16,13 +17,14 @@ export class PlayersComponent extends GenericFilteringComponent implements OnIni
 
   list: Player[] = [];
   listTeams: Team[] = [];
+  listFantazies: Fantazy[] = [];
   listStates: String[] = ['is_completed', 'is_not_completed'];
   listPositions: String[] = ['DC', 'MD', 'MDF', 'AC', 'AG', 'AS', 'AD', 'AID', 'GK', 'MO', 'MG', 'MC', 'AIG'];
 
   constructor(private apiService: ApiService) {
     super();
     this.filter = {
-      attributes: 'name,displayName',
+      attributes: 'name,displayName,country',
       keyword: '',
       teamId: '',
       state: '',
@@ -32,13 +34,37 @@ export class PlayersComponent extends GenericFilteringComponent implements OnIni
 
   page = 1;
   pageSize = 10;
-  totalLength = 100;
+  totalLength = 0;
 
   ngOnInit() {
     this.loadData();
     this.apiService.teams(null, 1, 100000).then(value => {
       this.listTeams = value.data;
     });
+    this.apiService.getFantazies().then((d) => {
+      this.listFantazies = d.data;
+    });
+  }
+
+  getAge(player: Player) {
+    try {
+      const date: Date = new Date(player.birthday);
+      const ageDifMs = (Date.now() - date.getTime());
+      const ageDate = new Date(ageDifMs);
+      return Math.abs(ageDate.getUTCFullYear() - 1970);
+    } catch (e) {
+      return '-';
+    }
+  }
+
+  getNumberOfHistoriesByType(playerId: string, type: number) {
+    console.log(this.listFantazies
+      .map((v) => v.history)
+      .flat());
+    return this.listFantazies
+      .map((v) => v.history)
+      .flat()
+      .filter((d) => d.playerId === playerId && d.type === type).length;
   }
 
   get teamsListName() {

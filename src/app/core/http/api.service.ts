@@ -76,8 +76,8 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  acceptWall(id: string): Promise<any> {
-    return this.http.put(environment.serverUrl + '/api/wall/' + id + '/accept', {})
+  acceptWall(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/wall/' + id + '/accept', body)
       .toPromise()
       .catch(this.handleError);
   }
@@ -136,6 +136,36 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  wallLinks(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/wall/links?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  deleteWallLink(id: string): Promise<any> {
+    return this.http.delete(environment.serverUrl + '/api/wall/links/' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  wallLinkById(id: string): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/wall/links?_id=' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  editWallLink(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/wall/links/' + id, body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  addWallLink(body: any): Promise<any> {
+    return this.http.post(environment.serverUrl + '/api/wall/links/', body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   editConfig(id: string, body: any): Promise<any> {
     return this.http.put(environment.serverUrl + '/api/config/' + id, body)
       .toPromise()
@@ -144,6 +174,12 @@ export class ApiService {
 
   getConfig(): Promise<any> {
     return this.http.get(environment.serverUrl + '/api/config')
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  getFantazies(): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/fantazy')
       .toPromise()
       .catch(this.handleError);
   }
@@ -164,6 +200,10 @@ export class ApiService {
       {'id': 'de', 'value': 'Allemand'},
       {'id': 'fa', 'value': 'Perse'}
     ];
+  }
+
+  fullLanguages(): any[] {
+    return [{'id': 'XXX', 'name': 'Autre'}, {'id': 'aar', 'name': 'Afar'}, {'id': 'abk', 'name': 'Abkhaze'}, {'id': 'ave', 'name': 'Avestique'}, {'id': 'afr', 'name': 'Afrikaans'}, {'id': 'aka', 'name': 'Akan'}, {'id': 'amh', 'name': 'Amharique'}, {'id': 'arg', 'name': 'Aragonais'}, {'id': 'ara', 'name': 'Arabe'}, {'id': 'asm', 'name': 'Assamais'}, {'id': 'ava', 'name': 'Avar'}, {'id': 'aym', 'name': 'Aymara'}, {'id': 'aze', 'name': 'Azéri'}, {'id': 'bak', 'name': 'Bachkir'}, {'id': 'bel', 'name': 'Biélorusse'}, {'id': 'bul', 'name': 'Bulgare'}, {'id': 'bih', 'name': 'Bihari'}, {'id': 'bis', 'name': 'Bichelamar'}, {'id': 'bam', 'name': 'Bambara'}, {'id': 'ben', 'name': 'Bengali'}, {'id': 'tib', 'name': 'Tibétain'}, {'id': 'bre', 'name': 'Breton'}, {'id': 'bos', 'name': 'Bosnien'}, {'id': 'cat', 'name': 'Catalan'}, {'id': 'che', 'name': 'Tchétchène'}, {'id': 'cha', 'name': 'Chamorro'}, {'id': 'cos', 'name': 'Corse'}, {'id': 'cre', 'name': 'Cri'}, {'id': 'cze', 'name': 'Tchèque'}, {'id': 'chu', 'name': 'Vieux-slave'}, {'id': 'chv', 'name': 'Tchouvache'}, {'id': 'wel', 'name': 'Gallois'}, {'id': 'dan', 'name': 'Danois'}, {'id': 'ger', 'name': 'Allemand'}, {'id': 'div', 'name': 'Maldivien'}, {'id': 'dzo', 'name': 'Dzongkha'}, {'id': 'ewe', 'name': 'Ewe'}, {'id': 'gre', 'name': 'Grec moderne'}, {'id': 'eng', 'name': 'Anglais'}, {'id': 'epo', 'name': 'Espéranto'}, {'id': 'spa', 'name': 'Espagnol'}, {'id': 'est', 'name': 'Estonien'}, {'id': 'baq', 'name': 'Basque'}, {'id': 'per', 'name': 'Persan'}, {'id': 'ful', 'name': 'Peul'}, {'id': 'fin', 'name': 'Finnois'}, {'id': 'fij', 'name': 'Fidjien'}, {'id': 'fao', 'name': 'Féroïen'}, {'id': 'fra', 'name': 'Français'}, {'id': 'fry', 'name': 'Frison occidental'}, {'id': 'gle', 'name': 'Irlandais'}, {'id': 'gla', 'name': 'Écossais'}, {'id': 'glg', 'name': 'Galicien'}, {'id': 'grn', 'name': 'Guarani'}, {'id': 'guj', 'name': 'Gujarati'}, {'id': 'glv', 'name': 'Mannois'}, {'id': 'hau', 'name': 'Haoussa'}, {'id': 'heb', 'name': 'Hébreu'}, {'id': 'hin', 'name': 'Hindi'}, {'id': 'hmo', 'name': 'Hiri motu'}, {'id': 'hrv', 'name': 'Croate'}, {'id': 'hat', 'name': 'Créole haïtien'}, {'id': 'hun', 'name': 'Hongrois'}, {'id': 'arm', 'name': 'Arménien'}, {'id': 'her', 'name': 'Héréro'}, {'id': 'ina', 'name': 'Interlingua'}, {'id': 'ind', 'name': 'Indonésien'}, {'id': 'ile', 'name': 'Occidental'}, {'id': 'ibo', 'name': 'Igbo'}, {'id': 'iii', 'name': 'Yi'}, {'id': 'ipk', 'name': 'Inupiak'}, {'id': 'ido', 'name': 'Ido'}, {'id': 'isl', 'name': 'Islandais'}, {'id': 'ita', 'name': 'Italien'}, {'id': 'iku', 'name': 'Inuktitut'}, {'id': 'jpn', 'name': 'Japonais'}, {'id': 'jav', 'name': 'Javanais'}, {'id': 'geo', 'name': 'Géorgien'}, {'id': 'kon', 'name': 'Kikongo'}, {'id': 'kik', 'name': 'Kikuyu'}, {'id': 'kua', 'name': 'Kuanyama'}, {'id': 'kaz', 'name': 'Kazakh'}, {'id': 'kal', 'name': 'Groenlandais'}, {'id': 'khm', 'name': 'Khmer'}, {'id': 'kan', 'name': 'Kannada'}, {'id': 'kor', 'name': 'Coréen'}, {'id': 'kau', 'name': 'Kanouri'}, {'id': 'kas', 'name': 'Cachemiri'}, {'id': 'kur', 'name': 'Kurde'}, {'id': 'kom', 'name': 'Komi'}, {'id': 'cor', 'name': 'Cornique'}, {'id': 'kir', 'name': 'Kirghiz'}, {'id': 'lat', 'name': 'Latin'}, {'id': 'ltz', 'name': 'Luxembourgeois'}, {'id': 'lug', 'name': 'Ganda'}, {'id': 'lim', 'name': 'Limbourgeois'}, {'id': 'lin', 'name': 'Lingala'}, {'id': 'lao', 'name': 'Lao'}, {'id': 'lit', 'name': 'Lituanien'}, {'id': 'lub', 'name': 'Luba'}, {'id': 'lav', 'name': 'Letton'}, {'id': 'mlg', 'name': 'Malgache'}, {'id': 'mah', 'name': 'Marshallais'}, {'id': 'mao', 'name': 'Maori de Nouvelle-Zélande'}, {'id': 'mac', 'name': 'Macédonien'}, {'id': 'mal', 'name': 'Malayalam'}, {'id': 'mon', 'name': 'Mongol'}, {'id': 'mol', 'name': 'Moldave'}, {'id': 'mar', 'name': 'Marathi'}, {'id': 'may', 'name': 'Malais'}, {'id': 'mlt', 'name': 'Maltais'}, {'id': 'bir', 'name': 'Birman'}, {'id': 'nau', 'name': 'Nauruan'}, {'id': 'nob', 'name': 'Norvégien bokmål'}, {'id': 'nde', 'name': 'Sindebele'}, {'id': 'nep', 'name': 'Népalais'}, {'id': 'ndo', 'name': 'Ndonga'}, {'id': 'nld', 'name': 'Néerlandais'}, {'id': 'nno', 'name': 'Norvégien nynorsk'}, {'id': 'nor', 'name': 'Norvégien'}, {'id': 'nbl', 'name': 'Nrebele'}, {'id': 'nav', 'name': 'Navajo'}, {'id': 'nya', 'name': 'Chichewa'}, {'id': 'oci', 'name': 'Occitan'}, {'id': 'oji', 'name': 'Ojibwé'}, {'id': 'orm', 'name': 'Oromo'}, {'id': 'ori', 'name': 'Oriya'}, {'id': 'oss', 'name': 'Ossète'}, {'id': 'pan', 'name': 'Pendjabi'}, {'id': 'pli', 'name': 'Pali'}, {'id': 'pol', 'name': 'Polonais'}, {'id': 'pus', 'name': 'Pachto'}, {'id': 'por', 'name': 'Portugais'}, {'id': 'que', 'name': 'Quechua'}, {'id': 'roh', 'name': 'Romanche'}, {'id': 'run', 'name': 'Kirundi'}, {'id': 'rum', 'name': 'Roumain'}, {'id': 'rus', 'name': 'Russe'}, {'id': 'kin', 'name': 'Kinyarwanda'}, {'id': 'san', 'name': 'Sanskrit'}, {'id': 'srd', 'name': 'Sarde'}, {'id': 'snd', 'name': 'Sindhi'}, {'id': 'sme', 'name': 'Same du Nord'}, {'id': 'sag', 'name': 'Sango'}, {'id': 'sin', 'name': 'Cingalais'}, {'id': 'slo', 'name': 'Slovaque'}, {'id': 'slv', 'name': 'Slovène'}, {'id': 'smo', 'name': 'Samoan'}, {'id': 'sna', 'name': 'Shona'}, {'id': 'som', 'name': 'Somali'}, {'id': 'alb', 'name': 'Albanais'}, {'id': 'ser', 'name': 'Serbe'}, {'id': 'ssw', 'name': 'Swati'}, {'id': 'sot', 'name': 'Sotho du Sud'}, {'id': 'sun', 'name': 'Soundanais'}, {'id': 'swe', 'name': 'Suédois'}, {'id': 'swa', 'name': 'Swahili'}, {'id': 'tam', 'name': 'Tamoul'}, {'id': 'tel', 'name': 'Télougou'}, {'id': 'tgk', 'name': 'Tadjik'}, {'id': 'tha', 'name': 'Thaï'}, {'id': 'tir', 'name': 'Tigrigna'}, {'id': 'tuk', 'name': 'Turkmène'}, {'id': 'tgl', 'name': 'Tagalog'}, {'id': 'tsn', 'name': 'Tswana'}, {'id': 'ton', 'name': 'Tongien'}, {'id': 'tur', 'name': 'Turc'}, {'id': 'tso', 'name': 'Tsonga'}, {'id': 'tat', 'name': 'Tatar'}, {'id': 'twi', 'name': 'Twi'}, {'id': 'tah', 'name': 'Tahitien'}, {'id': 'uig', 'name': 'Ouïghour'}, {'id': 'ukr', 'name': 'Ukrainien'}, {'id': 'urd', 'name': 'Ourdou'}, {'id': 'uzb', 'name': 'Ouzbek'}, {'id': 'ven', 'name': 'Venda'}, {'id': 'vie', 'name': 'Vietnamien'}, {'id': 'vol', 'name': 'Volapük'}, {'id': 'wln', 'name': 'Wallon'}, {'id': 'wol', 'name': 'Wolof'}, {'id': 'xho', 'name': 'Xhosa'}, {'id': 'yid', 'name': 'Yiddish'}, {'id': 'yor', 'name': 'Yoruba'}, {'id': 'zha', 'name': 'Zhuang'}, {'id': 'chi', 'name': 'Chinois'}, {'id': 'zul', 'name': 'Zoulou'}];
   }
 
   beforeMatchs(): Promise<any> {
@@ -196,8 +236,10 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  quizResponses(page: number, limit: number): Promise<any> {
-    return this.http.get(environment.serverUrl + `/api/quiz/response?skip=${(page - 1) * limit}&limit=${limit}`)
+  quizResponses(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl
+      + `/api/quiz/response?skip=${(page - 1) * limit}&limit=${limit}`
+      + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }

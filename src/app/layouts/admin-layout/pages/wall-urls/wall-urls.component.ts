@@ -5,43 +5,62 @@ import {ApiService} from '@app/core/http/api.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import {FormArray, FormControl} from '@angular/forms';
+import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 
 @Component({
   selector: 'app-wall-urls',
   templateUrl: './wall-urls.component.html',
   styleUrls: ['./wall-urls.component.scss']
 })
-export class WallUrlsComponent implements OnInit {
+export class WallUrlsComponent extends GenericFilteringComponent implements OnInit {
 
-  list: String[] = [];
-  form: FormArray = new FormArray([]);
-  id = '';
-  key = 'wall_news_authorized_links';
+  list: Rss[] = [];
+  listLanguages: any[] = [];
+  page = 1;
+  pageSize = 10;
+  totalLength = 0;
 
   constructor(private apiService: ApiService) {
+    super();
+    this.listLanguages = this.apiService.fullLanguages();
+    this.filter = {
+      attributes: 'name,url',
+      keyword: '',
+      league: '',
+      language: ''
+    };
   }
 
   ngOnInit() {
     this.loadItems();
   }
 
+  get languagesName() {
+    return this.listLanguages.map((v) => v.name);
+  }
+
+
   loadItems() {
-    this.apiService.getConfig().then(value => {
-      const wallConfig = value.data.find(item => item.key === this.key);
-      if (wallConfig) {
-        console.log(wallConfig);
-        this.list = wallConfig.value.split(',');
-        this.form = new FormArray(this.list.map(item => new FormControl(item)));
-        this.id = wallConfig._id;
-      }
+    this.loadData();
+  }
+
+  pageChange(ev) {
+    this.page = ev;
+    this.loadData();
+  }
+
+  loadData() {
+    this.list = [];
+    this.apiService.wallLinks(this.filter, this.page, this.pageSize).then(value => {
+      this.totalLength = value.total;
+      this.list = value.data.map(v => {
+        v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
+        return v;
+      });
     });
   }
 
-  addItem() {
-    this.form.push(new FormControl(''));
-  }
-
-  delete(index: number) {
+  delete(item: any) {
     Swal.fire({
       html: 'Êtes-vous sur de vouloir supprimer cet élement ?',
       icon: 'warning',
@@ -50,23 +69,21 @@ export class WallUrlsComponent implements OnInit {
       confirmButtonText: 'Supprimer',
       confirmButtonColor: 'red'
     }).then(data => {
-      this.form.removeAt(index);
-      this.submit();
-    });
-  }
-
-  submit() {
-    const data = this.form.value.filter(value => value !== '');
-    this.apiService.editConfig(this.id, {
-      key: this.key,
-      value: data.join(',')
-    }).then(value => {
-      Swal.fire({
-        title: 'Succès',
-        text: 'Les modifications ont été enregistrées',
-        icon: 'success'
-      });
+      if (data.value) {
+        this.apiService.deleteWallLink(item._id).then(result => {
+          Swal.fire({
+            html: 'Lien supprimé avec succès',
+            icon: 'success',
+            timer: 2000,
+            confirmButtonText: 'Fermer',
+          });
+          this.loadItems();
+        }).catch(err => {
+          Swal.fire({html: 'Erreur technique', icon: 'error'});
+        });
+      }
     });
   }
 
 }
+

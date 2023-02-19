@@ -1,6 +1,7 @@
 import {Team} from '@app/models/team';
 
 export interface League {
+  round: any;
   teams: Team[];
   rounds: string[];
   groups: any[];
@@ -13,7 +14,7 @@ export interface League {
   shortName: string;
   subLeagueName: string;
   totalRound: number;
-  currentRound: number;
+  currentRound: any;
   currentSeason: string;
   countryId: string;
   country: string;

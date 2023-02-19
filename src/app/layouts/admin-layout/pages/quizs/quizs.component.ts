@@ -8,6 +8,7 @@ import {League} from '@app/models/league';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 import {Rss} from '@app/models/rss';
 import Swal from 'sweetalert2';
+import {QuizResponse} from '@app/models/quizResponse';
 
 @Component({
   selector: 'app-quizs',
@@ -17,6 +18,7 @@ import Swal from 'sweetalert2';
 export class QuizsComponent extends GenericFilteringComponent implements OnInit {
 
   list: Quiz[] = [];
+  listResponses: QuizResponse[] = [];
   leagues: League[] = [];
   listTypes: String[] = [
     'most_scored_player',
@@ -43,13 +45,26 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
 
   page = 1;
   pageSize = 10;
-  totalLength = 100;
+  totalLength = 0;
 
   ngOnInit() {
     this.loadData();
     this.apiService.leagues(null, 1, 100).then(d => {
       this.leagues = d.data;
     });
+    this.apiService.quizResponses(null, 1, 1000).then(value => {
+      this.listResponses = value.data;
+    });
+  }
+
+  getAverage(item: Quiz) {
+    const responses = this.listResponses.filter((v) => v.quiz === item._id);
+    if (responses.length === 0) {
+      return '-';
+    }
+    return ((responses.filter((v) => {
+      return v.answers.length === v.numberMaxAnswers;
+    }).length / parseFloat(responses.length.toString())) * 100).toFixed(2) + '%';
   }
 
   generateQuiz() {

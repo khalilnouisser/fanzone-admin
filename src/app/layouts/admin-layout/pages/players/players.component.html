@@ -111,8 +111,12 @@
               <th scope="col">Joueur</th>
               <th scope="col">Nom d'affichage</th>
               <th scope="col">Équipe</th>
+              <th scope="col">Nationalité</th>
               <th scope="col">Position</th>
+              <th scope="col">Valeur initiale</th>
               <th scope="col">Value</th>
+              <th scope="col">Fantazy A/V</th>
+              <th scope="col">Age</th>
               <th scope="col">Date de creation</th>
               <th scope="col">Actions</th>
             </tr>
@@ -133,8 +137,18 @@
               <td *ngIf="item.team == null" style="height: 83px">
                 -
               </td>
+
+              <td *ngIf="item.country">
+                {{item.country}}
+              </td>
+              <td *ngIf="!item.country">
+                -
+              </td>
               <td>{{item.positionAbr}} ({{item.positionDescription}})</td>
+              <td>{{item.initialValue}} m€</td>
               <td>{{item.value}} m€</td>
+              <td>{{getNumberOfHistoriesByType(item.playerId, 0)}}/{{getNumberOfHistoriesByType(item.playerId, 1)}}</td>
+              <td>{{getAge(item)}}</td>
               <td>
                 {{item.formated_date}}
               </td>
