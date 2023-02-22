@@ -21,6 +21,8 @@ import {EditTeamComponent} from '@app/layouts/admin-layout/pages/edit-team/edit-
 import {LinkRequestsComponent} from '@app/layouts/admin-layout/pages/link-requests/link-requests.component';
 import {AddEditWallLinkComponent} from '@app/layouts/admin-layout/pages/add-edit-wall-link/add-edit-wall-link.component';
 import { QuizStatsComponent } from './pages/quiz-stats/quiz-stats.component';
+import {ListTicketsComponent} from '@app/layouts/admin-layout/pages/list-tickets/list-tickets.component';
+import {TicketDetailsComponent} from '@app/layouts/admin-layout/pages/ticket-details/ticket-details.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -44,6 +46,8 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'wall/urls', component: WallUrlsComponent},
   {path: 'wall/urls/add', component: AddEditWallLinkComponent},
   {path: 'wall/urls/:id', component: AddEditWallLinkComponent},
+  {path: 'tickets', component: ListTicketsComponent},
+  {path: 'tickets/:id', component: TicketDetailsComponent},
   {path: 'wall/approve', component: LinkRequestsComponent},
   {path: 'podium', component: PodiumComponent},
 

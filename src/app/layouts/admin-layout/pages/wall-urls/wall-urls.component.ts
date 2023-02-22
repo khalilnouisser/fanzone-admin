@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Rss} from '@app/models/rss';
-import {League} from '@app/models/league';
 import {ApiService} from '@app/core/http/api.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
-import {FormArray, FormControl} from '@angular/forms';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 
 @Component({
@@ -12,7 +10,7 @@ import {GenericFilteringComponent} from '@app/components/generic-filtering/gener
   templateUrl: './wall-urls.component.html',
   styleUrls: ['./wall-urls.component.scss']
 })
-export class WallUrlsComponent extends GenericFilteringComponent implements OnInit {
+export class WallUrlsComponent  extends GenericFilteringComponent implements OnInit {
 
   list: Rss[] = [];
   listLanguages: any[] = [];
@@ -84,6 +82,5 @@ export class WallUrlsComponent extends GenericFilteringComponent implements OnIn
       }
     });
   }
-
 }
 

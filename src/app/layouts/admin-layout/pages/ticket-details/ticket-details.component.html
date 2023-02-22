@@ -1,0 +1,129 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7" *ngIf="ticket">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row">
+            <div class="col-6">
+              <h3 class="mb-0">Détails d'un ticket</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive ml-2 mr-3">
+          <div class="row m-0">
+            <div class="col-6">
+              <form [formGroup]="form" class="row m-0">
+                <div class="col-12" *ngIf="ticket.description">
+                  <div class="form-group">
+                    <label for="state">Description</label>
+                    <p class="form-content">
+                      {{ticket.description}}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-12" *ngIf="ticket.attachments.length > 0">
+                  <div class="form-group">
+                    <label for="state" style="display: block;">Pièces jointes</label>
+                    <img *ngFor="let item of ticket.attachments" class="mr-3" [src]="item" style="width: 60px; height: 100px; object-fit: cover; border-radius: 5px;" />
+                  </div>
+                </div>
+                <div class="col-12" *ngIf="ticket.user">
+                  <div class="form-group">
+                    <label for="state">Rapporteur</label>
+                    <p class="form-content mb-1">
+                      <b>Nom :</b> {{ticket.user.full_name}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b>Pseudo :</b> {{ticket.user.pseudo}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b>Email : </b> {{ticket.user.email}}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-12" *ngIf="ticket.concernedWall">
+                  <div class="form-group">
+                    <label for="state">Wall concerné</label>
+                    <p class="form-content mb-1" *ngIf="ticket.concernedWall.type">
+                      <b>Type :</b>
+                      <span *ngIf="ticket.concernedWall.type == 0">News</span>
+                      <span *ngIf="ticket.concernedWall.type == 1">Post</span>
+                      <span *ngIf="ticket.concernedWall.type == 2">Vote</span>
+                      <span *ngIf="ticket.concernedWall.type == 3">Match ({{ticket.concernedWall.match.homeName}} VS {{ticket.concernedWall.match.awayName}})</span>
+                      <span *ngIf="ticket.concernedWall.type == 4">Quiz</span>
+                      <span *ngIf="ticket.concernedWall.type == 5">Fantazy week team</span>
+                      <span *ngIf="ticket.concernedWall.type == 6">Profile</span>
+                      <span *ngIf="ticket.concernedWall.type == 7">Battle</span>
+                    </p>
+                    <p class="form-content mb-1" *ngIf="ticket.concernedWall.title">
+                      <b>Titre :</b> {{ticket.concernedWall.title}}
+                    </p>
+                    <p class="form-content mb-1" *ngIf="ticket.concernedWall.link">
+                      <b>Lien :</b> {{ticket.concernedWall.link}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b>Interactions : {{ticket.concernedWall.likes.length}}</b> likes, <b>{{ticket.concernedWall.dislikes.length}}</b> dislikes, <b>{{ticket.concernedWall.comments.length}}</b> comments
+                    </p>
+                    <p class="form-content mb-1">
+                      <b>État : </b> {{ticket.concernedWall.masked ? 'Masqué' : 'Affiché'}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b class="mr-2">Actions :</b>
+                      <button class="btn btn-sm" [class.btn-warning]="!ticket.concernedWall.masked" [class.btn-success]="ticket.concernedWall.masked" (click)="toggleWallVisiblity()">{{ticket.concernedWall.masked ? 'Afficher' : 'Masquer'}}</button>
+                    </p>
+                  </div>
+                </div>
+                <div class="col-12" *ngIf="ticket.concernedUser">
+                  <div class="form-group">
+                    <label for="state">Utilisateur concerné</label>
+                    <p class="form-content mb-1">
+                      <b>Nom :</b> {{ticket.concernedUser.full_name}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b>Pseudo :</b> {{ticket.concernedUser.pseudo}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b>Email : </b> {{ticket.concernedUser.email}}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group w-100">
+                    <label for="state">État</label>
+                    <select class="form-control w-100" id="state" aria-describedby="state" formControlName="state" (change)="submit()">
+                      <option *ngFor="let item of ticketStates ; let i = index" [value]="i">{{item}}</option>
+                    </select>
+                  </div>
+                </div>
+            </form>
+
+        </div>
+            <div class="col-6">
+              <div class="col-12" >
+                <div class="form-group mb-2">
+                  <label for="state">Commentaires</label>
+                </div>
+                <ng-container *ngFor="let item of ticket.comments" class="form-content">
+                  <h5 class="mb-0"><b>{{getUserName(item.user)}}</b></h5>
+                  <p class="mb-2">{{item.content}}</p>
+                </ng-container>
+                <div class="d-flex mt-3">
+                  <input type="text" style="border-top-right-radius: 0; border-bottom-right-radius: 0" class="form-control" id="content" placeholder="Ajouter un commentaire ..." [(ngModel)]="content">
+                  <button (click)="addComment()" class="btn btn-primary" style="border-top-left-radius: 0; border-bottom-left-radius: 0">Envoyer</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

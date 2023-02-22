@@ -30,10 +30,16 @@
   }
 }
 
-.badge-warning {
-  color: #e25509;
-  background-color: rgba(226, 85, 9, 0.19);
+.badge-danger {
+  color: #9b1a03 !important;
+  background-color: rgba(226, 85, 9, 0.19)!important;;
 }
+
+.badge-warning {
+  color: #e3af0e !important;
+  background-color: rgba(248, 164, 1, 0.08) !important;;
+}
+
 
 .dropdown-menu {
   top: 5px!important;

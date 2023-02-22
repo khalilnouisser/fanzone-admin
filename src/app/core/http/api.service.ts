@@ -160,8 +160,40 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  editWall(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/wall/' + id, body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   addWallLink(body: any): Promise<any> {
     return this.http.post(environment.serverUrl + '/api/wall/links/', body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  tickets(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/tickets?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  ticketById(id: string): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/tickets?_id=' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  addTicketComment(id: string, content: string): Promise<any> {
+    return this.http.post(environment.serverUrl + '/api/tickets/' + id + '/comment', {
+      content: content,
+    })
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  editTicket(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/tickets/' + id, body)
       .toPromise()
       .catch(this.handleError);
   }
@@ -200,6 +232,18 @@ export class ApiService {
       {'id': 'de', 'value': 'Allemand'},
       {'id': 'fa', 'value': 'Perse'}
     ];
+  }
+
+  ticketStates(): any {
+    return ['Waiting', 'Being processed', 'processed', 'ignored', 'not processed'];
+  }
+
+  ticketStatesClass(): any {
+    return ['badge-warning', 'badge-info', 'badge-success', 'badge-secondary', 'badge-danger'];
+  }
+
+  ticketTypes(): any {
+    return ['Suggestion', 'Bug', 'Report'];
   }
 
   fullLanguages(): any[] {

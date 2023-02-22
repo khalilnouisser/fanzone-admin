@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     console.log(body);
     this.apiService.login(body).then(d => {
       let item = d;
-      item.token = item.accessToken;
+      //item.token = item.accessToken;
       this.credentialsService.setCredentials(item, true);
       this.router.navigate(['/']);
     }).catch(e => {

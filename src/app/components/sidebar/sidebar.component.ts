@@ -16,6 +16,7 @@ export const ROUTES: RouteInfo[] = [
   {path: '/teams', title: 'Equipes', icon: 'fa-synagogue', class: ''},
   {path: '/players', title: 'Joueurs', icon: 'fa-people-group', class: ''},
   {path: '/rss', title: 'RSS', icon: 'fa-rss', class: ''},
+  {path: '/tickets', title: 'Tickets', icon: 'fa-headset', class: ''},
   {path: '/wall/approve', title: 'Demande des liens', icon: 'fa-hand', class: ''},
   {path: '/wall/urls', title: 'Liens autorisés', icon: 'fa-link', class: ''},
   {path: '/matchs', title: 'Matchs', icon: 'fa-futbol', class: ''},
