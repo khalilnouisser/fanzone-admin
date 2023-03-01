@@ -27,7 +27,6 @@ export class TicketDetailsComponent implements OnInit {
   users: User[] = [];
   content = '';
 
-
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService, private credentialsService: CredentialsService) {
     this.getData();
   }

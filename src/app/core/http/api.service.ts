@@ -198,6 +198,36 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  goats(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/goat?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  deleteGoat(id: string): Promise<any> {
+    return this.http.delete(environment.serverUrl + '/api/goat/' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  goatById(id: string): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/goat?_id=' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  editGoat(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/goat/' + id, body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  addGoat(body: any): Promise<any> {
+    return this.http.post(environment.serverUrl + '/api/goat/', body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   editConfig(id: string, body: any): Promise<any> {
     return this.http.put(environment.serverUrl + '/api/config/' + id, body)
       .toPromise()

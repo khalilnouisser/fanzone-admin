@@ -1,0 +1,98 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row">
+            <div class="col-6">
+              <h3 class="mb-0">{{id ? 'Modifier' : 'Ajouter'}} un goat</h3>
+            </div>
+            <div class="ml-auto nav-item">
+              <button type="button"  [disabled]="form.invalid" (click)="submit()" class="btn btn-primary m-0">Valider</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <form [formGroup]="form" class="row m-0">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="name">Titre</label>
+                <input type="text" class="form-control" id="name" aria-describedby="name" formControlName="name">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="icon">Background</label>
+                <img style="width: 220px;height: 140px;object-fit: cover; display: block" class="mb-2" src="{{form.value.icon}}"/>
+                <input type="text" class="form-control" id="icon" aria-describedby="icon" formControlName="icon">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="startDate">Start date</label>
+                <input type="date" class="form-control" id="startDate" aria-describedby="startDate" formControlName="startDate">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="endDate">End date</label>
+                <input type="date" class="form-control" id="endDate" aria-describedby="endDate" formControlName="endDate">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Joueurs</label>
+                <div class="table-responsive">
+                  <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Likes</th>
+                      <th scope="col">Dislikes</th>
+                      <th scope="col">Score</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody formArrayName="players">
+                    <tr *ngFor="let item of players.controls; let i = index;">
+                      <ng-container [formGroup]="item">
+                        <td>
+                          <input class="form-control" formControlName="name" />
+                        </td>
+                        <td class="d-flex">
+                          <input class="form-control mr-2" formControlName="photo" />
+                          <img style="width: 45px;height: 45px;object-fit: cover; display: block; border-radius: 5px" class="mb-2" src="{{item.value.photo}}"/>
+                        </td>
+                        <td>{{item.value.likes}}</td>
+                        <td>{{item.value.disLikes}}</td>
+                        <td>{{item.value.score}}</td>
+                        <td class="actions">
+                          <a (click)="deleteItem(i)"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                      </ng-container>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <button type="button" (click)="addPlayer()" class="btn btn-primary m-0">Ajouter un joueur</button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -23,6 +23,8 @@ import {AddEditWallLinkComponent} from '@app/layouts/admin-layout/pages/add-edit
 import { QuizStatsComponent } from './pages/quiz-stats/quiz-stats.component';
 import {ListTicketsComponent} from '@app/layouts/admin-layout/pages/list-tickets/list-tickets.component';
 import {TicketDetailsComponent} from '@app/layouts/admin-layout/pages/ticket-details/ticket-details.component';
+import {ListGoatsComponent} from '@app/layouts/admin-layout/pages/list-goats/list-goats.component';
+import {AddEditGoatComponent} from '@app/layouts/admin-layout/pages/add-edit-goat/add-edit-goat.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -46,6 +48,9 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'wall/urls', component: WallUrlsComponent},
   {path: 'wall/urls/add', component: AddEditWallLinkComponent},
   {path: 'wall/urls/:id', component: AddEditWallLinkComponent},
+  {path: 'goats', component: ListGoatsComponent},
+  {path: 'goats/add', component: AddEditGoatComponent},
+  {path: 'goats/:id', component: AddEditGoatComponent},
   {path: 'tickets', component: ListTicketsComponent},
   {path: 'tickets/:id', component: TicketDetailsComponent},
   {path: 'wall/approve', component: LinkRequestsComponent},
