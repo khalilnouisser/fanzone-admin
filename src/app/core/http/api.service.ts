@@ -46,6 +46,12 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  editGroup(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/users/group/' + id, body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   leagues(filterData: any = null, page: number, limit: number): Promise<any> {
     return this.http.get(environment.serverUrl + `/api/leagues?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
       .toPromise()

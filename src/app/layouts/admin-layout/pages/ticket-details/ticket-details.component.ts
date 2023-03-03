@@ -83,6 +83,13 @@ export class TicketDetailsComponent implements OnInit {
       });
   }
 
+  toggleGroupVisiblity() {
+    this.ticket.concernedGroup.masked = !(this.ticket.concernedGroup.masked ?? false);
+    this.apiService.editGroup(this.ticket.concernedGroup._id, {
+      masked: this.ticket.concernedGroup.masked
+    });
+  }
+
   submit() {
     this.apiService.editTicket(this.id, this.form.value).then(() => {
       Swal.fire({

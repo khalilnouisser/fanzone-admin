@@ -49,6 +49,21 @@
                     </p>
                   </div>
                 </div>
+                <div class="col-12" *ngIf="ticket.concernedGroup">
+                  <div class="form-group">
+                    <label for="state">Groupe</label>
+                    <p class="form-content mb-1">
+                      <b>Titre :</b> {{ticket.concernedGroup.name}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b>Code :</b> {{ticket.concernedGroup.code}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b class="mr-2">Actions :</b>
+                      <button class="btn btn-sm" [class.btn-warning]="!ticket.concernedGroup.masked" [class.btn-success]="ticket.concernedGroup.masked" (click)="toggleGroupVisiblity()">{{ticket.concernedGroup.masked ? 'Ouvrir' : 'Fermer'}}</button>
+                    </p>
+                  </div>
+                </div>
                 <div class="col-12" *ngIf="ticket.concernedWall">
                   <div class="form-group">
                     <label for="state">Wall concerné</label>

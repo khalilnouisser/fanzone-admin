@@ -8,5 +8,6 @@ export interface Group {
   updatedAt: string;
   creatorName: string;
   formated_date: string;
+  masked: boolean;
   __v: number;
 }

@@ -1,5 +1,6 @@
 import {User} from '@app/models/user';
 import {Match} from '@app/models/match';
+import {Group} from '@app/models/group';
 export interface Comment {
   user: string;
   content: string;
@@ -14,6 +15,7 @@ export interface Ticket {
   category: string;
   subCategory: string;
   concernedWall: Wall;
+  concernedGroup: Group;
   concernedUser: User;
   user: User;
   comments: Comment[];
