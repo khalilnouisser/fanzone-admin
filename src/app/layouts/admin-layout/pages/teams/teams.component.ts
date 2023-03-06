@@ -24,7 +24,7 @@ export class TeamsComponent extends GenericFilteringComponent implements OnInit 
   constructor(private apiService: ApiService) {
     super();
     this.filter = {
-      attributes: 'name,displayName,address,coach',
+      attributes: 'name,displayName,address,coach,nameSynonyms',
       keyword: '',
       leagueId: '',
       state: '',

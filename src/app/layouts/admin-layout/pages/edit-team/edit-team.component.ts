@@ -30,6 +30,7 @@ export class EditTeamComponent implements OnInit {
       color1: new FormControl('', []),
       color2: new FormControl('', []),
       color3: new FormControl('', []),
+      nameSynonyms: new FormControl('', []),
     });
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
