@@ -166,8 +166,32 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  walls(filterData: any = null, page: number, limit: number): Promise<any> {
+    return this.http.get(environment.serverUrl + `/api/wall/admin?skip=${(page - 1) * limit}&limit=${limit}` + this.getParams(filterData))
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  deleteWall(id: string): Promise<any> {
+    return this.http.delete(environment.serverUrl + '/api/wall/' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  wallById(id: string): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/wall/admin?_id=' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   editWall(id: string, body: any): Promise<any> {
     return this.http.put(environment.serverUrl + '/api/wall/' + id, body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  addWall(body: any): Promise<any> {
+    return this.http.post(environment.serverUrl + '/api/wall/', body)
       .toPromise()
       .catch(this.handleError);
   }

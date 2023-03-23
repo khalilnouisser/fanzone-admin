@@ -31,6 +31,8 @@ import { ListTicketsComponent } from './pages/list-tickets/list-tickets.componen
 import { TicketDetailsComponent } from './pages/ticket-details/ticket-details.component';
 import { ListGoatsComponent } from './pages/list-goats/list-goats.component';
 import { AddEditGoatComponent } from './pages/add-edit-goat/add-edit-goat.component';
+import { ListSurveysComponent } from './pages/list-surveys/list-surveys.component';
+import { AddEditSurveyComponent } from './pages/add-edit-survey/add-edit-survey.component';
 
 @NgModule({
   imports: [
@@ -70,7 +72,9 @@ import { AddEditGoatComponent } from './pages/add-edit-goat/add-edit-goat.compon
     ListTicketsComponent,
     TicketDetailsComponent,
     ListGoatsComponent,
-    AddEditGoatComponent]
+    AddEditGoatComponent,
+    ListSurveysComponent,
+    AddEditSurveyComponent]
 })
 
 export class AdminLayoutModule {

@@ -25,6 +25,8 @@ import {ListTicketsComponent} from '@app/layouts/admin-layout/pages/list-tickets
 import {TicketDetailsComponent} from '@app/layouts/admin-layout/pages/ticket-details/ticket-details.component';
 import {ListGoatsComponent} from '@app/layouts/admin-layout/pages/list-goats/list-goats.component';
 import {AddEditGoatComponent} from '@app/layouts/admin-layout/pages/add-edit-goat/add-edit-goat.component';
+import {ListSurveysComponent} from '@app/layouts/admin-layout/pages/list-surveys/list-surveys.component';
+import {AddEditSurveyComponent} from '@app/layouts/admin-layout/pages/add-edit-survey/add-edit-survey.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -48,6 +50,9 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'wall/urls', component: WallUrlsComponent},
   {path: 'wall/urls/add', component: AddEditWallLinkComponent},
   {path: 'wall/urls/:id', component: AddEditWallLinkComponent},
+  {path: 'surveys', component: ListSurveysComponent},
+  {path: 'surveys/add', component: AddEditSurveyComponent},
+  {path: 'surveys/:id', component: AddEditSurveyComponent},
   {path: 'goats', component: ListGoatsComponent},
   {path: 'goats/add', component: AddEditGoatComponent},
   {path: 'goats/:id', component: AddEditGoatComponent},

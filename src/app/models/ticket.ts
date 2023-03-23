@@ -26,6 +26,7 @@ export interface Ticket {
 }
 
 export interface Wall {
+  formated_date: string;
   numberVues: number;
   numberShares: number;
   numberExternalShares: number;

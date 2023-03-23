@@ -1,0 +1,114 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="d-flex align-items-center">
+            <div class="">
+              <h3 class="mb-0">Liste des sondages</h3>
+            </div>
+            <div class="col p-0">
+              <form class="form-filters">
+                <div class="row align-items-center justify-content-end" *ngIf="this.filter">
+                  <div class="col-auto">
+                    <span>Filters</span> <i class="mdi mdi-filter-variant ml-2"></i>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Rechercher ..."
+                           [(ngModel)]="this.filter.keyword" (keyup)="loadData()">
+                  </div>
+
+                  <div class="">
+                    <div class="dropdown dropdown-filter">
+                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                        <span>Language</span>: <span class="dropdown-choice">
+          <span [innerHTML]="getFilterLabels(this.listLanguages, 'language')"></span>
+          </span>
+                        <span class="mdi mdi-chevron-down ml-2"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <li class="dropdown-item" *ngFor="let item of listLanguages;let i=index"
+                            [class.active]="isFilterSelected('language', item)">
+                          <label class="custom-checkbox">
+                            <input name="filter2" type="checkbox" [checked]="isFilterSelected('language', item)"
+                                   (click)="selectFilter('language', item); loadData()">
+                            {{item}}
+                            <span></span>
+                          </label>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="">
+                    <button type="button" routerLink="add" class="btn btn-primary m-0">Ajouter</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!--<div class="ml-auto nav-item">
+              <button type="button" routerLink="add" class="btn btn-primary m-0">Add</button>
+            </div>-->
+          </div>
+
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Titre</th>
+              <th scope="col">Langue</th>
+              <th scope="col">Questions</th>
+              <th scope="col">Leagues</th>
+              <th scope="col">Date de creation</th>
+              <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of list">
+              <td>
+                {{item.title ?? "-"}}
+              </td>
+              <td *ngIf="item.language">
+                {{item.language}}
+              </td>
+              <td *ngIf="!item.language" style="height: 83px">
+                -
+              </td>
+              <td>
+                {{item.questions.length}}
+              </td>
+              <td>
+                {{item.leaguesId.length}}
+              </td>
+              <td>
+                {{item.formated_date}}
+              </td>
+              <td class="actions">
+                <a [routerLink]="item._id"><i class="fa-solid fa-pen"></i></a>
+                <a (click)="delete(item)"><i class="fa-solid fa-trash"></i></a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <ngb-pagination
+            (pageChange)="pageChange($event)"
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [maxSize]="10"
+            [collectionSize]="totalLength"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

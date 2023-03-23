@@ -20,6 +20,7 @@ export const ROUTES: RouteInfo[] = [
   {path: '/wall/approve', title: 'Demande des liens', icon: 'fa-hand', class: ''},
   {path: '/wall/urls', title: 'Liens autorisés', icon: 'fa-link', class: ''},
   {path: '/matchs', title: 'Matchs', icon: 'fa-futbol', class: ''},
+  {path: '/surveys', title: 'Sondages', icon: 'fa-square-poll-horizontal', class: ''},
   {path: '/quizs', title: 'Quizs', icon: 'fa-circle-question', class: ''},
   {path: '/goats', title: 'Goats', icon: 'fa-heart', class: ''},
   {path: '/quiz/stats', title: 'Statistiques des Quizs', icon: 'fa-chart-pie', class: ''},
