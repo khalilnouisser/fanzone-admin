@@ -17,7 +17,7 @@ import { JwtInterceptor } from './http/jwt-interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }
+    },
   ]
 })
 export class CoreModule {

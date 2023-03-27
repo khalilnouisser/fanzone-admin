@@ -172,6 +172,12 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  translate(body: any): Promise<any> {
+    return this.http.post(environment.serverUrl + '/api/google/translate/', body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   deleteWall(id: string): Promise<any> {
     return this.http.delete(environment.serverUrl + '/api/wall/' + id)
       .toPromise()

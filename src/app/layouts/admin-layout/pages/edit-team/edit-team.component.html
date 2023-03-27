@@ -37,7 +37,10 @@
             <div class="col-12">
               <div class="form-group">
                 <label for="name">Synonymes</label>
-                <input type="text" class="form-control" id="nameSynonyms" aria-describedby="nameSynonyms" formControlName="nameSynonyms">
+                <div class="d-flex">
+                  <input type="text" class="form-control w-100 mr-3" id="nameSynonyms" aria-describedby="nameSynonyms" formControlName="nameSynonyms">
+                  <button type="button" (click)="addAndTranslate()" class="btn btn-primary m-0">Traduire et ajouter</button>
+                </div>
               </div>
             </div>
             <div class="col-12">

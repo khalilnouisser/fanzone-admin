@@ -63,6 +63,34 @@ export class EditTeamComponent implements OnInit {
     return '#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
   }
 
+  addAndTranslate() {
+    Swal.fire({
+      title: 'Donner un synonyme',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Valider',
+      showLoaderOnConfirm: true,
+      preConfirm: (input) => {
+        this.apiService.translate({
+          input,
+          targets: this.apiService.languages().map((d) => d.id)
+        }).then((d) => {
+          let value = this.form.controls['nameSynonyms'].value;
+          if (value !== '') {
+            value += ',';
+          }
+          value += d.output;
+          this.form.controls['nameSynonyms'].patchValue(value);
+          console.log(d);
+        });
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      console.log('test');
+      console.log(result);
+    });
+  }
+
   submit() {
     this.apiService.editTeam(this.id, this.form.value).then(() => {
       Swal.fire({
