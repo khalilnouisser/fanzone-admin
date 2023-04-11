@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -25,6 +25,12 @@
                   <div class="form-group">
                     <input type="text" class="form-control" placeholder="Rechercher ..."
                            [(ngModel)]="this.filter.keyword" (keyup)="loadData()">
+                  </div>
+
+                  <div class="">
+                    <button type="button" (click)="exportData()" class="btn btn-primary m-0 px-2">
+                      <i class="fa-solid fa-download" style="color: #ffffff;"></i>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -54,7 +60,7 @@
                 {{item.name}}
               </td>
               <td>{{item.code}}</td>
-              <td>{{item.creatorName}}</td>
+              <td>{{getUser(item)}}</td>
               <td>{{item.membres.length}}</td>
               <td>
                 {{item.formated_date}}

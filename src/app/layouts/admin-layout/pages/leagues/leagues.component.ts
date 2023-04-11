@@ -4,6 +4,7 @@ import {ApiService} from '@app/core/http/api.service';
 import * as moment from 'moment';
 import {League} from '@app/models/league';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
+import {ngxCsv} from 'ngx-csv';
 
 @Component({
   selector: 'app-leagues',
@@ -32,6 +33,28 @@ export class LeaguesComponent extends GenericFilteringComponent implements OnIni
   pageChange(ev) {
     this.page = ev;
     this.loadData();
+  }
+
+  exportData() {
+    this.apiService.leagues(this.filter, 1, 100000).then(d => {
+      // tslint:disable-next-line:no-shadowed-variable no-unused-expression
+      new ngxCsv(d.data.reverse().map((d) => {
+        return {
+          id: d._id,
+          leagueId: d.leagueId,
+          name: d.name,
+          shortName: d.shortName,
+          currentRound: d.currentRound,
+          totalRound: d.totalRound,
+          teams: d.teams.length,
+          currentSeason: d.currentSeason,
+          coefficient: d.coefficient,
+        };
+      }), 'leagues-list', {
+        fieldSeparator: ';',
+        headers:  ['id', 'leagueId', 'name', 'shortName', 'currentRound', 'totalRound', 'teams', 'currentSeason', 'coefficient'],
+      });
+    });
   }
 
   loadData() {

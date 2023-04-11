@@ -8,6 +8,7 @@ import {QuizResponse} from '@app/models/quizResponse';
 import {League} from '@app/models/league';
 import { User } from '@app/models/user';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
+import {ngxCsv} from 'ngx-csv';
 
 @Component({
   selector: 'app-quiz-responses',
@@ -20,6 +21,9 @@ export class QuizResponsesComponent extends GenericFilteringComponent implements
   quizzes: Quiz[] = [];
   users: User[] = [];
   leagues: League[] = [];
+
+  userQuery = '';
+  filteredUsers: User[] = [];
 
   constructor(private apiService: ApiService) {
     super();
@@ -34,6 +38,10 @@ export class QuizResponsesComponent extends GenericFilteringComponent implements
   page = 1;
   pageSize = 10;
   totalLength = 0;
+
+  onChangeQuery() {
+    this.filteredUsers = this.filterData(this.users, this.userQuery);
+  }
 
   getName(list) {
     return list.map((v) => v.name);
@@ -51,8 +59,9 @@ export class QuizResponsesComponent extends GenericFilteringComponent implements
     this.apiService.quizs(null, 1, 100).then(value => {
       this.quizzes = value.data;
     });
-    this.apiService.users(null, 1, 500).then(value => {
+    this.apiService.users(null, 1, 50000).then(value => {
       this.users = value.data;
+      this.onChangeQuery();
     });
   }
 
@@ -83,6 +92,24 @@ export class QuizResponsesComponent extends GenericFilteringComponent implements
       this.list = value.data.map(v => {
         v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
         return v;
+      });
+    });
+  }
+
+  exportData() {
+    this.apiService.quizResponses(this.filter, this.page, 1000000).then(d => {
+      // tslint:disable-next-line:no-shadowed-variable no-unused-expression
+      new ngxCsv(d.data.reverse().map((d) => {
+        return {
+          id: d._id,
+          quiz: d.quiz,
+          userId: d.userId,
+          answers: d.answers.length,
+          numberMaxAnswers: d.numberMaxAnswers,
+        };
+      }), 'quizs-responses-list', {
+        fieldSeparator: ';',
+        headers: ['id', 'quiz', 'userId', 'answers', 'numberMaxAnswers'],
       });
     });
   }

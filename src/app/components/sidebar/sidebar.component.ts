@@ -19,6 +19,7 @@ export const ROUTES: RouteInfo[] = [
   {path: '/tickets', title: 'Tickets', icon: 'fa-headset', class: ''},
   {path: '/wall/approve', title: 'Demande des liens', icon: 'fa-hand', class: ''},
   {path: '/wall/urls', title: 'Liens autorisés', icon: 'fa-link', class: ''},
+  {path: '/wall/refused-urls', title: 'Liens réfusés', icon: 'fa-link', class: ''},
   {path: '/matchs', title: 'Matchs', icon: 'fa-futbol', class: ''},
   {path: '/surveys', title: 'Sondages', icon: 'fa-square-poll-horizontal', class: ''},
   {path: '/quizs', title: 'Quizs', icon: 'fa-circle-question', class: ''},

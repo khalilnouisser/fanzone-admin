@@ -27,6 +27,10 @@ import {ListGoatsComponent} from '@app/layouts/admin-layout/pages/list-goats/lis
 import {AddEditGoatComponent} from '@app/layouts/admin-layout/pages/add-edit-goat/add-edit-goat.component';
 import {ListSurveysComponent} from '@app/layouts/admin-layout/pages/list-surveys/list-surveys.component';
 import {AddEditSurveyComponent} from '@app/layouts/admin-layout/pages/add-edit-survey/add-edit-survey.component';
+import {RefusedWallUrlsComponent} from '@app/layouts/admin-layout/pages/refused-wall-urls/refused-wall-urls.component';
+import {
+  AddEditRefusedWallLinkComponent
+} from '@app/layouts/admin-layout/pages/add-edit-refused-wall-link/add-edit-refused-wall-link.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -50,6 +54,9 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'wall/urls', component: WallUrlsComponent},
   {path: 'wall/urls/add', component: AddEditWallLinkComponent},
   {path: 'wall/urls/:id', component: AddEditWallLinkComponent},
+  {path: 'wall/refused-urls', component: RefusedWallUrlsComponent},
+  {path: 'wall/refused-urls/add', component: AddEditRefusedWallLinkComponent},
+  {path: 'wall/refused-urls/:id', component: AddEditRefusedWallLinkComponent},
   {path: 'surveys', component: ListSurveysComponent},
   {path: 'surveys/add', component: AddEditSurveyComponent},
   {path: 'surveys/:id', component: AddEditSurveyComponent},

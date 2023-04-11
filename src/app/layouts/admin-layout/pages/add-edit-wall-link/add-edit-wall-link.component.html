@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -38,7 +38,7 @@
               <div class="form-group">
                 <label for="url">Langue</label>
                 <select class="form-control" id="language" aria-describedby="language" formControlName="language">
-                  <option *ngFor="let item of listLanguages" [value]="item.id">{{item.name}}</option>
+                  <option *ngFor="let item of listLanguages" [value]="item.id" [disabled]="item.id == '-'">{{item.name}}</option>
                 </select>
               </div>
             </div>

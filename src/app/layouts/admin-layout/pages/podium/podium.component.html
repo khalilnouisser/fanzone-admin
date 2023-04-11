@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -25,6 +25,12 @@
                   <div class="form-group">
                     <input type="text" class="form-control" placeholder="Rechercher ..."
                            [(ngModel)]="this.filter.keyword" (keyup)="loadData()">
+                  </div>
+
+                  <div class="">
+                    <button type="button" (click)="exportData()" class="btn btn-primary m-0 px-2">
+                      <i class="fa-solid fa-download" style="color: #ffffff;"></i>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -53,7 +59,7 @@
               <td>{{item._id}}</td>
               <td>
                 <img style="width: 50px;height: 50px;border-radius: 25px" class="mr-2" src="{{item.img_url || 'https://www.dgb.cm/wp-content/uploads/2019/10/default-user-profile-image.png'}}"/>
-                {{item.full_name}}
+                {{item.pseudo}}
               </td>
               <td>{{item.battleScore.toFixed(1)}}</td>
               <td>{{item.pronoScore.toFixed(1)}} (Fav : {{(item.pronoFavoriteTeamScore ?? 0).toFixed(1)}})</td>

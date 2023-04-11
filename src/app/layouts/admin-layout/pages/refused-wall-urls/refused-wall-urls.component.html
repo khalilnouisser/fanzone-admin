@@ -22,29 +22,6 @@
                     <span>Filters</span> <i class="mdi mdi-filter-variant ml-2"></i>
                   </div>
 
-                  <div class="">
-                    <div class="dropdown dropdown-filter">
-                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-                              aria-expanded="false">
-                        <span>Language</span>: <span class="dropdown-choice">
-                        <span [innerHTML]="getFilterLabels(this.listLanguages, 'language')"></span>
-                        </span>
-                        <span class="mdi mdi-chevron-down ml-2"></span>
-                      </button>
-                      <div class="dropdown-menu">
-                        <li class="dropdown-item" *ngFor="let item of listLanguages;let i=index"
-                            [class.active]="isFilterSelected('language', item.id)">
-                          <label class="custom-checkbox">
-                            <input name="filter1" type="checkbox" [checked]="isFilterSelected('language', item.id)"
-                                   (click)="selectFilter('language', item.id); loadData()">
-                            {{item.name}}
-                            <span></span>
-                          </label>
-                        </li>
-                      </div>
-                    </div>
-                  </div>
-
                   <div class="form-group">
                     <input type="text" class="form-control" placeholder="Rechercher ..."
                            [(ngModel)]="this.filter.keyword" (keyup)="loadData()">
@@ -74,7 +51,6 @@
             <thead class="thead-light">
             <tr>
               <th scope="col">Titre</th>
-              <th scope="col">Langue</th>
               <th scope="col">Lien</th>
               <th scope="col">Date de creation</th>
               <th scope="col">Actions</th>
@@ -84,12 +60,6 @@
             <tr *ngFor="let item of list">
               <td>
                 {{item.name ?? "-"}}
-              </td>
-              <td *ngIf="item.language">
-                {{item.language}}
-              </td>
-              <td *ngIf="item.language == null" style="height: 83px">
-                -
               </td>
               <td>
                 {{item.url.substr(0, 50)}}

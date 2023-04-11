@@ -19,6 +19,15 @@ export class GenericFilteringComponent implements OnInit {
     return fieldValue === '' ? [] : fieldValue.split(',');
   }
 
+  filterData(data: any, input: any): any {
+    const content = input.toLowerCase();
+    return data.filter((d) => (d.name ?? '-').toLowerCase().indexOf(content) !== -1
+      || (d.displayName ?? '-').toLowerCase().indexOf(content) !== -1
+      || (d.pseudo ?? '-').toLowerCase().indexOf(content) !== -1
+      || (d.email ?? '-').toLowerCase().indexOf(content) !== -1
+      || (d.full_name ?? '-').toLowerCase().indexOf(content) !== -1);
+  }
+
   isFilterSelected(filterName: string, appId: string): boolean {
     return this.filter[filterName].indexOf(appId) !== -1;
   }

@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -65,12 +65,18 @@
                           <label class="custom-checkbox">
                             <input name="filter2" type="checkbox" [checked]="isFilterSelected('state', item)"
                                    (click)="selectFilter('state', item); loadData()">
-                            {{item === "is_completed" ? "100% validé" : "Non validé"}}
+                            {{item === "is_completed" ? "100% ok" : (item === "is_not_completed" ? "Incomplet" : "Mail pas confirmé")}}
                             <span></span>
                           </label>
                         </li>
                       </div>
                     </div>
+                  </div>
+
+                  <div class="">
+                    <button type="button" (click)="exportData()" class="btn btn-primary m-0 px-2">
+                      <i class="fa-solid fa-download" style="color: #ffffff;"></i>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -86,13 +92,28 @@
             <tr>
               <th scope="col">Utilisateur</th>
               <th scope="col">Pseudo</th>
+              <th scope="col">Email</th>
+              <th scope="col">Club du coeur</th>
+              <th scope="col">Équipe nationale de coeur</th>
+              <th scope="col">Langue</th>
+              <th scope="col">Pays</th>
+              <th scope="col">Ville</th>
               <th scope="col">Type</th>
+              <th scope="col">Status</th>
+              <th scope="col">Status précédent</th>
+              <th scope="col">Date du changement du status</th>
+              <th scope="col">Knowledge</th>
+              <th scope="col">Addiction</th>
+              <th scope="col">Fidelity</th>
+              <th scope="col">Contribution</th>
+              <th scope="col">Reliability</th>
               <th scope="col">visibilité</th>
               <th scope="col">Amis</th>
               <th scope="col">Followers</th>
               <th scope="col">Equipe favoris</th>
               <th scope="col">User favoris</th>
               <th scope="col">Points</th>
+              <th scope="col">Dernière connexion</th>
               <th scope="col">Date d'inscription</th>
               <th scope="col"></th>
             </tr>
@@ -100,11 +121,40 @@
             <tbody>
             <tr *ngFor="let item of list">
               <td>
-                <img style="width: 30px;height: 30px;border-radius: 15px" class="mr-2" src="{{item.img_url || 'https://www.dgb.cm/wp-content/uploads/2019/10/default-user-profile-image.png'}}"/>
+                <img style="width: 30px;height: 30px;border-radius: 15px" class="mr-2"
+                     src="{{item.img_url || 'https://www.dgb.cm/wp-content/uploads/2019/10/default-user-profile-image.png'}}"/>
                 {{item.full_name}}
               </td>
               <td>{{item.pseudo}}</td>
+              <td>{{item.email}}</td>
+              <td *ngIf="item.favorite_team != null">
+                <img style="width: 30px;height: 30px;object-fit: contain" class="mr-2" src="{{item.favorite_team.logo}}"/>
+              </td>
+              <td *ngIf="item.favorite_team == null">-</td>
+              <td *ngIf="item.favorite_euro_team != null">
+                <img style="width: 30px;height: 30px;object-fit: contain" class="mr-2" src="{{item.favorite_euro_team.logo}}"/>
+              </td>
+              <td *ngIf="item.favorite_euro_team == null">-</td>
+              <td>{{item.language}}</td>
+              <td>{{item.governorate?.name ?? '-'}}</td>
+              <td>{{item.region?.name ?? '-'}}</td>
               <td>{{item.type}}</td>
+              <td>
+                {{
+                listStatus[item.status_level]
+                }}
+              </td>
+              <td>
+                {{
+                listStatus[item.previous_status_level ?? 0]
+                }}
+              </td>
+              <td>{{item.status_level_change_date_formated}}</td>
+              <th>{{ item.stats?.knowledge?.toFixed(1) ?? '-'}}</th>
+              <th>{{ item.stats?.addiction?.toFixed(1) ?? '-'}}</th>
+              <th>{{ item.stats?.fidelity?.toFixed(1) ?? '-'}}</th>
+              <th>{{ item.stats?.contribution?.toFixed(1) ?? '-'}}</th>
+              <th>{{ item.stats?.reliability?.toFixed(1) ?? '-'}}</th>
               <td>
                 {{
                 [
@@ -119,6 +169,9 @@
               <td>{{item.followedTeams.length}}</td>
               <td>{{item.followedUsers.length}}</td>
               <td>{{item.total_score.toFixed(1)}}</td>
+              <td>
+                {{item.formated_last_connection_date}}
+              </td>
               <td>
                 {{item.formated_date}}
               </td>

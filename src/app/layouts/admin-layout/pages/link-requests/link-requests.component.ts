@@ -5,6 +5,7 @@ import {ApiService} from '@app/core/http/api.service';
 import * as moment from 'moment';
 import {WallPost} from '@app/models/wallpost';
 import Swal from 'sweetalert2';
+import {ngxCsv} from 'ngx-csv';
 
 declare var $: any;
 
@@ -47,6 +48,22 @@ export class LinkRequestsComponent extends GenericFilteringComponent implements 
     });
   }
 
+  exportData() {
+    this.apiService.linkRequests(this.filter, 1, 1000000).then(d => {
+      // tslint:disable-next-line:no-shadowed-variable no-unused-expression
+      new ngxCsv(d.data.reverse().map((d) => {
+        return {
+          id: d._id,
+          user: d.user?.pseudo ?? '-',
+          link: d.link ?? '',
+        };
+      }), 'link-requests-list', {
+        fieldSeparator: ';',
+        headers:  ['id', 'user', 'link'],
+      });
+    });
+  }
+
   accept(item: WallPost) {
     let html = '<div class="input-group mb-3"><input id="swal-input1" placeholder="Titre" class="form-control"></div><div class="input-group"><select id="swal-input2" class="form-control">';
     this.apiService.fullLanguages().forEach(language => {
@@ -73,29 +90,29 @@ export class LinkRequestsComponent extends GenericFilteringComponent implements 
         self.loadData();
       });
     });
-
-    return;
-    Swal.fire({
-      title: 'Donner un titre pour ce lien',
-      input: 'text',
-      showCancelButton: true,
-      confirmButtonText: 'Valider',
-      showLoaderOnConfirm: true,
-      preConfirm: (title) => {
-        this.apiService.acceptWall(item._id, title).then((d) => {
-          this.loadData();
-        });
-      },
-      allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-      console.log('test');
-      console.log(result);
-    });
   }
 
   refuse(item: WallPost) {
-    this.apiService.refuseWall(item._id).then((d) => {
-      this.loadData();
+    const html = '<div class="input-group mb-3"><input id="swal-input1" placeholder="Titre" class="form-control"></div>';
+    const self = this;
+    Swal.fire({
+      title: 'Sélectionner le titre',
+      showCancelButton: true,
+      confirmButtonText: 'Valider',
+      showLoaderOnConfirm: true,
+      html:
+        html,
+      preConfirm: function () {
+        return new Promise(function (resolve) {
+          resolve([
+            $('#swal-input1').val(),
+          ]);
+        });
+      },
+    }).then(function (result) {
+      self.apiService.refuseWall(item._id, {name: result.value[0]}).then((d) => {
+        self.loadData();
+      });
     });
   }
 

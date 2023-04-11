@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import {Team} from '@app/models/team';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 import {Quiz} from '@app/models/quiz';
+import {ngxCsv} from 'ngx-csv';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-teams',
@@ -16,6 +18,10 @@ export class TeamsComponent extends GenericFilteringComponent implements OnInit 
 
   list: Team[] = [];
   listLeagues: League[] = [];
+
+  leagueQuery = '';
+  filteredLeagues: League[] = [];
+
   listStates: String[] = ['is_completed', 'is_not_completed'];
   page = 1;
   pageSize = 10;
@@ -31,12 +37,17 @@ export class TeamsComponent extends GenericFilteringComponent implements OnInit 
     };
   }
 
+  onChangeQuery() {
+    this.filteredLeagues = this.filterData(this.listLeagues, this.leagueQuery);
+  }
+
   getLeagueImage(item: Team) {
     if (item.leagueId) {
       return this.listLeagues.find(l => l.leagueId === item.leagueId)?.logo ?? null;
     }
     return null;
   }
+
 
   get leaguesListName() {
     return this.listLeagues.map((v) => v.name);
@@ -45,6 +56,29 @@ export class TeamsComponent extends GenericFilteringComponent implements OnInit 
   componentToHex(c) {
     const hex = c.toString(16);
     return hex.length === 1 ? '0' + hex : hex;
+  }
+
+  exportData() {
+    this.apiService.teams(this.filter, 1, 100000).then(d => {
+      // tslint:disable-next-line:no-shadowed-variable no-unused-expression
+      new ngxCsv(d.data.reverse().map((d) => {
+        return {
+          id: d._id,
+          teamId: d.teamId,
+          name: d.name,
+          displayName: d.displayName,
+          leagueId: d.leagueId,
+          logo: d.logo,
+          color1: d.color1,
+          color2: d.color2,
+          color3: d.color3,
+          nameSynonyms: d.nameSynonyms,
+        };
+      }), 'teams-list', {
+        fieldSeparator: ';',
+        headers: ['id', 'teamId', 'name', 'displayName', 'leagueId', 'logo', 'color1', 'color2', 'color3', 'nameSynonyms'],
+      });
+    });
   }
 
   colorToHex(color) {
@@ -62,6 +96,7 @@ export class TeamsComponent extends GenericFilteringComponent implements OnInit 
     this.loadData();
     this.apiService.leagues(null, 1, 100).then(value => {
       this.listLeagues = value.data.filter((v) => v.type !== 2);
+      this.onChangeQuery();
     });
   }
 

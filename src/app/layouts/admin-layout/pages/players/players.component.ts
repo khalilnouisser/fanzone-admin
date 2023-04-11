@@ -7,6 +7,7 @@ import {Player} from '@app/models/player';
 import {League} from '@app/models/league';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 import {Fantazy} from '@app/models/fantazy';
+import {ngxCsv} from 'ngx-csv';
 
 @Component({
   selector: 'app-players',
@@ -17,6 +18,10 @@ export class PlayersComponent extends GenericFilteringComponent implements OnIni
 
   list: Player[] = [];
   listTeams: Team[] = [];
+
+  teamsQuery = '';
+  filteredTeams: Team[] = [];
+
   listFantazies: Fantazy[] = [];
   listStates: String[] = ['is_completed', 'is_not_completed'];
   listPositions: String[] = ['DC', 'MD', 'MDF', 'AC', 'AG', 'AS', 'AD', 'AID', 'GK', 'MO', 'MG', 'MC', 'AIG'];
@@ -40,9 +45,45 @@ export class PlayersComponent extends GenericFilteringComponent implements OnIni
     this.loadData();
     this.apiService.teams(null, 1, 100000).then(value => {
       this.listTeams = value.data;
+      this.onChangeQuery();
     });
     this.apiService.getFantazies().then((d) => {
       this.listFantazies = d.data;
+    });
+  }
+
+  onChangeQuery() {
+    this.filteredTeams = this.filterData(this.listTeams, this.teamsQuery);
+  }
+
+  getNoteAverage(player: Player) {
+    if (player.notes.length === 0) {
+      return '-';
+    }
+    return (player.notes.reduce((a, b) => a + b) / parseFloat(player.notes.length.toString())).toFixed(1);
+  }
+
+  exportData() {
+    this.apiService.players(this.filter, 1, 1000000).then(d => {
+      // tslint:disable-next-line:no-shadowed-variable no-unused-expression
+      new ngxCsv(d.data.reverse().map((d) => {
+        return {
+          id: d._id,
+          playerId: d.playerId,
+          name: d.name,
+          displayName: d.displayName,
+          teamId: d.teamId,
+          birthDate: d.birthDate,
+          position: d.positionAbr,
+          country: d.country,
+          initialValue: d.initialValue,
+          value: d.value,
+          averageRating: this.getNoteAverage(d)
+        };
+      }), 'players-list', {
+        fieldSeparator: ';',
+        headers:  ['id', 'playerId', 'name', 'displayName', 'teamId', 'birthDate', 'position', 'country', 'initialValue', 'value', 'averageRating'],
+      });
     });
   }
 

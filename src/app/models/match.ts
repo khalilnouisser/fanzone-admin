@@ -41,6 +41,7 @@ export interface Match {
   formated_date: string;
   matchEndTime: number;
   matchEndVoteTime: number;
+  prono: Prono;
   userPlayersRating?: any;
   userPlayBeforeMatch?: any;
 }

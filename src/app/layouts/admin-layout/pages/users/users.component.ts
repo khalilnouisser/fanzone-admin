@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from '@app/core/http/api.service';
 
 import * as moment from 'moment';
 import {User} from '@app/models/user';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
+import {ngxCsv} from 'ngx-csv';
 
 @Component({
   selector: 'app-users',
@@ -13,8 +14,11 @@ import {GenericFilteringComponent} from '@app/components/generic-filtering/gener
 export class UsersComponent extends GenericFilteringComponent implements OnInit {
 
   list: User[] = [];
-  listStates: String[] = ['is_completed', 'is_not_completed'];
+  listStates: String[] = ['is_completed', 'is_not_completed', 'not_validated'];
   listRoles = ['ADMIN', 'USER'];
+  listStatus = [
+    'Troll', 'Footix', 'Footeux', 'Fan', 'Ultra', 'Kapo'
+  ];
   page = 1;
   pageSize = 10;
   totalLength = 0;
@@ -44,7 +48,44 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
       this.totalLength = value.total;
       this.list = value.data.map(v => {
         v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
+        v.formated_last_connection_date = v.lastConnectionDate ? moment(v.lastConnectionDate).format('D MMMM YYYY HH:mm:ss') : '-';
+        // tslint:disable-next-line:max-line-length
+        v.status_level_change_date_formated = v.status_level_change_date ? moment(v.status_level_change_date).format('D MMMM YYYY HH:mm:ss') : '-';
         return v;
+      });
+    });
+  }
+
+  exportData() {
+    this.apiService.users(this.filter, 1, 100000).then(d => {
+      // tslint:disable-next-line:no-shadowed-variable no-unused-expression
+      new ngxCsv(d.data.reverse().map((d) => {
+        return {
+          id: d._id,
+          full_name: d.full_name,
+          pseudo: d.pseudo,
+          email: d.email,
+          language: d.language,
+          type: d.type,
+          favorite_team: d.favorite_team?.name ?? '-',
+          followedUsers: d.followedUsers.length,
+          followedTeams: d.followedTeams.length,
+          governorate: d.governorate?.name ?? '-',
+          region: d.region?.name ?? '-',
+          lastConnectionDate: d.lastConnectionDate ?? '-',
+          status: this.listStatus[d.status_level],
+          previous_status: this.listStatus[d.previous_status_level],
+          status_change_date: d.status_level_change_date,
+          knowledge: d.stats.knowledge,
+          addiction: d.stats.addiction,
+          fidelity: d.stats.fidelity,
+          contribution: d.stats.contribution,
+          reliability: d.stats.reliability,
+        };
+      }), 'users-list', {
+        fieldSeparator: ';',
+        // tslint:disable-next-line:max-line-length
+        headers: ['id', 'full_name', 'pseudo', 'email', 'language', 'type', 'favorite_team', 'followedUsers', 'followedTeams', 'governorate', 'region', 'lastConnectionDate', 'status', 'previous_status', 'status_change_date', 'knowledge', 'addiction', 'fidelity', 'contribution', 'reliability'],
       });
     });
   }

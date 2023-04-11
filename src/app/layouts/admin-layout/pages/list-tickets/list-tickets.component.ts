@@ -5,6 +5,7 @@ import {ApiService} from '@app/core/http/api.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import {Ticket} from '@app/models/ticket';
+import {ngxCsv} from 'ngx-csv';
 
 @Component({
   selector: 'app-list-tickets',
@@ -45,6 +46,19 @@ export class ListTicketsComponent extends GenericFilteringComponent implements O
     return this.listLanguages.map((v) => v.name);
   }
 
+  getTicketType(item: Ticket) {
+    if (item.type === 2) {
+      if (item.concernedWall != null) {
+        return 'Report wall';
+      } else if (item.concernedGroup != null) {
+        return 'Report group';
+      } else {
+        return 'Report';
+      }
+    }
+    return this.ticketTypes[item.type];
+  }
+
 
   loadItems() {
     this.loadData();
@@ -53,6 +67,25 @@ export class ListTicketsComponent extends GenericFilteringComponent implements O
   pageChange(ev) {
     this.page = ev;
     this.loadData();
+  }
+
+  exportData() {
+    this.apiService.tickets(this.filter, 1, 1000000).then(d => {
+      // tslint:disable-next-line:no-shadowed-variable no-unused-expression
+      new ngxCsv(d.data.reverse().map((d) => {
+        return {
+          id: d._id,
+          user: d.user.pseudo,
+          type: d.type,
+          category: d.category,
+          subCategory: d.subCategory,
+          attachments: d.attachments.length,
+        };
+      }), 'tickets-list', {
+        fieldSeparator: ';',
+        headers:  ['id', 'user', 'type', 'category', 'subCategory', 'attachments'],
+      });
+    });
   }
 
   loadData() {

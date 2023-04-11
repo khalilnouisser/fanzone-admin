@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Player} from '@app/models/player';
 import {ApiService} from '@app/core/http/api.service';
 
@@ -7,6 +7,7 @@ import {Rss} from '@app/models/rss';
 import Swal from 'sweetalert2';
 import {League} from '@app/models/league';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
+import {ngxCsv} from 'ngx-csv';
 
 @Component({
   selector: 'app-list-rss',
@@ -36,6 +37,9 @@ export class ListRssComponent extends GenericFilteringComponent implements OnIni
   pageSize = 10;
   totalLength = 0;
 
+  leagueQuery = '';
+  filteredLeagues: League[] = [];
+
   constructor(private apiService: ApiService) {
     super();
     this.filter = {
@@ -44,6 +48,10 @@ export class ListRssComponent extends GenericFilteringComponent implements OnIni
       league: '',
       language: ''
     };
+  }
+
+  onChangeQuery() {
+    this.filteredLeagues = this.filterData(this.leagues, this.leagueQuery);
   }
 
   ngOnInit() {
@@ -57,8 +65,26 @@ export class ListRssComponent extends GenericFilteringComponent implements OnIni
   loadItems() {
     this.apiService.leagues(null, 1, 100).then(d => {
       this.leagues = d.data;
+      this.onChangeQuery();
     });
     this.loadData();
+  }
+
+  exportData() {
+    this.apiService.rss(this.filter, 1, 10000).then(d => {
+      const t = new ngxCsv(d.data.reverse().map((d) => {
+        return {
+          id: d._id,
+          name: d.name,
+          url: d.url,
+          league: d.league,
+          language: d.language
+        };
+      }), 'rss-list', {
+        fieldSeparator: ';',
+        headers:  ['id', 'name', 'url', 'league', 'language'],
+      });
+    });
   }
 
   pageChange(ev) {

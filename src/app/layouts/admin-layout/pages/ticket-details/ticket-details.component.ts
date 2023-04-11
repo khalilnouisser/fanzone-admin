@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Ticket } from '@app/models/ticket';
 import {User} from '@app/models/user';
 import {AuthenticationService, CredentialsService} from '@app/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-ticket-details',
@@ -25,6 +26,7 @@ export class TicketDetailsComponent implements OnInit {
   ticketTypes: string[] = [];
   languages: any[] = [];
   users: User[] = [];
+  list: Ticket[] = [];
   content = '';
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService, private credentialsService: CredentialsService) {
@@ -35,7 +37,7 @@ export class TicketDetailsComponent implements OnInit {
     this.ticketStates = this.apiService.ticketStates();
     this.ticketStatesClass = this.apiService.ticketStatesClass();
     this.ticketTypes = this.apiService.ticketTypes();
-    this.apiService.users(null, 1, 500).then(value => {
+    this.apiService.users(null, 1, 50000).then(value => {
       this.users = value.data;
     });
   }
@@ -55,6 +57,10 @@ export class TicketDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.form =  new FormGroup({
       state: new FormControl('', [Validators.required]),
+      type: new FormControl('', [Validators.required]),
+    });
+    this.apiService.tickets({}, 1, 100000).then(value => {
+      this.list = value.data;
     });
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
@@ -99,6 +105,21 @@ export class TicketDetailsComponent implements OnInit {
         confirmButtonText: 'Fermer',
       });
     });
+  }
+
+  getWallReports(item: Ticket) {
+    return this.list.length === 0 ? '-' +
+      '' : this.list.filter((d) => d.concernedWall != null && d.concernedWall.link === item.concernedWall.link).length;
+  }
+
+  getUserReports(item: Ticket) {
+    return this.list.length === 0 ? '-' +
+      '' : this.list.filter((d) => d.concernedUser != null && d.concernedUser._id === item.concernedUser._id).length;
+  }
+
+  getGroupReports(item: Ticket) {
+    return this.list.length === 0 ? '-' +
+      '' : this.list.filter((d) => d.concernedGroup != null && d.concernedGroup._id === item.concernedGroup._id).length;
   }
 
 }

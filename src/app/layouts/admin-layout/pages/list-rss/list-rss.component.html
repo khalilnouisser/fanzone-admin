@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -32,20 +32,25 @@
                       <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false">
                         <span>Compétition</span>: <span class="dropdown-choice">
-                          <span [innerHTML]="getFilterLabels(this.leaguesListName, 'league')"></span>
+                        <span [innerHTML]="getFilterLabels(this.leaguesListName, 'league')"></span>
                         </span>
                         <span class="mdi mdi-chevron-down ml-2"></span>
                       </button>
                       <div class="dropdown-menu">
-                        <li class="dropdown-item" *ngFor="let item of leagues;let i=index"
-                            [class.active]="isFilterSelected('league', item.leagueId)">
-                          <label class="custom-checkbox">
-                            <input name="filter1" type="checkbox" [checked]="isFilterSelected('league', item.leagueId)"
-                                   (click)="selectFilter('league', item.leagueId); loadData()">
-                            {{item.name}}
-                            <span></span>
-                          </label>
+                        <li class="search-dropdown mb-1">
+                          <input placeholder="Recherche..." [(ngModel)]="leagueQuery" (keydown)="onChangeQuery()" class="form-control" #input>
                         </li>
+                        <div style="max-height: 300px;overflow: auto;">
+                          <li class="dropdown-item" *ngFor="let item of filteredLeagues;let i=index"
+                              [class.active]="isFilterSelected('league', item.leagueId)">
+                            <label class="custom-checkbox">
+                              <input name="filter1" type="checkbox" [checked]="isFilterSelected('league', item.leagueId)"
+                                     (click)="selectFilter('league', item.leagueId); loadData()">
+                              {{item.name}}
+                              <span></span>
+                            </label>
+                          </li>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -71,6 +76,12 @@
                         </li>
                       </div>
                     </div>
+                  </div>
+
+                  <div class="">
+                    <button type="button" (click)="exportData()" class="btn btn-primary m-0 px-2">
+                      <i class="fa-solid fa-download" style="color: #ffffff;"></i>
+                    </button>
                   </div>
 
                   <div class="">

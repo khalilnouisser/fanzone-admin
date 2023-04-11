@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -32,6 +32,20 @@
               <div class="form-group">
                 <label for="displayName">Nom d'affichage</label>
                 <input type="text" class="form-control" id="displayName" aria-describedby="displayName" formControlName="displayName">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="value">Valeur (m€) </label>
+                <input type="text" class="form-control" id="value" aria-describedby="value" formControlName="value">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="positionAbr">Position</label>
+                <select class="form-control" id="positionAbr" aria-describedby="positionAbr" formControlName="positionAbr">
+                  <option *ngFor="let item of positions" [value]="item">{{item}}</option>
+                </select>
               </div>
             </div>
             <div class="col-12">

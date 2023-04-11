@@ -6,6 +6,7 @@ import {ApiService} from '@app/core/http/api.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import {Wall} from '@app/models/ticket';
+import {ngxCsv} from 'ngx-csv';
 
 @Component({
   selector: 'app-list-surveys',
@@ -64,6 +65,24 @@ export class ListSurveysComponent  extends GenericFilteringComponent implements 
       this.list = value.data.map(v => {
         v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
         return v;
+      });
+    });
+  }
+
+  exportData() {
+    this.apiService.walls(this.filter, this.page, 100000).then(d => {
+      // tslint:disable-next-line:no-shadowed-variable no-unused-expression
+      new ngxCsv(d.data.reverse().map((d) => {
+        return {
+          id: d._id,
+          title: d.title,
+          language: d.language,
+          questions: d.questions.length,
+          leaguesId: d.leaguesId.length,
+        };
+      }), 'surveys-list', {
+        fieldSeparator: ';',
+        headers: ['id', 'language', 'title', 'questions', 'leaguesId'],
       });
     });
   }

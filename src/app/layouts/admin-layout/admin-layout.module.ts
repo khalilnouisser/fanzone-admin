@@ -16,23 +16,25 @@ import {PlayersComponent} from './pages/players/players.component';
 import {QuizsComponent} from './pages/quizs/quizs.component';
 import {QuizResponsesComponent} from './pages/quiz-responses/quiz-responses.component';
 import {WallComponent} from './pages/wall/wall.component';
-import { QuizRequestsComponent } from './pages/quiz-requests/quiz-requests.component';
-import { MatchDetailsComponent } from './pages/match-details/match-details.component';
-import { PodiumComponent } from './pages/podium/podium.component';
-import { ListRssComponent } from './pages/list-rss/list-rss.component';
-import { AddEditRssComponent } from './pages/add-edit-rss/add-edit-rss.component';
-import { WallUrlsComponent } from './pages/wall-urls/wall-urls.component';
-import { EditPlayerComponent } from './pages/edit-player/edit-player.component';
-import { EditTeamComponent } from './pages/edit-team/edit-team.component';
-import { LinkRequestsComponent } from './pages/link-requests/link-requests.component';
-import { AddEditWallLinkComponent } from './pages/add-edit-wall-link/add-edit-wall-link.component';
-import { QuizStatsComponent } from './pages/quiz-stats/quiz-stats.component';
-import { ListTicketsComponent } from './pages/list-tickets/list-tickets.component';
-import { TicketDetailsComponent } from './pages/ticket-details/ticket-details.component';
-import { ListGoatsComponent } from './pages/list-goats/list-goats.component';
-import { AddEditGoatComponent } from './pages/add-edit-goat/add-edit-goat.component';
-import { ListSurveysComponent } from './pages/list-surveys/list-surveys.component';
-import { AddEditSurveyComponent } from './pages/add-edit-survey/add-edit-survey.component';
+import {QuizRequestsComponent} from './pages/quiz-requests/quiz-requests.component';
+import {MatchDetailsComponent} from './pages/match-details/match-details.component';
+import {PodiumComponent} from './pages/podium/podium.component';
+import {ListRssComponent} from './pages/list-rss/list-rss.component';
+import {AddEditRssComponent} from './pages/add-edit-rss/add-edit-rss.component';
+import {WallUrlsComponent} from './pages/wall-urls/wall-urls.component';
+import {EditPlayerComponent} from './pages/edit-player/edit-player.component';
+import {EditTeamComponent} from './pages/edit-team/edit-team.component';
+import {LinkRequestsComponent} from './pages/link-requests/link-requests.component';
+import {AddEditWallLinkComponent} from './pages/add-edit-wall-link/add-edit-wall-link.component';
+import {QuizStatsComponent} from './pages/quiz-stats/quiz-stats.component';
+import {ListTicketsComponent} from './pages/list-tickets/list-tickets.component';
+import {TicketDetailsComponent} from './pages/ticket-details/ticket-details.component';
+import {ListGoatsComponent} from './pages/list-goats/list-goats.component';
+import {AddEditGoatComponent} from './pages/add-edit-goat/add-edit-goat.component';
+import {ListSurveysComponent} from './pages/list-surveys/list-surveys.component';
+import {AddEditSurveyComponent} from './pages/add-edit-survey/add-edit-survey.component';
+import { RefusedWallUrlsComponent } from './pages/refused-wall-urls/refused-wall-urls.component';
+import { AddEditRefusedWallLinkComponent } from './pages/add-edit-refused-wall-link/add-edit-refused-wall-link.component';
 
 @NgModule({
   imports: [
@@ -45,7 +47,7 @@ import { AddEditSurveyComponent } from './pages/add-edit-survey/add-edit-survey.
     NgbModalModule,
     NgbPaginationModule,
     NgbDatepickerModule,
-   ],
+  ],
   declarations: [
     UsersComponent,
     GroupsComponent,
@@ -74,7 +76,9 @@ import { AddEditSurveyComponent } from './pages/add-edit-survey/add-edit-survey.
     ListGoatsComponent,
     AddEditGoatComponent,
     ListSurveysComponent,
-    AddEditSurveyComponent]
+    AddEditSurveyComponent,
+    RefusedWallUrlsComponent,
+    AddEditRefusedWallLinkComponent]
 })
 
 export class AdminLayoutModule {

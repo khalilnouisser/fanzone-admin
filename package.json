@@ -32,6 +32,7 @@
     "core-js": "2.6.4",
     "google-translate-api": "^2.3.0",
     "moment": "^2.24.0",
+    "ngx-csv": "^0.3.2",
     "popper.js": "^1.16.1",
     "rxjs": "6.6.7",
     "sweetalert2": "^11.4.26",

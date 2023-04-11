@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -42,6 +42,12 @@
                       </div>
                     </form>
                   </div>
+
+                  <div class="">
+                    <button type="button" (click)="exportData()" class="btn btn-primary m-0 px-2">
+                      <i class="fa-solid fa-download" style="color: #ffffff;"></i>
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
@@ -59,6 +65,8 @@
               <th scope="col">Away</th>
               <th scope="col">Compétition</th>
               <th scope="col">Round</th>
+              <th scope="col">Quotes</th>
+              <th scope="col">Prono votes</th>
               <th scope="col">Live ratings</th>
               <th scope="col">Before ratings</th>
               <th scope="col">Date de creation</th>
@@ -71,6 +79,8 @@
               <td>{{item.awayName}}</td>
               <td>{{item.leagueName}}</td>
               <td>{{item.round}}</td>
+              <td>{{getCote(item, item.prono.numberHome)}}-{{getCote(item, item.prono.numberDraw)}}-{{getCote(item, item.prono.numberAway)}}</td>
+              <td>{{item.prono.numberHome+item.prono.numberDraw+item.prono.numberAway-3}}</td>
               <td>{{item.liveRatings.length}}</td>
               <td>{{item.beforeMatchPlayes.length}}</td>
               <td>

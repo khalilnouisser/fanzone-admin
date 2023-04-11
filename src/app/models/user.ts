@@ -1,6 +1,6 @@
-import {Governorate, Region} from "@app/models/region";
-import {Group} from "@app/models/group";
-import {Team} from "@app/models/team";
+import {Governorate, Region} from '@app/models/region';
+import {Group} from '@app/models/group';
+import {Team} from '@app/models/team';
 
 export class User {
   favorite_team: Team;
@@ -27,6 +27,7 @@ export class User {
   __v: number;
   token: string;
   formated_date: string;
+  formated_last_connection_date: string;
   code: string;
   community_visibility: number;
   governorate: Governorate;
@@ -45,4 +46,12 @@ export class User {
   followers: number;
   stats: any;
   followedTeams: any[];
+  language: string;
+  city: any;
+  status_level: number;
+  favorite_euro_team: any;
+  lastConnectionDate: string;
+  status_level_change_date_formated: string;
+  status_level_change_date: string;
+  previous_status_level: string;
 }

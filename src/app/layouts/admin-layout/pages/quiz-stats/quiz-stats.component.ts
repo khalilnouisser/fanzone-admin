@@ -19,6 +19,9 @@ export class QuizStatsComponent  extends GenericFilteringComponent implements On
   users: User[] = [];
   leagues: League[] = [];
 
+  userQuery = '';
+  filteredUsers: User[] = [];
+
   constructor(private apiService: ApiService) {
     super();
     this.filter = {
@@ -48,8 +51,9 @@ export class QuizStatsComponent  extends GenericFilteringComponent implements On
     this.apiService.quizs(null, 1, 100).then(value => {
       this.quizzes = value.data;
     });
-    this.apiService.users(null, 1, 500).then(value => {
+    this.apiService.users(null, 1, 50000).then(value => {
       this.users = value.data;
+      this.onChangeQuery();
     });
     this.apiService.quizResponses(null, 1, 10000).then(value => {
       this.totalLength = value.total;
@@ -59,7 +63,6 @@ export class QuizStatsComponent  extends GenericFilteringComponent implements On
       });
     });
   }
-
 
   getQuiz(id: string) {
     return this.quizzes.find(l => l._id === id) ?? null;
@@ -111,7 +114,11 @@ export class QuizStatsComponent  extends GenericFilteringComponent implements On
     return null;
   }
 
-  get filteredUsers() {
+  onChangeQuery() {
+    this.filteredUsers = this.filterData(this.users, this.userQuery);
+  }
+
+  get selectedUsers() {
     if (this.filter.userId && this.filter.userId.length > 0) {
       return this.users.filter((d) => this.filter.userId.split(',').indexOf(d._id) !== -1);
     }

@@ -46,6 +46,14 @@
 //  left: -95px!important;
 }
 
+.search-dropdown {
+  padding: 10px 20px;
+  input {
+    line-height: 1;
+    height: 40px;
+  }
+}
+
 .actions {
   display: table-cell;
   svg {
@@ -85,3 +93,29 @@
 .visually-hidden {
   display: none!important;
 }
+
+.table-sticky>thead>tr>th,
+.table-sticky>thead>tr>td {
+  top: 0px;
+  position: sticky;
+}
+
+.card.shadow .table-responsive {
+  max-height: calc(100vh - 244px);
+  display: block;
+  overflow: scroll;
+  width: 100%;
+  table>thead>tr>th,
+  table>thead>tr>td {
+    top: 0px;
+    position: sticky;
+  }
+}
+
+.btn {
+  position: inherit!important;
+  will-change: auto!important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif!important; }

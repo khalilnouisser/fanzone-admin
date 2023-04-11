@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -60,20 +60,25 @@
                       <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false">
                         <span>Utilisateur</span>: <span class="dropdown-choice">
-                          <span [innerHTML]="getFilterLabels(this.getName(users), 'userId')"></span>
+                        <span [innerHTML]="getFilterLabels(this.getName(users), 'userId')"></span>
                         </span>
                         <span class="mdi mdi-chevron-down ml-2"></span>
                       </button>
                       <div class="dropdown-menu">
-                        <li class="dropdown-item" *ngFor="let item of users;let i=index"
-                            [class.active]="isFilterSelected('userId', item._id)">
-                          <label class="custom-checkbox">
-                            <input name="filter1" type="checkbox" [checked]="isFilterSelected('userId', item._id)"
-                                   (click)="selectFilter('userId', item._id);">
-                            {{item.pseudo}}
-                            <span></span>
-                          </label>
+                        <li class="search-dropdown mb-1">
+                          <input placeholder="Recherche..." [(ngModel)]="userQuery" (keydown)="onChangeQuery()" class="form-control" #input>
                         </li>
+                        <div style="max-height: 300px;overflow: auto;">
+                          <li class="dropdown-item" *ngFor="let item of filteredUsers;let i=index"
+                              [class.active]="isFilterSelected('userId', item._id)">
+                            <label class="custom-checkbox">
+                              <input name="filter1" type="checkbox" [checked]="isFilterSelected('userId', item._id)"
+                                     (click)="selectFilter('userId', item._id);">
+                              {{item.pseudo}}
+                              <span></span>
+                            </label>
+                          </li>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -98,14 +103,14 @@
             <tbody>
             <ng-container *ngFor="let type of getQuizzesTypes()">
               <ng-container *ngFor="let title of getQuizzesTitle(getListByType(type)); let i=index">
-                <ng-container *ngFor="let item of filteredUsers; let j=index">
+                <ng-container *ngFor="let item of selectedUsers; let j=index">
                   <tr>
-                    <td [rowSpan]="getQuizzesTitle(getListByType(type)).length*filteredUsers.length" *ngIf="i == 0 && j == 0">
+                    <td [rowSpan]="getQuizzesTitle(getListByType(type)).length*selectedUsers.length" *ngIf="i == 0 && j == 0">
                       <span *ngIf="type==0">Who am i</span>
                       <span *ngIf="type==1">XI</span>
                       <span *ngIf="type==2">Liste</span>
                     </td>
-                    <td [rowSpan]="filteredUsers.length" *ngIf="j == 0">
+                    <td [rowSpan]="selectedUsers.length" *ngIf="j == 0">
                       {{title}}
                     </td>
                     <td>

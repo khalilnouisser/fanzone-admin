@@ -13,7 +13,7 @@
         <div class="card-header border-0">
           <div class="row">
             <div class="col-6">
-              <h3 class="mb-0">{{id ? 'Modifier' : 'Ajouter'}} RSS</h3>
+              <h3 class="mb-0">{{id ? 'Modifier' : 'Ajouter'}} un lien wall</h3>
             </div>
             <div class="ml-auto nav-item">
               <button type="button" routerLink="add" [disabled]="form.invalid" (click)="submit()" class="btn btn-primary m-0">Valider</button>
@@ -32,24 +32,6 @@
               <div class="form-group">
                 <label for="url">Lien</label>
                 <input type="text" class="form-control" id="url" aria-describedby="url" formControlName="url">
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group">
-                <label for="league">Compétition</label>
-                <select class="form-control" id="league" aria-describedby="league" formControlName="league">
-                  <option value="">-</option>
-                  <option *ngFor="let league of leagues" [value]="league.leagueId">{{league.name}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group">
-                <label for="language">Language</label>
-                <select class="form-control" id="language" aria-describedby="language" formControlName="language">
-                  <option value="">-</option>
-                  <option *ngFor="let language of languages" [value]="language.id">{{language.value}}</option>
-                </select>
               </div>
             </div>
           </form>

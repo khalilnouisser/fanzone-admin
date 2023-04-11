@@ -16,6 +16,7 @@ export class EditPlayerComponent implements OnInit {
   form: FormGroup;
   team: Team;
   loading = false;
+  positions = ['GK', 'AD', 'DC', 'AG', 'MDF', 'MD', 'MC', 'MG', 'MO', 'AID', 'AS', 'AIG', 'AC'];
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService) {
   }
@@ -24,6 +25,8 @@ export class EditPlayerComponent implements OnInit {
     this.form =  new FormGroup({
       name: new FormControl('', [Validators.required]),
       displayName: new FormControl('', [Validators.required]),
+      value: new FormControl('', [Validators.required]),
+      positionAbr: new FormControl('', [Validators.required]),
       photo: new FormControl('', []),
     });
     this.route.paramMap.subscribe(params => {

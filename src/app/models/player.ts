@@ -5,6 +5,7 @@ export interface Player {
   birthDate: string;
   value: number;
   positions: number[];
+  notes: number[];
   _id: string;
   playerId: string;
   teamId: string;

@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -32,20 +32,25 @@
                       <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false">
                         <span>Compétition</span>: <span class="dropdown-choice">
-                          <span [innerHTML]="getFilterLabels(this.leaguesListName, 'leagueId')"></span>
+                        <span [innerHTML]="getFilterLabels(this.leaguesListName, 'leagueId')"></span>
                         </span>
                         <span class="mdi mdi-chevron-down ml-2"></span>
                       </button>
                       <div class="dropdown-menu">
-                        <li class="dropdown-item" *ngFor="let item of leagues;let i=index"
-                            [class.active]="isFilterSelected('leagueId', item.leagueId)">
-                          <label class="custom-checkbox">
-                            <input name="filter1" type="checkbox" [checked]="isFilterSelected('leagueId', item.leagueId)"
-                                   (click)="selectFilter('leagueId', item.leagueId); loadData()">
-                            {{item.name}}
-                            <span></span>
-                          </label>
+                        <li class="search-dropdown mb-1">
+                          <input placeholder="Recherche..." [(ngModel)]="leagueQuery" (keydown)="onChangeQuery()" class="form-control" #input>
                         </li>
+                        <div style="max-height: 300px;overflow: auto;">
+                          <li class="dropdown-item" *ngFor="let item of filteredLeagues;let i=index"
+                              [class.active]="isFilterSelected('leagueId', item.leagueId)">
+                            <label class="custom-checkbox">
+                              <input name="filter1" type="checkbox" [checked]="isFilterSelected('leagueId', item.leagueId)"
+                                     (click)="selectFilter('leagueId', item.leagueId); loadData()">
+                              {{item.name}}
+                              <span></span>
+                            </label>
+                          </li>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -74,6 +79,12 @@
                   </div>
 
                   <div class="">
+                    <button type="button" (click)="exportData()" class="btn btn-primary m-0 px-2">
+                      <i class="fa-solid fa-download" style="color: #ffffff;"></i>
+                    </button>
+                  </div>
+
+                  <div class="">
                     <button type="button" (click)="generateQuiz()" class="btn btn-primary m-0">Ajouter</button>
                   </div>
                 </div>
@@ -91,6 +102,7 @@
               <th scope="col">Id</th>
               <th scope="col">Title</th>
               <th scope="col">Compétition</th>
+              <th scope="col">Équipe</th>
               <th scope="col">Type</th>
               <th scope="col">Réponses utilisateurs</th>
               <th scope="col">Taux de réussite</th>
@@ -102,12 +114,18 @@
             <tr *ngFor="let item of list">
               <td>{{item._id}}</td>
               <td>
-                {{item.title}}
+                {{getTitle(item)}}
               </td>
               <td *ngIf="item.leagueId">
                 <img *ngIf="getLeagueImage(item)" style="width: 30px;height: 30px;object-fit: contain" src="{{getLeagueImage(item)}}"/>
               </td>
               <td *ngIf="!item.leagueId" style="height: 83px">
+                -
+              </td>
+              <td *ngIf="item.teamId">
+                <img *ngIf="getTeamImage(item)" style="width: 30px;height: 30px;object-fit: contain" src="{{getTeamImage(item)}}"/>
+              </td>
+              <td *ngIf="!item.teamId" style="height: 83px">
                 -
               </td>
               <td>{{item.type == 1 ? 'XI' : (item.type == 0 ? 'Joueur' : '10 joueurs')}}</td>

@@ -5,6 +5,7 @@ import {ApiService} from '@app/core/http/api.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import {Goat} from '@app/models/goat';
+import {ngxCsv} from 'ngx-csv';
 
 @Component({
   selector: 'app-list-goats',
@@ -46,6 +47,29 @@ export class ListGoatsComponent extends GenericFilteringComponent implements OnI
     this.apiService.goats(this.filter, this.page, this.pageSize).then(value => {
       this.totalLength = value.total;
       this.list = value.data;
+    });
+  }
+
+  exportData() {
+    this.apiService.goats(this.filter, this.page, 100000).then(d => {
+      // tslint:disable-next-line:no-shadowed-variable no-unused-expression
+      new ngxCsv(d.data.reverse().map((d) => {
+        const sortedPlayers = d.players.sort((a, b) => b.score - a.score);
+        return {
+          id: d._id,
+          name: d.name,
+          icon: d.icon,
+          startDate: d.startDate,
+          endDate: d.endDate,
+          plays: d.plays.length,
+          top1: sortedPlayers.length > 0 ? sortedPlayers[0].name : '-',
+          top2: sortedPlayers.length > 1 ? sortedPlayers[1].name : '-',
+          top3: sortedPlayers.length > 2 ? sortedPlayers[2].name : '-',
+        };
+      }), 'goats-list', {
+        fieldSeparator: ';',
+        headers: ['id', 'name', 'icon', 'startDate', 'endDate', 'plays', 'top1', 'top2', 'top3'],
+      });
     });
   }
 
