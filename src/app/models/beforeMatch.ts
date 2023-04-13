@@ -1,14 +1,17 @@
+import {User} from '@app/models/user';
+
 export interface BeforeMatch {
   homeHeartComposition: Composition;
   homeBetComposition: Composition;
   awayHeartComposition: Composition;
   awayBetComposition: Composition;
+  compo: Composition;
   pronoScore: number;
   pronoValidated: boolean;
   totalScore: number;
   _id: string;
   matchId: string;
-  userId: string;
+  userId: User;
   createdAt: string;
   updatedAt: string;
   formated_date: string;

@@ -74,10 +74,20 @@ export class MatchsComponent extends GenericFilteringComponent implements OnInit
           homeQuote: this.getCote(d, d.prono.numberHome),
           drawQuote: this.getCote(d, d.prono.numberDraw),
           awayQuote: this.getCote(d, d.prono.numberAway),
+          compoHomeFav: this.getCompoStats(d, true, true),
+          compoHomeElse: this.getCompoStats(d, true, false),
+          compoAwayFav: this.getCompoStats(d, false, true),
+          compoAwayElse: this.getCompoStats(d, false, false),
+          ratingHomeFav: this.getRatingStats(d, true, true),
+          ratingHomeElse: this.getRatingStats(d, true, false),
+          ratingAwayFav: this.getRatingStats(d, false, true),
+          ratingAwayElse: this.getRatingStats(d, false, false),
+          pronoFav: this.getPronoStats(d, true),
+          pronoElse: this.getPronoStats(d, false),
         };
       }), 'matchs-' + this.adaptNumber(this.model.month) + '-' + this.adaptNumber(this.model.day) + '-' + this.model.year + '-list', {
         fieldSeparator: ';',
-        headers: ['id', 'matchId', 'homeName', 'homeId', 'awayName', 'awayId', 'homeScore', 'awayScore', 'leagueName', 'leagueId', 'round', 'matchTime', 'liveRatings', 'beforeMatchPlayes', 'pronoVotes', 'homeQuote', 'drawQuote', 'awayQuote'],
+        headers: ['id', 'matchId', 'homeName', 'homeId', 'awayName', 'awayId', 'homeScore', 'awayScore', 'leagueName', 'leagueId', 'round', 'matchTime', 'liveRatings', 'beforeMatchPlayes', 'pronoVotes', 'homeQuote', 'drawQuote', 'awayQuote', 'compoHomeFav', 'compoHomeElse', 'compoAwayFav', 'compoAwayElse', 'ratingHomeFav', 'ratingHomeElse', 'ratingAwayFav', 'ratingAwayElse', 'pronoFav', 'pronoElse'],
       });
     });
   }
@@ -88,6 +98,34 @@ export class MatchsComponent extends GenericFilteringComponent implements OnInit
 
   adaptNumber(x) {
     return x > 9 ? x.toString() : '0' + x;
+  }
+
+  getCompoStats(match: Match, isHome: boolean, isFav: boolean) {
+    const teamId = isHome ? match.homeId : match.awayId;
+    const compoList = match.beforeMatchPlayes.map((d) => {
+      d.compo = isHome ? d.homeBetComposition : d.awayBetComposition;
+      return d;
+    }).filter((d) => {
+      const teamCondition = !isFav || (isFav && (d.userId.favorite_team?.teamId ?? '') === teamId);
+      return d.compo != null && (d.compo.lineups ?? []).length > 0 && d.compo.formation && teamCondition;
+    });
+    return compoList.length;
+  }
+
+  getRatingStats(match: Match, isHome: boolean, isFav: boolean) {
+    const teamId = isHome ? match.homeId : match.awayId;
+    const liveRatingList = match.liveRatings.filter((d) => {
+      const teamCondition = !isFav || (isFav && (d.userId.favorite_team?.teamId ?? '') === teamId);
+      return (isHome ? d.isHomeValidated : d.isAwayValidated) && teamCondition;
+    });
+    return liveRatingList.length;
+  }
+
+  getPronoStats(match: Match, isFav: boolean) {
+    const compoList = match.beforeMatchPlayes.filter((d) => {
+      return !isFav || (isFav && [match.homeId, match.awayId].indexOf((d.userId.favorite_team?.teamId ?? '')) !== -1);
+    });
+    return compoList.length;
   }
 
 }

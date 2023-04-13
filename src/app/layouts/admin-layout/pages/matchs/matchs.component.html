@@ -60,16 +60,38 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
             <tr>
-              <th scope="col">Home</th>
-              <th scope="col">Score</th>
-              <th scope="col">Away</th>
-              <th scope="col">Compétition</th>
-              <th scope="col">Round</th>
-              <th scope="col">Quotes</th>
-              <th scope="col">Prono votes</th>
-              <th scope="col">Live ratings</th>
-              <th scope="col">Before ratings</th>
-              <th scope="col">Date de creation</th>
+              <th scope="col" rowspan="3">Home</th>
+              <th scope="col" rowspan="3">Score</th>
+              <th scope="col" rowspan="3">Away</th>
+              <th scope="col" rowspan="3">Compétition</th>
+              <th scope="col" rowspan="3">Round</th>
+              <th scope="col" rowspan="3">Quotes</th>
+              <th scope="col" rowspan="3">Prono votes</th>
+              <th scope="col" rowspan="3">Live ratings</th>
+              <th scope="col" rowspan="3">Before ratings</th>
+              <th scope="col" colspan="4" style="text-align:center">Compo</th>
+              <th scope="col" colspan="4" style="text-align:center">Notation</th>
+              <th scope="col" colspan="2" style="text-align:center">Prono</th>
+              <th scope="col" rowspan="3">Date de creation</th>
+            </tr>
+            <tr>
+              <th scope="col" colspan="2" style="text-align:center">Home</th>
+              <th scope="col" colspan="2" style="text-align:center">Away</th>
+              <th scope="col" colspan="2" style="text-align:center">Home</th>
+              <th scope="col" colspan="2" style="text-align:center">Away</th>
+              <th scope="col" rowspan="2" style="text-align:center">Coeur</th>
+              <th scope="col" rowspan="2" style="text-align:center">Lambda</th>
+            </tr>
+            <tr>
+              <th scope="col" style="text-align:center">Coeur</th>
+              <th scope="col" style="text-align:center">Lambda</th>
+              <th scope="col" style="text-align:center">Coeur</th>
+              <th scope="col" style="text-align:center">Lambda</th>
+
+              <th scope="col" style="text-align:center">Coeur</th>
+              <th scope="col" style="text-align:center">Lambda</th>
+              <th scope="col" style="text-align:center">Coeur</th>
+              <th scope="col" style="text-align:center">Lambda</th>
             </tr>
             </thead>
             <tbody>
@@ -83,6 +105,16 @@
               <td>{{item.prono.numberHome+item.prono.numberDraw+item.prono.numberAway-3}}</td>
               <td>{{item.liveRatings.length}}</td>
               <td>{{item.beforeMatchPlayes.length}}</td>
+              <td>{{getCompoStats(item, true, true)}}</td>
+              <td>{{getCompoStats(item, true, false)}}</td>
+              <td>{{getCompoStats(item, false, true)}}</td>
+              <td>{{getCompoStats(item, false, false)}}</td>
+              <td>{{getRatingStats(item, true, true)}}</td>
+              <td>{{getRatingStats(item, true, false)}}</td>
+              <td>{{getRatingStats(item, false, true)}}</td>
+              <td>{{getRatingStats(item, false, false)}}</td>
+              <td>{{getPronoStats(item, true)}}</td>
+              <td>{{getPronoStats(item, false)}}</td>
               <td>
                 {{item.formated_date}}
               </td>

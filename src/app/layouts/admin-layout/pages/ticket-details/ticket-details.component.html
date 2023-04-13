@@ -59,11 +59,17 @@
                       <b>Code :</b> {{ticket.concernedGroup.code}}
                     </p>
                     <p class="form-content mb-1">
+                      <b>Status : </b> {{getStatus(ticket.concernedGroup)}}
+                    </p>
+                    <p class="form-content mb-1">
                       <b>Nombre de signalement :</b> {{getGroupReports(ticket)}}
                     </p>
                     <p class="form-content mb-1">
                       <b class="mr-2">Actions :</b>
-                      <button class="btn btn-sm" [class.btn-warning]="!ticket.concernedGroup.masked" [class.btn-success]="ticket.concernedGroup.masked" (click)="toggleGroupVisiblity()">{{ticket.concernedGroup.masked ? 'Ouvrir' : 'Fermer'}}</button>
+                      <button class="btn btn-sm btn-info mr-2" (click)="alertUser(1)">Alerter</button>
+                      <button class="btn btn-sm btn-success mr-2" *ngIf="ticket.concernedGroup.state != 0" (click)="cancelGroupSuspension()">Annuler la suspension</button>
+                      <button class="btn btn-sm btn-warning mr-2" *ngIf="ticket.concernedGroup.state != 1" (click)="partialSuspendGroup()">Suspendre temporairement</button>
+                      <button class="btn btn-sm btn-danger mr-2" *ngIf="ticket.concernedGroup.state != 2" (click)="defectivelySuspendGroup()">Suspendre définitivement</button>
                     </p>
                   </div>
                 </div>
@@ -115,7 +121,20 @@
                       <b>Email : </b> {{ticket.concernedUser.email}}
                     </p>
                     <p class="form-content mb-1">
+                      <b>Status : </b> {{getStatus(ticket.concernedUser)}}
+                    </p>
+                    <p class="form-content mb-1">
                       <b>Nombre de signalement :</b> {{getUserReports(ticket)}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b>Nombre des alerts :</b> {{ticket.concernedUser.alerts.length}}
+                    </p>
+                    <p class="form-content mb-1">
+                      <b class="mr-2">Actions :</b>
+                      <button class="btn btn-sm btn-info mr-2" (click)="alertUser(0)">Alerter</button>
+                      <button class="btn btn-sm btn-success mr-2" *ngIf="ticket.concernedUser.state != 0" (click)="cancelSuspension()">Annuler la suspension</button>
+                      <button class="btn btn-sm btn-warning mr-2" *ngIf="ticket.concernedUser.state != 1" (click)="partialSuspendUser()">Suspendre temporairement</button>
+                      <button class="btn btn-sm btn-danger mr-2" *ngIf="ticket.concernedUser.state != 2" (click)="defectivelySuspendUser()">Suspendre définitivement</button>
                     </p>
                   </div>
                 </div>

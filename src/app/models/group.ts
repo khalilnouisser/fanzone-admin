@@ -1,4 +1,5 @@
 export interface Group {
+  state: number;
   membres: string[];
   _id: string;
   code: string;

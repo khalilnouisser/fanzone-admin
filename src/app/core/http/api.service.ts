@@ -16,6 +16,18 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  addAlertToUser(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/users/' + id + '/alert', body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  editUser(id: string, body: any): Promise<any> {
+    return this.http.put(environment.serverUrl + '/api/users/' + id + '/admin', body)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   addAdmin(body: any): Promise<any> {
     return this.http
       .post(environment.serverUrl + '/api/users', body)
@@ -376,7 +388,7 @@ export class ApiService {
   }
 
   matchs(filterData: any = null, date: String): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/matchs?date=' + date  + this.getParams(filterData))
+    return this.http.get(environment.serverUrl + '/api/matchs/admin?date=' + date  + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }
