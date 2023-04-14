@@ -68,6 +68,7 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
           language: d.language,
           type: d.type,
           favorite_team: d.favorite_team?.name ?? '-',
+          national_favorite_team: d.favorite_euro_team?.name ?? '-',
           followedUsers: d.followedUsers.length,
           followedTeams: d.followedTeams.length,
           governorate: d.governorate?.name ?? '-',
@@ -85,7 +86,7 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
       }), 'users-list', {
         fieldSeparator: ';',
         // tslint:disable-next-line:max-line-length
-        headers: ['id', 'full_name', 'pseudo', 'email', 'language', 'type', 'favorite_team', 'followedUsers', 'followedTeams', 'governorate', 'region', 'lastConnectionDate', 'status', 'previous_status', 'status_change_date', 'knowledge', 'addiction', 'fidelity', 'contribution', 'reliability'],
+        headers: ['id', 'full_name', 'pseudo', 'email', 'language', 'type', 'favorite_team', 'national_favorite_team', 'followedUsers', 'followedTeams', 'governorate', 'region', 'lastConnectionDate', 'status', 'previous_status', 'status_change_date', 'knowledge', 'addiction', 'fidelity', 'contribution', 'reliability'],
       });
     });
   }

@@ -73,6 +73,7 @@ export class PlayersComponent extends GenericFilteringComponent implements OnIni
           name: d.name,
           displayName: d.displayName,
           teamId: d.teamId,
+          teamName: d.team ? d.team.name : '-',
           birthDate: d.birthDate,
           position: d.positionAbr,
           country: d.country,
@@ -82,7 +83,7 @@ export class PlayersComponent extends GenericFilteringComponent implements OnIni
         };
       }), 'players-list', {
         fieldSeparator: ';',
-        headers:  ['id', 'playerId', 'name', 'displayName', 'teamId', 'birthDate', 'position', 'country', 'initialValue', 'value', 'averageRating'],
+        headers:  ['id', 'playerId', 'name', 'displayName', 'teamId', 'teamName', 'birthDate', 'position', 'country', 'initialValue', 'value', 'averageRating'],
       });
     });
   }
