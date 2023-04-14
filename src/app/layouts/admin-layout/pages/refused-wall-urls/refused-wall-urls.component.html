@@ -13,7 +13,7 @@
         <div class="card-header border-0">
           <div class="d-flex align-items-center">
             <div class="">
-              <h3 class="mb-0">Liste des liens autorisés</h3>
+              <h3 class="mb-0">Liste des liens réfusés</h3>
             </div>
             <div class="col p-0">
               <form class="form-filters">
@@ -62,7 +62,7 @@
                 {{item.name ?? "-"}}
               </td>
               <td>
-                {{item.url.substr(0, 50)}}
+                {{(item.url ?? "-").substr(0, 50)}}
               </td>
               <td>
                 {{item.formated_date}}

@@ -114,6 +114,7 @@
               <th scope="col">User favoris</th>
               <th scope="col">Points</th>
               <th scope="col">Dernière connexion</th>
+              <th scope="col">Dernière connexion (jours)</th>
               <th scope="col">Date d'inscription</th>
               <th scope="col"></th>
             </tr>
@@ -171,6 +172,9 @@
               <td>{{item.total_score.toFixed(1)}}</td>
               <td>
                 {{item.formated_last_connection_date}}
+              </td>
+              <td>
+                {{item.last_connection_days}}
               </td>
               <td>
                 {{item.formated_date}}

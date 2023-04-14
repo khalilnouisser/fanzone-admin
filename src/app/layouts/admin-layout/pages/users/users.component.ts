@@ -49,6 +49,12 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
       this.list = value.data.map(v => {
         v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
         v.formated_last_connection_date = v.lastConnectionDate ? moment(v.lastConnectionDate).format('D MMMM YYYY HH:mm:ss') : '-';
+        const date1 = new Date();
+        const date2 = moment(v.lastConnectionDate).toDate();
+
+        const diffTime = Math.abs(date2.getTime() - date1.getTime());
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+        v.last_connection_days = diffDays;
         // tslint:disable-next-line:max-line-length
         v.status_level_change_date_formated = v.status_level_change_date ? moment(v.status_level_change_date).format('D MMMM YYYY HH:mm:ss') : '-';
         return v;

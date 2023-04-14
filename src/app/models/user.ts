@@ -54,6 +54,7 @@ export class User {
   status_level_change_date_formated: string;
   status_level_change_date: string;
   previous_status_level: string;
+  last_connection_days: string;
 
   state: number;
   suspensionEndDate: string;
