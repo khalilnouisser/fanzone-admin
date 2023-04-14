@@ -42,6 +42,26 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
     this.loadData();
   }
 
+  getUserStatus(user: User) {
+    if (user.status === 0) {
+      return 'Mail pas confirmé';
+    } else if (
+      user.favorite_team &&
+      user.favorite_team.teamId &&
+      user.favorite_euro_team &&
+      user.favorite_euro_team.teamId &&
+      user.language &&
+      user.governorate &&
+      user.region &&
+      user.full_name &&
+      user.pseudo
+    ) {
+      return '100% OK';
+    } else {
+      return 'Incomplet';
+    }
+  }
+
   loadData() {
     this.list = [];
     this.apiService.users(this.filter, this.page, this.pageSize).then(value => {

@@ -115,6 +115,7 @@
               <th scope="col">Points</th>
               <th scope="col">Dernière connexion</th>
               <th scope="col">Dernière connexion (jours)</th>
+              <th scope="col">Etat</th>
               <th scope="col">Date d'inscription</th>
               <th scope="col"></th>
             </tr>
@@ -175,6 +176,9 @@
               </td>
               <td>
                 {{item.last_connection_days}}
+              </td>
+              <td>
+                {{getUserStatus(item)}}
               </td>
               <td>
                 {{item.formated_date}}
