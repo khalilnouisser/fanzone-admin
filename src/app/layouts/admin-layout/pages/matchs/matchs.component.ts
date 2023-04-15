@@ -128,7 +128,7 @@ export class MatchsComponent extends GenericFilteringComponent implements OnInit
           pronoFav: this.getPronoStats(d, true),
           pronoElse: this.getPronoStats(d, false),
         };
-      }), 'matchs-' + this.adaptNumber(this.model.month) + '-' + this.adaptNumber(this.model.day) + '-' + this.model.year + '-list', {
+      }), 'matchs-' + this.selectedDate.split(' ').join('') + '-list', {
         fieldSeparator: ';',
         headers: ['id', 'matchId', 'homeName', 'homeId', 'awayName', 'awayId', 'homeScore', 'awayScore', 'leagueName', 'leagueId', 'round', 'matchTime', 'liveRatings', 'beforeMatchPlayes', 'pronoVotes', 'homeQuote', 'drawQuote', 'awayQuote', 'compoHomeFav', 'compoHomeElse', 'compoAwayFav', 'compoAwayElse', 'ratingHomeFav', 'ratingHomeElse', 'ratingAwayFav', 'ratingAwayElse', 'pronoFav', 'pronoElse'],
       });

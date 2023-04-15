@@ -63,6 +63,9 @@ export class PodiumComponent extends GenericFilteringComponent implements OnInit
           email: d.email,
           language: d.language,
           total_score: d.total_score,
+          friends: d.friends.length,
+          followers: d.stats.followers,
+          wallScore: d.wallScore,
           fantazyScore: d.fantazyScore,
           liveRatingsScore: d.liveRatingsScore,
           liveFavoriteTeamRatingsScore: d.liveFavoriteTeamRatingsScore,
@@ -74,7 +77,7 @@ export class PodiumComponent extends GenericFilteringComponent implements OnInit
         };
       }), 'podium', {
         fieldSeparator: ';',
-        headers: ['id', 'full_name', 'pseudo', 'email', 'language', 'total_score', 'fantazyScore', 'liveRatingsScore', 'liveFavoriteTeamRatingsScore', 'compoScore', 'compoFavoriteTeamScore', 'pronoScore', 'pronoFavoriteTeamScore', 'battleScore'],
+        headers: ['id', 'full_name', 'pseudo', 'email', 'language', 'total_score', 'friends', 'followers', 'fantazyScore', 'wallScore', 'liveRatingsScore', 'liveFavoriteTeamRatingsScore', 'compoScore', 'compoFavoriteTeamScore', 'pronoScore', 'pronoFavoriteTeamScore', 'battleScore'],
       });
     });
   }

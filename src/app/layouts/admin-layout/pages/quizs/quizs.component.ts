@@ -172,14 +172,18 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
       new ngxCsv(d.data.reverse().map((d) => {
         return {
           id: d._id,
-          title: d.title,
+          title: this.getTitle(d),
           type: d.type,
           leagueId: d.leagueId,
+          leagueName: this.getLeagueName(d),
+          teamId: d.teamId,
+          teamName: this.getTeamName(d),
           answers: d.answers.length,
+          average: this.getAverage(d),
         };
       }), 'quizs-list', {
         fieldSeparator: ';',
-        headers: ['id', 'title', 'type', 'leagueId', 'answers'],
+        headers: ['id', 'title', 'type', 'leagueId', 'leagueName', 'teamId', 'teamName', 'answers', 'average'],
       });
     });
   }

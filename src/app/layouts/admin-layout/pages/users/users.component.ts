@@ -85,7 +85,20 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
   exportData() {
     this.apiService.users(this.filter, 1, 100000).then(d => {
       // tslint:disable-next-line:no-shadowed-variable no-unused-expression
-      new ngxCsv(d.data.reverse().map((d) => {
+      new ngxCsv(d.data.reverse().map(v => {
+        v.formated_date = moment(v.createdAt).format('D MMMM YYYY');
+        v.formated_last_connection_date = v.lastConnectionDate ? moment(v.lastConnectionDate).format('D MMMM YYYY HH:mm:ss') : '-';
+        const date1 = new Date();
+        const date2 = moment(v.lastConnectionDate).toDate();
+
+        const diffTime = Math.abs(date2.getTime() - date1.getTime());
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+        v.last_connection_days = diffDays;
+        // tslint:disable-next-line:max-line-length
+        v.status_level_change_date_formated = v.status_level_change_date ? moment(v.status_level_change_date).format('D MMMM YYYY HH:mm:ss') : '-';
+        return v;
+        // tslint:disable-next-line:no-shadowed-variable
+      }).map((  d) => {
         return {
           id: d._id,
           full_name: d.full_name,
@@ -108,11 +121,21 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
           fidelity: d.stats.fidelity,
           contribution: d.stats.contribution,
           reliability: d.stats.reliability,
+          visibility: ['Invisible', 'Visible que pour les amis', 'Visible pour tous'][d.community_visibility],
+          friends: d.friends.length,
+          followers: d.stats.followers,
+          total_score: d.total_score,
+          last_connection_date: d.formated_last_connection_date,
+          last_connection_days: d.last_connection_days,
+          state: this.getUserStatus(d)
         };
       }), 'users-list', {
         fieldSeparator: ';',
         // tslint:disable-next-line:max-line-length
-        headers: ['id', 'full_name', 'pseudo', 'email', 'language', 'type', 'favorite_team', 'national_favorite_team', 'followedUsers', 'followedTeams', 'governorate', 'region', 'lastConnectionDate', 'status', 'previous_status', 'status_change_date', 'knowledge', 'addiction', 'fidelity', 'contribution', 'reliability'],
+        headers: ['id', 'full_name', 'pseudo', 'email', 'language', 'type', 'favorite_team', 'national_favorite_team',
+          'followedUsers', 'followedTeams', 'governorate', 'region', 'lastConnectionDate', 'status', 'previous_status',
+          'status_change_date', 'knowledge', 'addiction', 'fidelity', 'contribution', 'reliability', 'visibility',
+        'friends', 'followers', 'total_score', 'last_connection_date', 'last_connection_days', 'state'],
       });
     });
   }

@@ -44,6 +44,7 @@ export class LeaguesComponent extends GenericFilteringComponent implements OnIni
           leagueId: d.leagueId,
           name: d.name,
           shortName: d.shortName,
+          country: d.country,
           currentRound: d.currentRound,
           totalRound: d.totalRound,
           teams: d.teams.length,
@@ -52,7 +53,7 @@ export class LeaguesComponent extends GenericFilteringComponent implements OnIni
         };
       }), 'leagues-list', {
         fieldSeparator: ';',
-        headers:  ['id', 'leagueId', 'name', 'shortName', 'currentRound', 'totalRound', 'teams', 'currentSeason', 'coefficient'],
+        headers:  ['id', 'leagueId', 'name', 'shortName', 'country', 'currentRound', 'totalRound', 'teams', 'currentSeason', 'coefficient'],
       });
     });
   }

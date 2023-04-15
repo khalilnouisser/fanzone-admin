@@ -79,11 +79,15 @@ export class PlayersComponent extends GenericFilteringComponent implements OnIni
           country: d.country,
           initialValue: d.initialValue,
           value: d.value,
-          averageRating: this.getNoteAverage(d)
+          averageRating: this.getNoteAverage(d),
+          fantazyBuy: this.getNumberOfHistoriesByType(d.playerId, 0),
+          fantazySell: this.getNumberOfHistoriesByType(d.playerId, 1),
+          age: this.getAge(d)
         };
       }), 'players-list', {
         fieldSeparator: ';',
-        headers:  ['id', 'playerId', 'name', 'displayName', 'teamId', 'teamName', 'birthDate', 'position', 'country', 'initialValue', 'value', 'averageRating'],
+        headers:  ['id', 'playerId', 'name', 'displayName', 'teamId', 'teamName', 'birthDate',
+          'position', 'country', 'initialValue', 'value', 'averageRating', 'fantazyBuy', 'fantazySell', 'age'],
       });
     });
   }

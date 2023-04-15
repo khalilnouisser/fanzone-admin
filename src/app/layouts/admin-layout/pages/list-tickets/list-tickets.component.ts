@@ -15,6 +15,7 @@ import {ngxCsv} from 'ngx-csv';
 export class ListTicketsComponent extends GenericFilteringComponent implements OnInit {
 
   list: Ticket[] = [];
+  allTickets: Ticket[] = [];
   listLanguages: any[] = [];
   ticketStates: string[] = [];
   ticketStatesClass: string[] = [];
@@ -40,6 +41,27 @@ export class ListTicketsComponent extends GenericFilteringComponent implements O
 
   ngOnInit() {
     this.loadItems();
+    this.apiService.tickets({}, 1, 100000).then(value => {
+      this.allTickets = value.data;
+    });
+  }
+
+  getWallReports(item: Ticket) {
+    return this.list.length === 0 || !item.concernedWall ? '-' +
+      // tslint:disable-next-line:max-line-length
+      '' : [...new Set(this.list.filter((d) => d.concernedWall != null && d.concernedWall.link === item.concernedWall.link).map((d) => d.user._id))].length;
+  }
+
+  getUserReports(item: Ticket) {
+    return this.list.length === 0 || !item.concernedUser ? '-' +
+      // tslint:disable-next-line:max-line-length
+      '' : [...new Set(this.list.filter((d) => d.concernedUser != null && d.concernedUser._id === item.concernedUser._id).map((d) => d.user._id))].length;
+  }
+
+  getGroupReports(item: Ticket) {
+    return this.list.length === 0 || !item.concernedGroup ? '-' +
+      // tslint:disable-next-line:max-line-length
+      '' : [...new Set(this.list.filter((d) => d.concernedGroup != null && d.concernedGroup._id === item.concernedGroup._id).map((d) => d.user._id))].length;
   }
 
   get languagesName() {
@@ -79,11 +101,21 @@ export class ListTicketsComponent extends GenericFilteringComponent implements O
           type: d.type,
           category: d.category,
           subCategory: d.subCategory,
+          description: d.description,
           attachments: d.attachments.length,
+          state: this.ticketStates[d.state],
+          reporter: d.user.pseudo,
+          concernedWall: d.concernedWall ? d.concernedWall._id : '-',
+          wallReports: this.getWallReports(d),
+          concernedUser: d.concernedGroup ? d.concernedGroup.creatorName : '-',
+          userReports: this.getUserReports(d),
+          concernedGroup: d.concernedGroup ? d.concernedGroup.name : '-',
+          groupReports: this.getGroupReports(d),
         };
       }), 'tickets-list', {
         fieldSeparator: ';',
-        headers:  ['id', 'user', 'type', 'category', 'subCategory', 'attachments'],
+        headers:  ['id', 'user', 'type', 'category', 'subCategory', 'description', 'attachments',
+        'state', 'reporter', 'concernedWall', 'wallReports', 'concernedUser', 'userReports', 'concernedGroup', 'groupReports'],
       });
     });
   }

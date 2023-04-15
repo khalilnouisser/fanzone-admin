@@ -69,14 +69,16 @@ export class TeamsComponent extends GenericFilteringComponent implements OnInit 
           displayName: d.displayName,
           leagueId: d.leagueId,
           logo: d.logo,
+          coach: d.coach,
           color1: d.color1,
           color2: d.color2,
           color3: d.color3,
           nameSynonyms: d.nameSynonyms,
+          foundingDate: d.foundingDate,
         };
       }), 'teams-list', {
         fieldSeparator: ';',
-        headers: ['id', 'teamId', 'name', 'displayName', 'leagueId', 'logo', 'color1', 'color2', 'color3', 'nameSynonyms'],
+        headers: ['id', 'teamId', 'name', 'displayName', 'leagueId', 'logo', 'coach', 'color1', 'color2', 'color3', 'nameSynonyms', 'foundingDate'],
       });
     });
   }

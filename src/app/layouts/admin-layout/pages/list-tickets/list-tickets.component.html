@@ -52,6 +52,13 @@
               <th scope="col">Sous catégorie</th>
               <th scope="col">Description</th>
               <th scope="col">État</th>
+              <th scope="col">Rapporteur</th>
+              <th scope="col">Wall</th>
+              <th scope="col">Reports Wall</th>
+              <th scope="col">User</th>
+              <th scope="col">Reports User</th>
+              <th scope="col">Group</th>
+              <th scope="col">Reports Group</th>
               <th scope="col">Date de creation</th>
               <th scope="col">Actions</th>
             </tr>
@@ -73,6 +80,16 @@
               <td>
                 <span class="badge {{ticketStatesClass[item.state]}}">{{ticketStates[item.state]}}</span>
               </td>
+              <td>{{item.user.pseudo}}</td>
+              <td *ngIf="item.concernedWall" >{{item.concernedWall._id}}</td>
+              <td *ngIf="!item.concernedWall" >-</td>
+              <td>{{getWallReports(item)}}</td>
+              <td *ngIf="item.concernedGroup" >{{item.concernedGroup.creatorName}}</td>
+              <td *ngIf="!item.concernedGroup" >-</td>
+              <td>{{getUserReports(item)}}</td>
+              <td *ngIf="item.concernedGroup" >{{item.concernedGroup.name}}</td>
+              <td *ngIf="!item.concernedGroup" >-</td>
+              <td>{{getGroupReports(item)}}</td>
               <td>
                 {{item.formated_date}}
               </td>
