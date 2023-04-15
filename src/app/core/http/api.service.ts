@@ -343,7 +343,7 @@ export class ApiService {
   }
 
   ticketStates(): any {
-    return ['Waiting', 'Being processed', 'processed', 'ignored', 'not processed'];
+    return ['Waiting', 'En cours', 'Fait', 'Fermé'];
   }
 
   ticketStatesClass(): any {

@@ -59,4 +59,5 @@ export class User {
   state: number;
   suspensionEndDate: string;
   alerts: any[];
+  wallScore: number;
 }
