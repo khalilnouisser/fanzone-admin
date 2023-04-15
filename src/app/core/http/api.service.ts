@@ -387,8 +387,8 @@ export class ApiService {
       .catch(this.handleError);
   }
 
-  matchs(filterData: any = null, date: String): Promise<any> {
-    return this.http.get(environment.serverUrl + '/api/matchs/admin?date=' + date  + this.getParams(filterData))
+  matchs(filterData: any = null, startDate: String, endDate: String): Promise<any> {
+    return this.http.get(environment.serverUrl + '/api/matchs/admin?startDate=' + startDate + '&endDate' + endDate + this.getParams(filterData))
       .toPromise()
       .catch(this.handleError);
   }

@@ -4,7 +4,7 @@ import {ApiService} from '@app/core/http/api.service';
 
 import * as moment from 'moment';
 import {League} from '@app/models/league';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {Match} from '@app/models/match';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 import {ngxCsv} from 'ngx-csv';
@@ -20,7 +20,37 @@ export class MatchsComponent extends GenericFilteringComponent implements OnInit
   list: Match[] = [];
   model: NgbDateStruct;
 
-  constructor(private apiService: ApiService) {
+  fromDate: NgbDate | null;
+  toDate: NgbDate | null;
+  hoveredDate: NgbDate | null = null;
+  selectedDate = '';
+
+  onDateSelection(date: NgbDate) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+    this.afterDataChanges();
+    this.getData();
+  }
+
+  isHovered(date: NgbDate) {
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+  }
+
+  isInside(date: NgbDate) {
+    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
+  }
+
+  isRange(date: NgbDate) {
+    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
+  }
+
+  constructor(private apiService: ApiService, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     super();
     this.filter = {
       attributes: 'homeName,awayName,round,leagueName,leagueShortName',
@@ -29,19 +59,34 @@ export class MatchsComponent extends GenericFilteringComponent implements OnInit
   }
 
   ngOnInit() {
-    const date = new Date();
-    this.model = {
-      'year': date.getFullYear(),
-      'month': date.getMonth() + 1,
-      'day': date.getDate()
-    };
+    this.fromDate = this.calendar.getToday();
+    this.toDate = this.calendar.getToday();
+    this.afterDataChanges();
     this.getData();
   }
 
+  getDateAPI(date: NgbDate) {
+    return this.adaptNumber(date.month) + '/' +
+      this.adaptNumber(date.day) + '/' +
+      date.year;
+  }
+
+  getDate(date: NgbDate) {
+    return this.adaptNumber(date.day) + '/' +
+      this.adaptNumber(date.month) + '/' +
+      date.year;
+  }
+
+  afterDataChanges() {
+    if (this.fromDate.equals(this.toDate)) {
+      this.selectedDate = this.getDate(this.fromDate);
+    } else {
+      this.selectedDate = this.getDate(this.fromDate) + ' - ' + this.getDate(this.toDate);
+    }
+  }
+
   getData() {
-    this.apiService.matchs(this.filter, this.adaptNumber(this.model.month) + '/' +
-      this.adaptNumber(this.model.day) + '/' +
-      this.model.year).then(value => {
+    this.apiService.matchs(this.filter, this.getDateAPI(this.fromDate), this.getDateAPI(this.toDate)).then(value => {
       this.list = value.data.map(v => {
         v.formated_date = moment((v.matchTime || 0) * 1000).format('D MMMM YYYY');
         return v;
@@ -50,9 +95,7 @@ export class MatchsComponent extends GenericFilteringComponent implements OnInit
   }
 
   exportData() {
-    this.apiService.matchs(this.filter, this.adaptNumber(this.model.month) + '/' +
-      this.adaptNumber(this.model.day) + '/' +
-      this.model.year).then(d => {
+    this.apiService.matchs(this.filter, this.getDateAPI(this.fromDate), this.getDateAPI(this.toDate)).then(d => {
       // tslint:disable-next-line:no-shadowed-variable no-unused-expression
       new ngxCsv(d.data.reverse().map((d) => {
         return {

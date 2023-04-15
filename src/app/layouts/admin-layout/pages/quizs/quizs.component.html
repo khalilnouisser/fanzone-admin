@@ -146,6 +146,7 @@
               </td>
               <td *ngIf="item.leagueId">
                 <img *ngIf="getLeagueImage(item)" style="width: 30px;height: 30px;object-fit: contain" src="{{getLeagueImage(item)}}"/>
+                {{getLeagueName(item)}}
               </td>
               <td *ngIf="!item.leagueId" style="height: 83px">
                 -
