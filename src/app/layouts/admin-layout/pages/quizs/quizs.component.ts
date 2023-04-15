@@ -43,7 +43,7 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
   constructor(private apiService: ApiService) {
     super();
     this.filter = {
-      attributes: 'title',
+      attributes: '_id,title',
       keyword: '',
       title: '',
       leagueId: ''

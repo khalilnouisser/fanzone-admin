@@ -23,7 +23,7 @@ export class LinkRequestsComponent extends GenericFilteringComponent implements 
   constructor(private apiService: ApiService) {
     super();
     this.filter = {
-      attributes: 'link',
+      attributes: '_id,link',
       keyword: '',
     };
   }

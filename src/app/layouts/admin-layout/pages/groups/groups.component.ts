@@ -21,7 +21,7 @@ export class GroupsComponent extends GenericFilteringComponent implements OnInit
   constructor(private apiService: ApiService) {
     super();
     this.filter = {
-      attributes: 'name',
+      attributes: '_id,name',
       keyword: '',
     };
   }

@@ -26,7 +26,7 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
   constructor(private apiService: ApiService) {
     super();
     this.filter = {
-      attributes: 'full_name,pseudo,email,type',
+      attributes: '_id,full_name,pseudo,email,type',
       keyword: '',
       type: '',
       state: '',
