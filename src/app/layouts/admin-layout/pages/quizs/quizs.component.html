@@ -59,6 +59,34 @@
                     <div class="dropdown dropdown-filter">
                       <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false">
+                        <span>Équipe</span>: <span class="dropdown-choice">
+                        <span [innerHTML]="getFilterLabels(this.teamsListName, 'teamId')"></span>
+                        </span>
+                        <span class="mdi mdi-chevron-down ml-2"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <li class="search-dropdown mb-1">
+                          <input placeholder="Recherche..." [(ngModel)]="teamsQuery" (keydown)="onChangeQuery()" class="form-control" #input>
+                        </li>
+                        <div style="max-height: 300px;overflow: auto;">
+                          <li class="dropdown-item" *ngFor="let item of filteredTeams;let i=index"
+                              [class.active]="isFilterSelected('teamId', item.teamId)">
+                            <label class="custom-checkbox">
+                              <input name="filter1" type="checkbox" [checked]="isFilterSelected('teamId', item.teamId)"
+                                     (click)="selectFilter('teamId', item.teamId); loadData()">
+                              {{item.name}}
+                              <span></span>
+                            </label>
+                          </li>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="">
+                    <div class="dropdown dropdown-filter">
+                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
                         <span>Type</span>: <span class="dropdown-choice">
           <span [innerHTML]="getFilterLabels(this.listTypes, 'title')"></span>
           </span>
@@ -124,6 +152,7 @@
               </td>
               <td *ngIf="item.teamId">
                 <img *ngIf="getTeamImage(item)" style="width: 30px;height: 30px;object-fit: contain" src="{{getTeamImage(item)}}"/>
+                {{getTeamName(item)}}
               </td>
               <td *ngIf="!item.teamId" style="height: 83px">
                 -

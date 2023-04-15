@@ -26,6 +26,7 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
 
   leagueQuery = '';
   filteredLeagues: League[] = [];
+  listTeams: Team[] = [];
 
   listTypes: String[] = [
     'most_scored_player',
@@ -46,6 +47,7 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
       attributes: '_id,title',
       keyword: '',
       title: '',
+      teamId: '',
       leagueId: ''
     };
   }
@@ -54,8 +56,16 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
   pageSize = 10;
   totalLength = 0;
 
+  teamsQuery = '';
+  filteredTeams: Team[] = [];
+
   onChangeQuery() {
     this.filteredLeagues = this.filterData(this.leagues, this.leagueQuery);
+    this.filteredTeams = this.filterData(this.listTeams, this.teamsQuery);
+  }
+
+  get teamsListName() {
+    return this.listTeams.map((v) => v.name);
   }
 
   getTitle(item: Quiz) {
@@ -100,6 +110,10 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
     this.loadData();
     this.apiService.leagues(null, 1, 100).then(d => {
       this.leagues = d.data;
+      this.onChangeQuery();
+    });
+    this.apiService.teams(null, 1, 100000).then(value => {
+      this.listTeams = value.data;
       this.onChangeQuery();
     });
     this.apiService.teams(null, 1, 100000).then(value => {
