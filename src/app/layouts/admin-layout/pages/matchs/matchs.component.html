@@ -78,6 +78,7 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
             <tr>
+              <th scope="col" rowspan="3">Date</th>
               <th scope="col" rowspan="3">Home</th>
               <th scope="col" rowspan="3">Score</th>
               <th scope="col" rowspan="3">Away</th>
@@ -90,7 +91,6 @@
               <th scope="col" colspan="4" style="text-align:center">Compo</th>
               <th scope="col" colspan="4" style="text-align:center">Notation</th>
               <th scope="col" colspan="2" style="text-align:center">Prono</th>
-              <th scope="col" rowspan="3">Date de creation</th>
             </tr>
             <tr>
               <th scope="col" colspan="2" style="text-align:center">Home</th>
@@ -114,6 +114,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of list">
+              <td>
+                {{item.formated_date}}
+              </td>
               <td>{{item.homeName}}</td>
               <td>{{item.homeScore}}-{{item.awayScore}}</td>
               <td>{{item.awayName}}</td>
@@ -133,9 +136,6 @@
               <td>{{getRatingStats(item, false, false)}}</td>
               <td>{{getPronoStats(item, true)}}</td>
               <td>{{getPronoStats(item, false)}}</td>
-              <td>
-                {{item.formated_date}}
-              </td>
             </tr>
             </tbody>
           </table>
