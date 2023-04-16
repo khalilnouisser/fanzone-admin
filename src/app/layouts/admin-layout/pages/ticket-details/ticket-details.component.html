@@ -62,7 +62,7 @@
                       <b>Status : </b> {{getStatus(ticket.concernedGroup)}}
                     </p>
                     <p class="form-content mb-1">
-                      <b>Nombre de signalement :</b> {{getGroupReports(ticket)}}
+                      <b>Signalé par user :</b> {{getGroupReports(ticket)}}
                     </p>
                     <p class="form-content mb-1">
                       <b class="mr-2">Actions :</b>
@@ -97,7 +97,7 @@
                       <b>Interactions : {{ticket.concernedWall.likes.length}}</b> likes, <b>{{ticket.concernedWall.dislikes.length}}</b> dislikes, <b>{{ticket.concernedWall.comments.length}}</b> comments
                     </p>
                     <p class="form-content mb-1">
-                      <b>Nombre de signalement :</b> {{getWallReports(ticket)}}
+                      <b>Signalé par user :</b> {{getWallReports(ticket)}}
                     </p>
                     <p class="form-content mb-1">
                       <b>État : </b> {{ticket.concernedWall.masked ? 'Masqué' : 'Affiché'}}
@@ -124,10 +124,10 @@
                       <b>Status : </b> {{getStatus(ticket.concernedUser)}}
                     </p>
                     <p class="form-content mb-1">
-                      <b>Nombre de signalement :</b> {{getUserReports(ticket)}}
+                      <b>Signalé par user :</b> {{getUserReports(ticket)}}
                     </p>
                     <p class="form-content mb-1">
-                      <b>Nombre des alerts :</b> {{ticket.concernedUser.alerts.length}}
+                      <b>Alerté par FZ :</b> {{ticket.concernedUser.alerts.length}}
                     </p>
                     <p class="form-content mb-1">
                       <b class="mr-2">Actions :</b>
