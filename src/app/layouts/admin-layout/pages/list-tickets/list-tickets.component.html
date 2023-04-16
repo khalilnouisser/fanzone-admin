@@ -84,8 +84,8 @@
               <td *ngIf="item.concernedWall" >{{item.concernedWall._id}}</td>
               <td *ngIf="!item.concernedWall" >-</td>
               <td>{{getWallReports(item)}}</td>
-              <td *ngIf="item.concernedGroup" >{{item.concernedGroup.creatorName}}</td>
-              <td *ngIf="!item.concernedGroup" >-</td>
+              <td *ngIf="item.concernedUser" >{{item.concernedUser.pseudo}}</td>
+              <td *ngIf="!item.concernedUser" >-</td>
               <td>{{getUserReports(item)}}</td>
               <td *ngIf="item.concernedGroup" >{{item.concernedGroup.name}}</td>
               <td *ngIf="!item.concernedGroup" >-</td>

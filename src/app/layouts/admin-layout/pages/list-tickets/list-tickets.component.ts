@@ -107,7 +107,7 @@ export class ListTicketsComponent extends GenericFilteringComponent implements O
           reporter: d.user.pseudo,
           concernedWall: d.concernedWall ? d.concernedWall._id : '-',
           wallReports: this.getWallReports(d),
-          concernedUser: d.concernedGroup ? d.concernedGroup.creatorName : '-',
+          concernedUser: d.concernedUser ? d.concernedUser.pseudo : '-',
           userReports: this.getUserReports(d),
           concernedGroup: d.concernedGroup ? d.concernedGroup.name : '-',
           groupReports: this.getGroupReports(d),
