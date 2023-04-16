@@ -5,6 +5,10 @@ import * as moment from 'moment';
 import {User} from '@app/models/user';
 import {GenericFilteringComponent} from '@app/components/generic-filtering/generic-filtering.component';
 import {ngxCsv} from 'ngx-csv';
+import Swal from 'sweetalert2';
+import {Ticket} from '@app/models/ticket';
+
+declare var $: any;
 
 @Component({
   selector: 'app-users',
@@ -14,6 +18,7 @@ import {ngxCsv} from 'ngx-csv';
 export class UsersComponent extends GenericFilteringComponent implements OnInit {
 
   list: User[] = [];
+  tickets: Ticket[] = [];
   listStates: String[] = ['is_completed', 'is_not_completed', 'not_validated'];
   listRoles = ['ADMIN', 'USER'];
   listStatus = [
@@ -33,8 +38,122 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
     };
   }
 
+  getStatus(item) {
+    switch (item.state) {
+      // 0: active, 1: partial suspended, 2: defectively suspended
+      case 1:
+        return 'Suspendu temporairement jusuq\'à ' + moment(item.suspensionEndDate).format('DD/MM/YYYY');
+      case 2:
+        return 'Suspendu définitivement';
+      default:
+        return 'Active';
+    }
+  }
+
+  getUserReports(concernedUser: User) {
+    return this.list.length === 0 ? '-' +
+      // tslint:disable-next-line:max-line-length
+      '' : [...new Set(this.tickets.filter((d) => d.concernedUser != null && d.concernedUser._id === concernedUser._id).map((d) => d.user._id))].length;
+  }
+
   ngOnInit() {
+    this.apiService.tickets({}, 1, 100000).then(value => {
+      this.tickets = value.data;
+    });
     this.loadData();
+  }
+
+  alertUser(type: number, concernedUser: User) {
+    const html = '<div class="input-group mb-3"><input id="swal-input1" placeholder="Message" class="form-control"></div>';
+    const self = this;
+    Swal.fire({
+      title: 'Saisir le message d\'alert',
+      showCancelButton: true,
+      confirmButtonText: 'Valider',
+      showLoaderOnConfirm: true,
+      html:
+      html,
+      preConfirm: function () {
+        return new Promise(function (resolve) {
+          resolve([
+            $('#swal-input1').val(),
+          ]);
+        });
+      },
+    }).then(function (result) {
+      const data: any = {
+        type,
+        message: result.value[0],
+      };
+      self.apiService.addAlertToUser(concernedUser._id, data).then((d) => {
+        self.loadData();
+      });
+    });
+  }
+
+  partialSuspendUser(concernedUser: User) {
+    const html = '<div class="input-group mb-3"><input id="swal-input1" placeholder="Date" type="date" class="form-control"></div>';
+    const self = this;
+    Swal.fire({
+      title: 'Saisir la date de fin de la suspension',
+      showCancelButton: true,
+      confirmButtonText: 'Valider',
+      showLoaderOnConfirm: true,
+      html: html,
+      preConfirm: function () {
+        return new Promise(function (resolve) {
+          resolve([
+            $('#swal-input1').val(),
+          ]);
+        });
+      },
+    }).then(function (result) {
+      const date = moment(result.value[0]).toISOString();
+      self.apiService.editUser(concernedUser._id, {
+        state: 1,
+        suspensionEndDate: date
+      }).then((d) => {
+        self.loadData();
+      });
+    });
+  }
+
+  defectivelySuspendUser(concernedUser: User) {
+    Swal.fire({
+      html: 'Êtes-vous sur de vouloir suspendre définitivement cet utilisateur ?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui',
+      confirmButtonColor: 'red'
+    }).then(data => {
+      if (data.value) {
+        this.apiService.editUser(concernedUser._id, {
+          state: 2,
+        }).then((d) => {
+          this.loadData();
+        });
+      }
+    });
+  }
+
+  cancelSuspension(concernedUser: User) {
+    Swal.fire({
+      html: 'Êtes-vous sur de vouloir annuler la suspension de cet utilisateur ?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui',
+      confirmButtonColor: 'red'
+    }).then(data => {
+      if (data.value) {
+        this.apiService.editUser(concernedUser._id, {
+          state: 0,
+        }).then((d) => {
+          this.loadData();
+        });
+      }
+    });
   }
 
   pageChange(ev) {

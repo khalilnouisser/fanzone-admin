@@ -31,6 +31,7 @@ export class TicketDetailsComponent implements OnInit {
   list: Ticket[] = [];
   content = '';
 
+  // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService, private credentialsService: CredentialsService) {
     this.getData();
   }
@@ -157,7 +158,7 @@ export class TicketDetailsComponent implements OnInit {
         });
       },
     }).then(function (result) {
-      const data : any = {
+      const data: any = {
         type,
         message: result.value[0],
       };

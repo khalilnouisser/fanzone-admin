@@ -116,6 +116,10 @@
               <th scope="col">Dernière connexion</th>
               <th scope="col">Dernière connexion (jours)</th>
               <th scope="col">Etat</th>
+              <th scope="col">State</th>
+              <th scope="col">Signalements utilisateurs</th>
+              <th scope="col">Alerts FZ</th>
+              <th scope="col">Actions</th>
               <th scope="col">Date d'inscription</th>
               <th scope="col"></th>
             </tr>
@@ -179,6 +183,15 @@
               </td>
               <td>
                 {{getUserStatus(item)}}
+              </td>
+              <td>{{getStatus(item)}}</td>
+              <td>{{getUserReports(item)}}</td>
+              <td>{{item.alerts.length}}</td>
+              <td>
+                <button class="btn btn-sm btn-info mr-2" (click)="alertUser(0, item)">Alerter</button>
+                <button class="btn btn-sm btn-success mr-2" *ngIf="item.state != 0" (click)="cancelSuspension(item)">Annuler la suspension</button>
+                <button class="btn btn-sm btn-warning mr-2" *ngIf="item.state != 1" (click)="partialSuspendUser(item)">Suspendre temporairement</button>
+                <button class="btn btn-sm btn-danger mr-2" *ngIf="item.state != 2" (click)="defectivelySuspendUser(item)">Suspendre définitivement</button>
               </td>
               <td>
                 {{item.formated_date}}
