@@ -1,4 +1,5 @@
 export interface Rss {
+  logo: string;
   _id: string;
   name: string;
   url: string;

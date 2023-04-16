@@ -101,6 +101,7 @@
             <thead class="thead-light">
             <tr>
               <th scope="col">Titre</th>
+              <th scope="col">Logo</th>
               <th scope="col">Lien</th>
               <th scope="col">Langue</th>
               <th scope="col">Compétition</th>
@@ -112,6 +113,10 @@
             <tr *ngFor="let item of list">
               <td>
                 {{item.name ?? "-"}}
+              </td>
+              <td>
+                <img *ngIf="item.logo" style="width: 30px;height: 30px;object-fit: contain" src="{{item.logo}}" alt=""/>
+                <span *ngIf="!item.logo">-</span>
               </td>
               <td>
                 {{item.url.substr(0, 50)}}

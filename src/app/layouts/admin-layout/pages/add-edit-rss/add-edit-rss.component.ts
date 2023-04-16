@@ -35,6 +35,7 @@ export class AddEditRssComponent implements OnInit {
   ngOnInit(): void {
     this.form =  new FormGroup({
       name: new FormControl('', [Validators.required]),
+      logo: new FormControl('', [Validators.required]),
       url: new FormControl('', [Validators.required]),
       league: new FormControl('', []),
       language: new FormControl('', []),
