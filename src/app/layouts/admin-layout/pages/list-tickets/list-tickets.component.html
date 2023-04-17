@@ -78,6 +78,7 @@
               <th scope="col">Rapporteur</th>
               <th scope="col">Wall</th>
               <th scope="col">Reports Wall</th>
+              <th scope="col">Status Wall</th>
               <th scope="col">User</th>
               <th scope="col">Reports User</th>
               <th scope="col">Group</th>
@@ -107,6 +108,8 @@
               <td *ngIf="item.concernedWall" >{{item.concernedWall._id}}</td>
               <td *ngIf="!item.concernedWall" >-</td>
               <td>{{getWallReports(item)}}</td>
+              <td *ngIf="item.concernedWall">{{item.concernedWall.masked ? 'Masqué' : 'Affiché'}}</td>
+              <td *ngIf="!item.concernedWall">-</td>
               <td *ngIf="item.concernedUser" >{{item.concernedUser.pseudo}}</td>
               <td *ngIf="!item.concernedUser" >-</td>
               <td>{{getUserReports(item)}}</td>
