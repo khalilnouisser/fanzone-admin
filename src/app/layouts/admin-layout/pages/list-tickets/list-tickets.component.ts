@@ -71,11 +71,11 @@ export class ListTicketsComponent extends GenericFilteringComponent implements O
   getTicketType(item: Ticket) {
     if (item.type === 2) {
       if (item.concernedWall != null) {
-        return 'Report wall';
+        return 'Wall';
       } else if (item.concernedGroup != null) {
-        return 'Report group';
+        return 'Group';
       } else {
-        return 'Report';
+        return 'Signalement';
       }
     }
     return this.ticketTypes[item.type];

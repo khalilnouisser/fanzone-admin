@@ -82,4 +82,8 @@ export class PodiumComponent extends GenericFilteringComponent implements OnInit
     });
   }
 
+  difference(a, b) {
+    return Math.abs(a - b).toFixed(1);
+  }
+
 }

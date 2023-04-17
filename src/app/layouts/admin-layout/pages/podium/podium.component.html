@@ -54,6 +54,7 @@
               <th scope="col">Compo score</th>
               <th scope="col">Live matchs score</th>
               <th scope="col">Fantazy score</th>
+              <th scope="col">Diff</th>
               <th scope="col">Total score</th>
             </tr>
             </thead>
@@ -72,6 +73,7 @@
               <td>{{item.compoScore.toFixed(1)}} (Fav : {{(item.compoFavoriteTeamScore ?? 0).toFixed(1)}})</td>
               <td>{{item.liveRatingsScore.toFixed(1)}} (Fav : {{(item.liveFavoriteTeamRatingsScore ?? 0).toFixed(1)}})</td>
               <td>{{item.fantazyScore.toFixed(1)}}</td>
+              <td>{{difference(item.total_score,item.fantazyScore+item.liveRatingsScore+item.compoScore+item.pronoScore+item.battleScore+item.wallScore+item.stats.followers+item.friends.length)}}</td>
               <td><b>{{item.total_score.toFixed(1)}}</b></td>
             </tr>
             </tbody>

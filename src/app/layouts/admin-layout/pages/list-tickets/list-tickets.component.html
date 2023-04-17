@@ -28,6 +28,29 @@
                   </div>
 
                   <div class="">
+                    <div class="dropdown dropdown-filter">
+                      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                        <span>État</span>: <span class="dropdown-choice">
+          <span [innerHTML]="getFilterLabels(this.ticketStates, 'state')"></span>
+          </span>
+                        <span class="mdi mdi-chevron-down ml-2"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <li class="dropdown-item" *ngFor="let item of ticketStates;let i=index"
+                            [class.active]="isFilterSelected('state', i.toString())">
+                          <label class="custom-checkbox">
+                            <input name="filter2" type="checkbox" [checked]="isFilterSelected('state', i.toString())"
+                                   (click)="selectFilter('state', i.toString()); loadData()">
+                            {{item}}
+                            <span></span>
+                          </label>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="">
                     <button type="button" (click)="exportData()" class="btn btn-primary m-0 px-2">
                       <i class="fa-solid fa-download" style="color: #ffffff;"></i>
                     </button>

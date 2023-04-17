@@ -351,7 +351,7 @@ export class ApiService {
   }
 
   ticketTypes(): any {
-    return ['Suggestion', 'Bug', 'Report', 'Signalement'];
+    return ['Proposition', 'Beug', 'Report', 'Signalement'];
   }
 
   fullLanguages(): any[] {
