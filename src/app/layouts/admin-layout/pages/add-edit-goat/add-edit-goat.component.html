@@ -16,6 +16,9 @@
               <h3 class="mb-0">{{id ? 'Modifier' : 'Ajouter'}} un goat</h3>
             </div>
             <div class="ml-auto nav-item">
+              <button type="button" (click)="exportData()" class="btn btn-primary m-0 mr-2 px-2">
+                <i class="fa-solid fa-download" style="color: #ffffff;"></i>
+              </button>
               <button type="button"  [disabled]="form.invalid" (click)="submit()" class="btn btn-primary m-0">Valider</button>
             </div>
           </div>

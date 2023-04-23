@@ -405,6 +405,12 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  deleteQuiz(id: string): Promise<any> {
+    return this.http.delete(environment.serverUrl + '/api/quiz/' + id)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   quizResponses(filterData: any = null, page: number, limit: number): Promise<any> {
     return this.http.get(environment.serverUrl
       + `/api/quiz/response?skip=${(page - 1) * limit}&limit=${limit}`

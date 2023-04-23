@@ -6,6 +6,7 @@ import {ApiService} from '@app/core/http/api.service';
 import Swal from 'sweetalert2';
 import {Goat} from '@app/models/goat';
 import * as moment from 'moment';
+import {ngxCsv} from 'ngx-csv';
 
 @Component({
   selector: 'app-add-edit-goat',
@@ -58,6 +59,22 @@ export class AddEditGoatComponent implements OnInit {
           console.log(e);
         });
       }
+    });
+  }
+
+  exportData() {
+    // tslint:disable-next-line:no-unused-expression
+    new ngxCsv(this.goat.players.map((d) => {
+      return {
+        name: d.name,
+        photo: d.photo,
+        likes: d.likes,
+        disLikes: d.disLikes,
+        score: d.score
+      };
+    }), this.form.value.name.split(' ').join('-') + '-export', {
+      fieldSeparator: ';',
+      headers: ['name', 'photo', 'likes', 'disLikes', 'score'],
     });
   }
 

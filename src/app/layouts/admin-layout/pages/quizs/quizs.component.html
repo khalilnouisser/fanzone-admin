@@ -135,7 +135,7 @@
               <th scope="col">Réponses utilisateurs</th>
               <th scope="col">Taux de réussite</th>
               <th scope="col">Date de creation</th>
-              <th scope="col"></th>
+              <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -163,6 +163,9 @@
               <td>{{getAverage(item)}}</td>
               <td>
                 {{item.formated_date}}
+              </td>
+              <td class="actions">
+                <a (click)="delete(item)"><i class="fa-solid fa-trash"></i></a>
               </td>
             </tr>
             </tbody>

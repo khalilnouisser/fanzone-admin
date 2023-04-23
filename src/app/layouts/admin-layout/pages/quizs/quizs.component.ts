@@ -12,6 +12,7 @@ import {QuizResponse} from '@app/models/quizResponse';
 import {ngxCsv} from 'ngx-csv';
 import { Team } from '@app/models/team';
 
+declare var $;
 @Component({
   selector: 'app-quizs',
   templateUrl: './quizs.component.html',
@@ -135,15 +136,66 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
   }
 
   generateQuiz() {
-    this.apiService.addQuiz({}).then(() => {
-      Swal.fire({
-        html: 'Quiz créé avec succès',
-        icon: 'success',
-        timer: 2000,
-        confirmButtonText: 'Fermer',
-      });
-      this.loadData();
+    let html = '<label for="type" class="w-100 text-left">Type</label><div class="input-group"> ' +
+      '<select id="type" class="form-control mb-3' +
+      '">' +
+      '<option>Aléatoire</option>' +
+      '<option value="0">Who am i ?</option>' +
+      '<option value="1">XI</option>' +
+      '<option value="2">Liste</option>' +
+      '</select>' +
+      '<label for="leagueId" class="w-100 text-left">Compétition</label><div class="input-group">' +
+      '<select id="leagueId" class="form-control mb-3">' +
+      '<option>Aléatoire</option>';
+
+    this.leagues.forEach(item => {
+      html = html + `<option value="${item.leagueId}">${item.name}</option>`;
     });
+
+    html += '</select></div><label for="leagueId" class="w-100 text-left">Season</label><div class="input-group">' +
+      '<select id="season" class="form-control">' +
+    '<option>Aléatoire</option>';
+
+    const date = new Date();
+    const year = date.getFullYear();
+    for (let i = 0; i <= 4; i++) {
+      html = html + `<option value="${year - i}">${year - i}</option>`;
+    }
+
+    html += '</select></div>';
+
+    const self = this;
+    Swal.fire({
+      title: 'Générer un Quiz',
+      showCancelButton: true,
+      confirmButtonText: 'Valider',
+      showLoaderOnConfirm: true,
+      html: html,
+      preConfirm: function () {
+        return new Promise(function (resolve) {
+          resolve({
+            type: $('#type').val() ? (+($('#type').val())) : null,
+            leagueId: $('#leagueId').val(),
+            season: $('#season').val(),
+          }
+          );
+        });
+      },
+    }).then(function (result) {
+      self.apiService.addQuiz(result.value).then(() => {
+        Swal.fire({
+          html: 'Quiz créé avec succès',
+          icon: 'success',
+          timer: 2000,
+          confirmButtonText: 'Fermer',
+        });
+        self.loadData();
+      });
+    });
+  }
+
+  generateQuiz2() {
+
   }
 
   get leaguesListName() {
@@ -216,4 +268,28 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
     return '-';
   }
 
+  delete(item: any) {
+    Swal.fire({
+      html: 'Êtes-vous sur de vouloir supprimer cet élement ?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Supprimer',
+      confirmButtonColor: 'red'
+    }).then(data => {
+      if (data.value) {
+        this.apiService.deleteQuiz(item._id).then(result => {
+          Swal.fire({
+            html: 'Quiz supprimé avec succès',
+            icon: 'success',
+            timer: 2000,
+            confirmButtonText: 'Fermer',
+          });
+          this.loadData();
+        }).catch(err => {
+          Swal.fire({html: 'Erreur technique', icon: 'error'});
+        });
+      }
+    });
+  }
 }

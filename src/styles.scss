@@ -94,8 +94,13 @@
   display: none!important;
 }
 
-.table-sticky>thead>tr>th,
-.table-sticky>thead>tr>td {
+//.table-sticky>thead>tr>th,
+//.table-sticky>thead>tr>td {
+//  top: 0px;
+//  position: sticky;
+//}
+
+.table-sticky>thead {
   top: 0px;
   position: sticky;
 }
@@ -105,9 +110,8 @@
   display: block;
   overflow: scroll;
   width: 100%;
-  table>thead>tr>th,
-  table>thead>tr>td {
-    top: 0px;
+  table>thead {
+    top: -2px;
     position: sticky;
   }
 }
