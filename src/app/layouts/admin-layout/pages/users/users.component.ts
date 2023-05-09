@@ -22,7 +22,7 @@ export class UsersComponent extends GenericFilteringComponent implements OnInit 
   listStates: String[] = ['is_completed', 'is_not_completed', 'not_validated'];
   listRoles = ['ADMIN', 'USER'];
   listStatus = [
-    'Troll', 'Footix', 'Footeux', 'Fan', 'Ultra', 'Kapo'
+    'Troll', 'Supporter', 'Fan', 'Fanatic', 'Ultra', 'Kapo'
   ];
   page = 1;
   pageSize = 10;
