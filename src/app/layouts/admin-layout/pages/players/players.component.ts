@@ -71,7 +71,8 @@ export class PlayersComponent extends GenericFilteringComponent implements OnIni
           id: d._id,
           playerId: d.playerId,
           name: d.name,
-          displayName: d.displayName,
+          birthday: d.birthday,
+          number: d.number,
           teamId: d.teamId,
           teamName: d.team ? d.team.name : '-',
           birthDate: d.birthDate,
@@ -86,7 +87,7 @@ export class PlayersComponent extends GenericFilteringComponent implements OnIni
         };
       }), 'players-list', {
         fieldSeparator: ';',
-        headers:  ['id', 'playerId', 'name', 'displayName', 'teamId', 'teamName', 'birthDate',
+        headers:  ['id', 'playerId', 'name', 'displayName', 'teamId', 'teamName', 'birthday', 'number',
           'position', 'country', 'initialValue', 'value', 'averageRating', 'fantazyBuy', 'fantazySell', 'age'],
       });
     });
