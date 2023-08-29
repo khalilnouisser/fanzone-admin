@@ -141,3 +141,49 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif!important; }
 ngb-datepicker.dropdown-menu {
   width: 520px;
 }
+
+.table-header {
+  display: flex;
+  align-items: center;
+
+  .form-filters {
+
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .table-header {
+    display: block;
+  }
+
+  .form-filters {
+    margin-top: 15px;
+
+    .form-group, .btn {
+      margin-right: 3px!important;
+    }
+
+    &>div {
+      justify-content: start!important;
+      display: flex;
+      flex-wrap: nowrap;
+      .form-group {
+        width: 100%;
+      }
+      .dropdown-filter {
+        button {
+          padding-left: 7px;
+          padding-right: 7px;
+        }
+      }
+    }
+
+    .download-btn {
+      display: none;
+    }
+
+    .col-auto {
+      display: none;
+    }
+  }
+}
