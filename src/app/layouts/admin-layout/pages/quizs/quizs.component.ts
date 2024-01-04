@@ -143,7 +143,8 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
       '<option value="0">Who am i ?</option>' +
       '<option value="1">XI</option>' +
       '<option value="2">Liste</option>' +
-      '</select>' +
+      '</select>';
+    /*html = html +
       '<label for="leagueId" class="w-100 text-left">Compétition</label><div class="input-group">' +
       '<select id="leagueId" class="form-control mb-3">' +
       '<option>Aléatoire</option>';
@@ -162,7 +163,7 @@ export class QuizsComponent extends GenericFilteringComponent implements OnInit 
       html = html + `<option value="${year - i}">${year - i}</option>`;
     }
 
-    html += '</select></div>';
+    html += '</select></div>';*/
 
     const self = this;
     Swal.fire({
